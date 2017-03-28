@@ -1,4 +1,337 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Apple文档翻译之Event-Handing-Guide-for-iOS · njafei's blog</title><meta name="description" content="Apple文档翻译之Event-Handing-Guide-for-iOS - njafei"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="../../../../favicon.png"><link rel="stylesheet" href="../../../../css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://github.com/njafei/njafei.github.io/atom.xml" title="njafei's blog"></head><body><div class="wrap"><header><a href="../../../../index.html" class="logo-link"><img src="../../../../favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="../../../../index.html" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="../../../../archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="../../../../tags/" target="_self" class="nav-list-link">TAGS</a></li><li class="nav-list-item"><a href="https://github.com/njafei" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="../../../../atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Apple文档翻译之Event-Handing-Guide-for-iOS</h1><div class="post-info">Mar 27, 2017</div><div class="post-content"><h1 id="About-Events-in-iOS"><a href="#About-Events-in-iOS" class="headerlink" title="About Events in iOS"></a>About Events in iOS</h1><p>用户会使用很多的方式来操作他们的iOS设备，比如点击屏幕或者摇晃屏幕。当用户正在操作硬件或者向App传递信息时，iOS会获取时间和方式。你的App给用户的反馈越自然、越直接，用户就会越有兴趣。</p>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="文档翻译," />
+
+
+
+
+
+  <link rel="alternate" href="../../../../atom.xml" title="njafei's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="About Events in iOS用户会使用很多的方式来操作他们的iOS设备，比如点击屏幕或者摇晃屏幕。当用户正在操作硬件或者向App传递信息时，iOS会获取时间和方式。你的App给用户的反馈越自然、越直接，用户就会越有兴趣。
+
+AT a GlanceEvent是当用户有动作时，（UIKit）向App发出的通知。在iOS中，有很多形式的event：多点触摸，滑动、多媒体控制。最后一个事件被熟知">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apple文档翻译之Event-Handing-Guide-for-iOS">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/03/27/Event-Handing-Guide-for-iOS/index.html">
+<meta property="og:site_name" content="njafei's blog">
+<meta property="og:description" content="About Events in iOS用户会使用很多的方式来操作他们的iOS设备，比如点击屏幕或者摇晃屏幕。当用户正在操作硬件或者向App传递信息时，iOS会获取时间和方式。你的App给用户的反馈越自然、越直接，用户就会越有兴趣。
+
+AT a GlanceEvent是当用户有动作时，（UIKit）向App发出的通知。在iOS中，有很多形式的event：多点触摸，滑动、多媒体控制。最后一个事件被熟知">
+<meta property="og:image" content="https://developer.apple.com/library/content/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/Art/events_to_app_2x.png">
+<meta property="og:updated_time" content="2017-03-27T09:10:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Apple文档翻译之Event-Handing-Guide-for-iOS">
+<meta name="twitter:description" content="About Events in iOS用户会使用很多的方式来操作他们的iOS设备，比如点击屏幕或者摇晃屏幕。当用户正在操作硬件或者向App传递信息时，iOS会获取时间和方式。你的App给用户的反馈越自然、越直接，用户就会越有兴趣。
+
+AT a GlanceEvent是当用户有动作时，（UIKit）向App发出的通知。在iOS中，有很多形式的event：多点触摸，滑动、多媒体控制。最后一个事件被熟知">
+<meta name="twitter:image" content="https://developer.apple.com/library/content/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/Art/events_to_app_2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/03/27/Event-Handing-Guide-for-iOS/"/>
+
+
+
+
+
+  <title> Apple文档翻译之Event-Handing-Guide-for-iOS | njafei's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">njafei's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="njafei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="njafei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Apple文档翻译之Event-Handing-Guide-for-iOS
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-27T15:38:29+08:00">
+                2017-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="About-Events-in-iOS"><a href="#About-Events-in-iOS" class="headerlink" title="About Events in iOS"></a>About Events in iOS</h1><p>用户会使用很多的方式来操作他们的iOS设备，比如点击屏幕或者摇晃屏幕。当用户正在操作硬件或者向App传递信息时，iOS会获取时间和方式。你的App给用户的反馈越自然、越直接，用户就会越有兴趣。</p>
 <p><img src="https://developer.apple.com/library/content/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/Art/events_to_app_2x.png" alt=""></p>
 <h4 id="AT-a-Glance"><a href="#AT-a-Glance" class="headerlink" title="AT a Glance"></a>AT a Glance</h4><p>Event是当用户有动作时，（<code>UIKit</code>）向App发出的通知。在iOS中，有很多形式的event：多点触摸，滑动、多媒体控制。最后一个事件被熟知为远程控制事件，因为它可以从一个附件中发出。</p>
 <h4 id="UIKit让你的App处理手势更轻松"><a href="#UIKit让你的App处理手势更轻松" class="headerlink" title="UIKit让你的App处理手势更轻松"></a>UIKit让你的App处理手势更轻松</h4><p>iOS应用可以识别组合的触摸，然后直接以特定方式反馈，比如收缩的触摸会缩小内容，间隔触摸划过内容等。实际上，很多的手势太常见了，所以他们被内置在<code>UIKit</code>中。比如<a href="https://developer.apple.com/reference/uikit/uicontrol" target="_blank" rel="external">UIControl</a>子类，比如<a href="https://developer.apple.com/reference/uikit/uibutton" target="_blank" rel="external">UIButton</a>和<a href="https://developer.apple.com/reference/uikit/uislider" target="_blank" rel="external">UISlider</a>，回应特殊的手势-button的点击和slider的拖动。当你配置这些control，他们会在触摸发生时，发出一个message给目标。你也可以通过使用gesture recognizers在view上实现这个目标动作。当你给一个view添加一个getsture recognizer，这个view会像一个control一样给你指定的触摸回应。</p>
@@ -27,14 +360,363 @@
 <blockquote>
 <p>相关章节： <a href="https://developer.apple.com/library/content/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/Remote-ControlEvents/Remote-ControlEvents.html#//apple_ref/doc/uid/TP40009541-CH7-SW3" target="_blank" rel="external">Remote Control Event</a></p>
 </blockquote>
-</div></article></div></main><footer><div class="paginator"><a href="../../21/UIResponder/" class="next">下一篇</a></div><div data-thread-key="2017/03/27/Event-Handing-Guide-for-iOS/" data-title="Apple文档翻译之Event-Handing-Guide-for-iOS" data-url="https://github.com/njafei/njafei.github.io/2017/03/27/Event-Handing-Guide-for-iOS/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"njafei"};
-(function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="https://github.com/njafei/njafei.github.io">njafei</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-94111508-1",'auto');ga('send','pageview');</script></body></html>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/文档翻译/" rel="tag"># 文档翻译</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../21/UIResponder/" rel="next" title="Apple文档翻译之UIResponder">
+                <i class="fa fa-chevron-left"></i> Apple文档翻译之UIResponder
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="../../../../images/avatar.gif"
+               alt="njafei" />
+          <p class="site-author-name" itemprop="name">njafei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="../../../../archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="../../../../tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="../../../../atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#About-Events-in-iOS"><span class="nav-number">1.</span> <span class="nav-text">About Events in iOS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AT-a-Glance"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">AT a Glance</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UIKit让你的App处理手势更轻松"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">UIKit让你的App处理手势更轻松</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一个事件为了找到处理它的对象，要遍历一个特定的路径"><span class="nav-number">1.0.0.2.1.</span> <span class="nav-text">一个事件为了找到处理它的对象，要遍历一个特定的路径</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UIEvent封装了触摸，摇晃，远程控制事件"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">UIEvent封装了触摸，摇晃，远程控制事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当用户触摸界面时，App接收多点触摸事件"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">当用户触摸界面时，App接收多点触摸事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当用户移动设备时，App接收到移动事件（Motion-Event）"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">当用户移动设备时，App接收到移动事件（Motion Event）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当用户操作多媒体控制，用户收到远程控制事件"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">当用户操作多媒体控制，用户收到远程控制事件</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">njafei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

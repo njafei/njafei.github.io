@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://github.com/njafei/njafei.github.io/tags/index.html</loc>
+    
+    <lastmod>2017-03-28T07:06:12.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/03/27/Event-Handing-Guide-for-iOS/</loc>
     
     <lastmod>2017-03-27T09:10:22.000Z</lastmod>
