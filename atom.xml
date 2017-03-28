@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-03-27T09:10:22.000Z</updated>
+  <updated>2017-03-28T08:28:51.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/njafei/njafei.github.io/2017/03/27/Event-Handing-Guide-for-iOS/"/>
     <id>https://github.com/njafei/njafei.github.io/2017/03/27/Event-Handing-Guide-for-iOS/</id>
     <published>2017-03-27T07:38:29.000Z</published>
-    <updated>2017-03-27T09:10:22.000Z</updated>
+    <updated>2017-03-28T08:28:51.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="About-Events-in-iOS"><a href="#About-Events-in-iOS" class="headerlink" title="About Events in iOS"></a>About Events in iOS</h1><p>用户会使用很多的方式来操作他们的iOS设备，比如点击屏幕或者摇晃屏幕。当用户正在操作硬件或者向App传递信息时，iOS会获取时间和方式。你的App给用户的反馈越自然、越直接，用户就会越有兴趣。</p>
 <p><img src="https://developer.apple.com/library/content/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/Art/events_to_app_2x.png" alt=""></p>
@@ -59,8 +59,10 @@
     
     </summary>
     
+      <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/tags/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="Apple文档 基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
@@ -69,7 +71,7 @@
     <link href="https://github.com/njafei/njafei.github.io/2017/03/21/UIResponder/"/>
     <id>https://github.com/njafei/njafei.github.io/2017/03/21/UIResponder/</id>
     <published>2017-03-21T07:20:54.000Z</published>
-    <updated>2017-03-27T07:31:33.000Z</updated>
+    <updated>2017-03-28T08:29:24.000Z</updated>
     
     <content type="html"><![CDATA[<p><code>UIResponder</code>是回应和处理事件的抽象接口,<code>UIResponder</code>的实例，包括：<code>UIApplication</code>、<code>UIViewController</code>、<code>UIView</code>（包含<code>UIWindow</code>），组成了<code>UIKit</code>处理事件的核心。当事件发生时，<code>UIKit</code>会把事件派发给<code>UIResponder</code>去处理。</p>
 <p>有许多种事件，包括触摸、手势、遥控和点击事件。为了处理特定的事件，一个<code>responder</code>（响应）必须重写<code>corresponding</code>方法。比如，要想处理<code>touch</code>事件，一个<code>responder</code>要实现<code>touchesBegan：withEvent</code>,<code>touchedMoved:withEvent:</code>等方法。在触摸事件的列子中，<code>responder</code>使用UIKit提供的事件信息来追踪触摸的改变，然后适时地更新界面。</p>
@@ -88,6 +90,8 @@
       <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
     
+      <category term="Apple文档 基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
   </entry>
   
   <entry>
@@ -95,7 +99,7 @@
     <link href="https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/"/>
     <id>https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/</id>
     <published>2017-03-18T13:07:15.000Z</published>
-    <updated>2017-03-18T13:17:14.000Z</updated>
+    <updated>2017-03-28T08:29:14.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。<br>搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages的流程到底是如何展开的。</p>
 <h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>先说下<a href="https://pages.github.com/" target="_blank" rel="external">github pages</a>,github pages 是github提供给用户用来展示个人或者项目主页的静态网页系统。每个用户都可以使用自己的github项目创建，上传静态页面的html文件，github会帮你自动更新你的页面。</p>
@@ -110,34 +114,7 @@
     
     </summary>
     
-    
-      <category term="闲来研究" scheme="https://github.com/njafei/njafei.github.io/tags/%E9%97%B2%E6%9D%A5%E7%A0%94%E7%A9%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://github.com/njafei/njafei.github.io/2017/03/17/hello-world/"/>
-    <id>https://github.com/njafei/njafei.github.io/2017/03/17/hello-world/</id>
-    <published>2017-03-17T08:38:44.000Z</published>
-    <updated>2017-03-17T08:38:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-    
-    </summary>
+      <category term="闲来研究" scheme="https://github.com/njafei/njafei.github.io/categories/%E9%97%B2%E6%9D%A5%E7%A0%94%E7%A9%B6/"/>
     
     
   </entry>
