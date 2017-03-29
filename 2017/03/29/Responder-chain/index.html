@@ -71,7 +71,7 @@
 <link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="基础知识," />
 
 
 
@@ -89,18 +89,24 @@
 
 
 
-<meta name="description" content="缘起利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages">
+<meta name="description" content="EventiOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是Event。
+Responder有了Event之后，系统需要找到能够处理这个event的对象，而能够处理event的对象，就是UIResponder.我们常用的UIApplicatio">
 <meta property="og:type" content="article">
-<meta property="og:title" content="github pages + hexo 原理探究">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/index.html">
+<meta property="og:title" content="iOS 响应链 Responder Chain">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/index.html">
 <meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="缘起利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages">
-<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/github%20pages%20%E6%95%B0%E6%8D%AE%E6%B5%81.png">
-<meta property="og:updated_time" content="2017-03-28T08:29:14.000Z">
+<meta property="og:description" content="EventiOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是Event。
+Responder有了Event之后，系统需要找到能够处理这个event的对象，而能够处理event的对象，就是UIResponder.我们常用的UIApplicatio">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/UIEvent_Type.png">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/UIResponder.png">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/ResponderChain.png">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/Hit-Testing.png">
+<meta property="og:updated_time" content="2017-03-29T09:21:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="github pages + hexo 原理探究">
-<meta name="twitter:description" content="缘起利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages">
-<meta name="twitter:image" content="http://on0hv7n2x.bkt.clouddn.com/github%20pages%20%E6%95%B0%E6%8D%AE%E6%B5%81.png">
+<meta name="twitter:title" content="iOS 响应链 Responder Chain">
+<meta name="twitter:description" content="EventiOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是Event。
+Responder有了Event之后，系统需要找到能够处理这个event的对象，而能够处理event的对象，就是UIResponder.我们常用的UIApplicatio">
+<meta name="twitter:image" content="http://on0hv7n2x.bkt.clouddn.com/UIEvent_Type.png">
 
 
 
@@ -128,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/"/>
 
 
 
 
 
-  <title> github pages + hexo 原理探究 | njafei's blog </title>
+  <title> iOS 响应链 Responder Chain | njafei's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -284,7 +290,7 @@
             
             
               
-                github pages + hexo 原理探究
+                iOS 响应链 Responder Chain
               
             
           </h1>
@@ -299,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-18T21:07:15+08:00">
-                2017-03-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-29T15:12:33+08:00">
+                2017-03-29
               </time>
             
 
@@ -322,8 +328,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="../../../../categories/闲来研究/" itemprop="url" rel="index">
-                    <span itemprop="name">闲来研究</span>
+                  <a href="../../../../categories/iOS基础/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS基础</span>
                   </a>
                 </span>
 
@@ -357,11 +363,26 @@
       
 
       
-        <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。<br>搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages的流程到底是如何展开的。</p>
-<h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>先说下<a href="https://pages.github.com/" target="_blank" rel="external">github pages</a>,github pages 是github提供给用户用来展示个人或者项目主页的静态网页系统。每个用户都可以使用自己的github项目创建，上传静态页面的html文件，github会帮你自动更新你的页面。</p>
-<p><a href="https://hexo.io/zh-cn/" target="_blank" rel="external">hexo</a>是一个用来生成静态界面的框架，使用hexo，你就可以直接使用mark down 来写文章，而不用关心前端样式的展现。</p>
-<h2 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h2><p>我们来看下流程图：<br><img src="http://on0hv7n2x.bkt.clouddn.com/github%20pages%20%E6%95%B0%E6%8D%AE%E6%B5%81.png" alt="数据流程图"></p>
-<p>这样看就很简单了，我们本地使用markDown语法写好文件，然后执行hexo或者其他静态网页生成工具，生成好静态文件，然后使用hexo等工具的发布功能，就会使用ssh来更新github项目的文件，即生成一个新的commit然后push。github检测到这个项目更新，就会更新你的网站的内容（会有缓存）。</p>
+        <h1 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h1><p>iOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是<code>Event</code>。<br><img src="http://on0hv7n2x.bkt.clouddn.com/UIEvent_Type.png" alt="UIEvent category"></p>
+<h1 id="Responder"><a href="#Responder" class="headerlink" title="Responder"></a>Responder</h1><p>有了<code>Event</code>之后，系统需要找到能够处理这个<code>event</code>的对象，而能够处理event的对象，就是<code>UIResponder</code>.我们常用的<code>UIApplication</code>、<code>UIView</code>、<code>UIViewController</code>，其实都是<code>UIResponder</code>的实例。<code>UIResponder</code>为了要处理特定的事件，要实现<code>corresponding</code>方法。比如touch事件，那么<code>Responder</code>就要实现<code>touchesBegan：withEvent</code>,<code>touchedMoved:withEvent:</code>等方法。</p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/UIResponder.png" alt="UIResponder"></p>
+<h1 id="Responder-Chain"><a href="#Responder-Chain" class="headerlink" title="Responder Chain"></a>Responder Chain</h1><p>如果有当前的界面有多个Responder的时候，到底是谁来响应呢？这里其实是根据特定的一个顺序，依次寻找响应的对象，这个就叫响应链（<code>Responder Chain</code>）机制了。在<code>Responder Chain</code>中，系统首先<code>UIkit</code>会按照一定的规则（下节会讲到）来找到当前的<code>first responder</code>，通常是事件发生的<code>view</code>，我们叫做<code>initial view</code>,然后根据这个view是否有处理的能力（比如touch事件就是看是否实现了上述的<code>touchesBegan：withEvent</code>等方法），如果当前的<code>responder</code>无法处理该事件，那么会响应链的顺序来查找下个响应者，通常的顺序是： view -&gt; super view -&gt; viewController -&gt; window -&gt; UIApplicaiton，如下图：<br><img src="http://on0hv7n2x.bkt.clouddn.com/ResponderChain.png" alt="ResponderChain"></p>
+<p>如果到了响应链的最后一个节点，还是没有找到响应者，那么系统就会抛弃这条event。</p>
+<h1 id="Hit-Test-View，Hit-Testing"><a href="#Hit-Test-View，Hit-Testing" class="headerlink" title="Hit-Test View，Hit-Testing"></a>Hit-Test View，Hit-Testing</h1><p>那么系统是如何找到<code>first responder</code>的呢？答：使用<code>Hit-Testing</code>。<br>当触摸事件发生时，iOS会使用<code>Hit-Testing</code>超找当前事件所在的<code>view</code>，它会从<code>UIApplication</code>开始，依次往下寻找事件发生的<code>view</code>，直到找到这个<code>view</code>，顺序和上述的响应链，其实是相反的，我怀疑可能响应链就是在<code>Hit-Testing</code>的过程中建立的，但是没有查到相关的资料。</p>
+<p>我们看个苹果的官方列子：<br><img src="http://on0hv7n2x.bkt.clouddn.com/Hit-Testing.png" alt=""></p>
+<p>如果触摸事件发生在D中，那么系统会依次检查：</p>
+<ol>
+<li>触摸区域在A中，遍历它的所有subViews</li>
+<li>触摸区域在C中，遍历它的所有subViews</li>
+<li>触摸事件在D中</li>
+</ol>
+<p>D就是所谓的<code>Hit-Test View</code>，也是上述的响应链中的<code>first responder</code></p>
+<h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ul>
+<li><a href="https://developer.apple.com/library/content/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/event_delivery_responder_chain/event_delivery_responder_chain.html" target="_blank" rel="external">EventHandlingiPhoneOS 官方文档忽然实效了</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Responder.html#//apple_ref/doc/uid/TP40009071-CH1-SW2" target="_blank" rel="external">Responder object</a></li>
+<li><a href="https://www.zybuluo.com/MicroCai/note/66142" target="_blank" rel="external">iOS Events and Responder Chain</a></li>
+<li><a href="http://www.jianshu.com/p/05cbcd774f45" target="_blank" rel="external">iOS中的响应链（The Responder Chain）</a></li>
+</ul>
 
       
     </div>
@@ -383,6 +404,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="../../../../tags/基础知识/" rel="tag"># 基础知识</a>
+          
+        </div>
+      
 
       
         
@@ -392,15 +419,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="../../27/Event-Handing-Guide-for-iOS/" rel="next" title="Apple文档翻译之Event-Handing-Guide-for-iOS">
+                <i class="fa fa-chevron-left"></i> Apple文档翻译之Event-Handing-Guide-for-iOS
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../../21/UIResponder/" rel="prev" title="Apple文档翻译之UIResponder">
-                Apple文档翻译之UIResponder <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,7 +559,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缘起"><span class="nav-number">1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单介绍"><span class="nav-number">2.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据流"><span class="nav-number">3.</span> <span class="nav-text">数据流</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Event"><span class="nav-number">1.</span> <span class="nav-text">Event</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Responder"><span class="nav-number">2.</span> <span class="nav-text">Responder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Responder-Chain"><span class="nav-number">3.</span> <span class="nav-text">Responder Chain</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hit-Test-View，Hit-Testing"><span class="nav-number">4.</span> <span class="nav-text">Hit-Test View，Hit-Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考文档"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

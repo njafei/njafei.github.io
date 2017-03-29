@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-03-28T08:33:22.000Z</updated>
+  <updated>2017-03-29T09:21:07.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS 响应链 Responder Chain</title>
+    <link href="https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/"/>
+    <id>https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/</id>
+    <published>2017-03-29T07:12:33.000Z</published>
+    <updated>2017-03-29T09:21:07.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h1><p>iOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是<code>Event</code>。<br><img src="http://on0hv7n2x.bkt.clouddn.com/UIEvent_Type.png" alt="UIEvent category"></p>
+<h1 id="Responder"><a href="#Responder" class="headerlink" title="Responder"></a>Responder</h1><p>有了<code>Event</code>之后，系统需要找到能够处理这个<code>event</code>的对象，而能够处理event的对象，就是<code>UIResponder</code>.我们常用的<code>UIApplication</code>、<code>UIView</code>、<code>UIViewController</code>，其实都是<code>UIResponder</code>的实例。<code>UIResponder</code>为了要处理特定的事件，要实现<code>corresponding</code>方法。比如touch事件，那么<code>Responder</code>就要实现<code>touchesBegan：withEvent</code>,<code>touchedMoved:withEvent:</code>等方法。</p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/UIResponder.png" alt="UIResponder"></p>
+<h1 id="Responder-Chain"><a href="#Responder-Chain" class="headerlink" title="Responder Chain"></a>Responder Chain</h1><p>如果有当前的界面有多个Responder的时候，到底是谁来响应呢？这里其实是根据特定的一个顺序，依次寻找响应的对象，这个就叫响应链（<code>Responder Chain</code>）机制了。在<code>Responder Chain</code>中，系统首先<code>UIkit</code>会按照一定的规则（下节会讲到）来找到当前的<code>first responder</code>，通常是事件发生的<code>view</code>，我们叫做<code>initial view</code>,然后根据这个view是否有处理的能力（比如touch事件就是看是否实现了上述的<code>touchesBegan：withEvent</code>等方法），如果当前的<code>responder</code>无法处理该事件，那么会响应链的顺序来查找下个响应者，通常的顺序是： view -&gt; super view -&gt; viewController -&gt; window -&gt; UIApplicaiton，如下图：<br><img src="http://on0hv7n2x.bkt.clouddn.com/ResponderChain.png" alt="ResponderChain"></p>
+<p>如果到了响应链的最后一个节点，还是没有找到响应者，那么系统就会抛弃这条event。</p>
+<h1 id="Hit-Test-View，Hit-Testing"><a href="#Hit-Test-View，Hit-Testing" class="headerlink" title="Hit-Test View，Hit-Testing"></a>Hit-Test View，Hit-Testing</h1><p>那么系统是如何找到<code>first responder</code>的呢？答：使用<code>Hit-Testing</code>。<br>当触摸事件发生时，iOS会使用<code>Hit-Testing</code>超找当前事件所在的<code>view</code>，它会从<code>UIApplication</code>开始，依次往下寻找事件发生的<code>view</code>，直到找到这个<code>view</code>，顺序和上述的响应链，其实是相反的，我怀疑可能响应链就是在<code>Hit-Testing</code>的过程中建立的，但是没有查到相关的资料。</p>
+<p>我们看个苹果的官方列子：<br><img src="http://on0hv7n2x.bkt.clouddn.com/Hit-Testing.png" alt=""></p>
+<p>如果触摸事件发生在D中，那么系统会依次检查：</p>
+<ol>
+<li>触摸区域在A中，遍历它的所有subViews</li>
+<li>触摸区域在C中，遍历它的所有subViews</li>
+<li>触摸事件在D中</li>
+</ol>
+<p>D就是所谓的<code>Hit-Test View</code>，也是上述的响应链中的<code>first responder</code></p>
+<h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ul>
+<li><a href="https://developer.apple.com/library/content/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/event_delivery_responder_chain/event_delivery_responder_chain.html" target="_blank" rel="external">EventHandlingiPhoneOS 官方文档忽然实效了</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Responder.html#//apple_ref/doc/uid/TP40009071-CH1-SW2" target="_blank" rel="external">Responder object</a></li>
+<li><a href="https://www.zybuluo.com/MicroCai/note/66142" target="_blank" rel="external">iOS Events and Responder Chain</a></li>
+<li><a href="http://www.jianshu.com/p/05cbcd774f45" target="_blank" rel="external">iOS中的响应链（The Responder Chain）</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Event&quot;&gt;&lt;a href=&quot;#Event&quot; class=&quot;headerlink&quot; title=&quot;Event&quot;&gt;&lt;/a&gt;Event&lt;/h1&gt;&lt;p&gt;iOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一
+    
+    </summary>
+    
+      <category term="iOS基础" scheme="https://github.com/njafei/njafei.github.io/categories/iOS%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
   
   <entry>
     <title>Apple文档翻译之Event-Handing-Guide-for-iOS</title>
