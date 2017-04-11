@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-04-06T08:07:58.000Z</updated>
+  <updated>2017-04-11T06:45:00.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -16,11 +16,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>如何给同一个电脑上的不同项目设置不同的name和email</title>
+    <link href="https://github.com/njafei/njafei.github.io/2017/04/11/settingNameAndEmailForEachProject/"/>
+    <id>https://github.com/njafei/njafei.github.io/2017/04/11/settingNameAndEmailForEachProject/</id>
+    <published>2017-04-11T06:38:15.000Z</published>
+    <updated>2017-04-11T06:45:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在自己的电脑上同时使用github和公司的git仓库，带来了一个问题就是之前只是设置了全局的name和email，但是两边的代码需要使用不同的user，每次都要手动去改，然后我搜索了下，发现其实我们可以给每个git项目，单独配置一个name和email的。规则如下：</p>
+<blockquote>
+<p>如果项目由独立配置，则使用独立配置，如果没有独立配置，则使用全局配置</p>
+</blockquote>
+<p>命令就很简单了：<br>全局name和email配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name gitaccount</div><div class="line">$ git config --global user.email gitaccount@example.com</div></pre></td></tr></table></figure>
+<p>给单独的git项目设定配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cd gitFolder</div><div class="line">$ git config --global user.name gitaccount</div><div class="line">$ git config --global user.email gitaccount@example.com</div></pre></td></tr></table></figure>
+<p>这样，如果本地有多个git user 或者多个项目的话，使用起来就比较方便了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在自己的电脑上同时使用github和公司的git仓库，带来了一个问题就是之前只是设置了全局的name和email，但是两边的代码需要使用不同的user，每次都要手动去改，然后我搜索了下，发现其实我们可以给每个git项目，单独配置一个name和email的。规则如下：&lt;/
+    
+    </summary>
+    
+      <category term="小知识" scheme="https://github.com/njafei/njafei.github.io/categories/%E5%B0%8F%E7%9F%A5%E8%AF%86/"/>
+    
+    
+      <category term="git" scheme="https://github.com/njafei/njafei.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>React_Native拆分bundle之patch拆包</title>
     <link href="https://github.com/njafei/njafei.github.io/2017/04/06/React-Native-Seperate-Bundle/"/>
     <id>https://github.com/njafei/njafei.github.io/2017/04/06/React-Native-Seperate-Bundle/</id>
     <published>2017-04-06T02:26:41.000Z</published>
-    <updated>2017-04-06T08:07:58.000Z</updated>
+    <updated>2017-04-06T08:23:53.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="为什么要拆包"><a href="#为什么要拆包" class="headerlink" title="为什么要拆包"></a>为什么要拆包</h1><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。</p>
 <p>另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也许永远用不到的功能，还有当我们希望上一个新功能的时候，一定要等待新的版本的审核，这给运营等带来了巨大的麻烦和风险。如果用户点击某个功能，然后马上载入线上的webBundle，用户之后就可以直接使用我们的最新功能了，以后再次进入的时候，也无需等待，那该多好。</p>
@@ -69,6 +100,11 @@
 2.web bundle 可以直接基于这个方案做
 3.如果解决了函数命名和依赖的问题，就可以采用一个bundle策略
 </code></pre><h2 id="Demo-in-github"><a href="#Demo-in-github" class="headerlink" title="Demo in github"></a>Demo in github</h2><p><a href="https://github.com/njafei/ReactNativeSeperateBundle">ReactNativeSeperateBundle</a></p>
+<ol>
+<li>cd ReactNativeSeperateBundle</li>
+<li>npm install</li>
+<li>run project</li>
+</ol>
 ]]></content>
     
     <summary type="html">
@@ -173,9 +209,9 @@
       <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
       <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
+    
+      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
@@ -203,9 +239,9 @@
       <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
       <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
+    
+      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
