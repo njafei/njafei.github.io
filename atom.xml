@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-04-17T02:52:12.000Z</updated>
+  <updated>2017-04-17T07:37:38.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ES6-入门-let命令</title>
+    <link href="https://github.com/njafei/njafei.github.io/2017/04/17/ES6-%E5%85%A5%E9%97%A8-let%E5%91%BD%E4%BB%A4/"/>
+    <id>https://github.com/njafei/njafei.github.io/2017/04/17/ES6-入门-let命令/</id>
+    <published>2017-04-17T07:37:38.000Z</published>
+    <updated>2017-04-17T07:37:38.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>RN 最容易crash的代码用法及应对措施（持续更新）</title>
@@ -254,9 +268,9 @@
       <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
-    
       <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
     
   </entry>
   
@@ -284,9 +298,9 @@
       <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
-    
       <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
     
   </entry>
   
