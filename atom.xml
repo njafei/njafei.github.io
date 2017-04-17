@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-04-17T07:37:38.000Z</updated>
+  <updated>2017-04-17T07:44:31.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -16,16 +16,90 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>ES6-入门-let命令</title>
+    <title>《ES6入门》读书笔记之let命令</title>
     <link href="https://github.com/njafei/njafei.github.io/2017/04/17/ES6-%E5%85%A5%E9%97%A8-let%E5%91%BD%E4%BB%A4/"/>
     <id>https://github.com/njafei/njafei.github.io/2017/04/17/ES6-入门-let命令/</id>
     <published>2017-04-17T07:37:38.000Z</published>
-    <updated>2017-04-17T07:37:38.000Z</updated>
+    <updated>2017-04-17T07:44:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>正在读阮一峰的<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">《ECMAScript 6 入门》</a>,本系列博客都是读书笔记。</p>
+<h1 id="ES6-PlayGround"><a href="#ES6-PlayGround" class="headerlink" title="ES6 PlayGround"></a>ES6 PlayGround</h1><p>在介绍具体的内容之前，想给大家介绍一个好玩的playgroud，尤其合适边看书，边敲代码的同学们。<a href="https://google.github.io/traceur-compiler/demo/repl.html#%7B%0A%20%20let%20a%20%3D%201%3B%0A%20%20var%20b%20%3D%200%3B%0A%20%20console.log(a" target="_blank" rel="external">Traceur</a>%3B%0A%7D%0A%0Aconsole.log(b)%3B%0A%0A)<br>这个工具会在你敲完每行代码之后帮你执行检查是否有错误，然后翻译成es5并执行，然后再配合JS控制台，就是很棒的playground了。<br>使用：</p>
+<ol>
+<li>打开网页</li>
+<li>command + option + J打开javascript控制台</li>
+<li>在最左边的框里面输入代码，</li>
+</ol>
+<p>效果如下：<br>左边：写代码的地方  中间：翻译之后的js代码，右边：控制台<br><img src="http://on0hv7n2x.bkt.clouddn.com/es6%20playground.png" alt=""></p>
+<h2 id="作用域和var不同"><a href="#作用域和var不同" class="headerlink" title="作用域和var不同"></a>作用域和var不同</h2><p>ES6中建议全部使用let来生命变量，let和var的作用用法类似，但是let声明的变量，作用域是在其所在的代码块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	var a = 0;</div><div class="line">  	let b = 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.log(a);</div><div class="line">console.log(b);//ReferenceError： b is not defined</div></pre></td></tr></table></figure>
+<p>看起来很简单吧，那我们来看下道题目吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a = [];</div><div class="line">for(var i = 0; i&lt; 10 ; i++)&#123;</div><div class="line">  a[i] = ()=&gt;&#123;</div><div class="line">  	console.log(i)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">a[7]();</div></pre></td></tr></table></figure>
+<p>和</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let b = [];</div><div class="line">for(let i = 0; i&lt; 10 ; i++)&#123;</div><div class="line">  b[i] = ()=&gt;&#123;</div><div class="line">  	console.log(i)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">b[7]();</div></pre></td></tr></table></figure>
+<p>答案是：<br>a(7)() : 10<br>b(7)() : 7</p>
+<p>你猜对了吗？0_0<br>我第一次看其实是答错了的，然后我把a[7] 和 b[7]打印了出来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function () &#123;</div><div class="line">      console.log(i);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>我理解是因为let和var的缘故，所以a[7]里面的i实际是就是一个static的变量，在i++之后变成了10，而b[7]里面的i就是7</p>
+<h2 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h2><p>let 不会出现变量提升的现象。<br>首先，我们把let抛一边,看下什么是变量提升。先看个代码，猜猜它的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a = 5;</div><div class="line">function f()&#123;</div><div class="line">  if(!a)&#123;</div><div class="line">	  a = 100;</div><div class="line">	&#125;</div><div class="line">  console.log(a);</div><div class="line">&#125;</div><div class="line"></div><div class="line">f();</div></pre></td></tr></table></figure>
+<p>它的输出结果是多少？</p>
+<p>答案： 5，很简单吧，好，我们再看一个相似的函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a = 5;</div><div class="line">function f()&#123;</div><div class="line">  if(!a)&#123;</div><div class="line">	 var a = 100;</div><div class="line">	&#125;</div><div class="line">  console.log(a);</div><div class="line">&#125;</div><div class="line"></div><div class="line">f();</div></pre></td></tr></table></figure>
+<p>结果是多少呢？<br>答案是：100</p>
+<p>为什么会这样呢？</p>
+<h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><p>作为一个一直在使用OC的程序员，想要弄懂JS的作用域，开始会很别扭，因为两者的作用域是基于不同的标准或者模式。在介绍之前，我们先看下两个C和JS的小例子：</p>
+<p>C：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int main() &#123;</div><div class="line">	int a = 1;</div><div class="line">	printf(&quot;%d&quot;,a); //1</div><div class="line">	&#123;</div><div class="line">		int a = 2;</div><div class="line">		printf(&quot;%d&quot;,a); //2</div><div class="line">	&#125;</div><div class="line">	printf(&quot;%d&quot;,a);/1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>JS:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">console.log(a); // 1</div><div class="line">&#123;</div><div class="line">    var a = 2;</div><div class="line">    console.log(a); // 2</div><div class="line">&#125;</div><div class="line">console.log(a); // 2</div></pre></td></tr></table></figure>
+<p>结果不一样了，为什么呢？ 刚才提到C和Js的作用域的模式不一样，C是基于块级的作用域（block-level scope），每个大括号括起来的都可以理解为一个小的作用域，如果变量在小的作用域里声明，那么在小的作用域中是会忽略外部同名的变量。</p>
+<p>而在JS中，则是基于函数的作用域，即每个函数都有自己的作用域（function-level scope），所以上述的列子最后的结果就不一致了，在JS的列子中，a的值其实被覆盖。</p>
+<p>C,C++,Java都是块级作用域，那么JS中，如何实现类似的效果呢？答案是使用闭包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var a = 0;</div><div class="line">fucntion f()&#123;</div><div class="line">	var a = 1;//1</div><div class="line">	console.log(a);//1</div><div class="line">&#125;</div><div class="line">console.log(a);//0</div></pre></td></tr></table></figure>
+<p>在f()这个函数中，会再次定义一个只能在f()中起作用的a,从而实现了类似块级作用域的效果。</p>
+<h4 id="变量提升-1"><a href="#变量提升-1" class="headerlink" title="变量提升"></a>变量提升</h4><p>讲完了作用域，我们来看下什么是变量提升，还是先来个列子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var a = 0;</div><div class="line">f();</div><div class="line">var b = 1;</div></pre></td></tr></table></figure>
+<p>这三行代码在解释器中会变成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a , b;</div><div class="line">a = 0;</div><div class="line">f();</div><div class="line">b = 1;</div></pre></td></tr></table></figure>
+<p>所有var声明的变量的声明语句，都会被解释器给放到变量所在作用域的顶部。注意，只是把生命语句放到最上面，但是不会把赋值等位置提升，这就是所谓的变量提升。</p>
+<p>函数也会有变量提升的现象，但是会根据声明方式的不同，有着不同的结果。创建函数的方法有两个： function f(){} 和 var f = function(){},他们会有什么不同呢？ 我们看下列子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">f1();// TypeError &quot;foo is not a function&quot;</div><div class="line">f2();// will run</div><div class="line"></div><div class="line">var f1 = function()&#123;</div><div class="line">	console.log(&apos;won&apos;t run&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">function f2()&#123;</div><div class="line">	console.log(&apos;will run&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码在解释器中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var f1();</div><div class="line">function f2()&#123;</div><div class="line">	console.log(&apos;will run&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">f1();// TypeError &quot;foo is not a function&quot;</div><div class="line">f2();// will run</div><div class="line"></div><div class="line">var f1 = function()&#123;</div><div class="line">	console.log(&apos;won&apos;t run&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>函数的变量提升，如果是<code>fucntion f()</code>的形式，怎会整个函数都提升到顶部，如果是<code>var f() = function(){}</code>的形式，则只会提升<code>var f()</code>到顶部。</p>
+<p>如此，本节开头的两个例子就不难理解了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a = 5;</div><div class="line">function f()&#123;</div><div class="line">  if(!a)&#123;</div><div class="line">	  a = 100;</div><div class="line">	&#125;</div><div class="line">  console.log(a);</div><div class="line">&#125;</div><div class="line"></div><div class="line">f();</div></pre></td></tr></table></figure>
+<p>在解释器中是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var a;</div><div class="line">function f()&#123;</div><div class="line">  if(!a)&#123;</div><div class="line">	  a = 100;</div><div class="line">	&#125;</div><div class="line">  console.log(a);</div><div class="line">&#125;</div><div class="line">a = 5;</div><div class="line"></div><div class="line">f();</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a = 5;</div><div class="line">function f()&#123;</div><div class="line">  if(!a)&#123;</div><div class="line">	 var a = 100;</div><div class="line">	&#125;</div><div class="line">  console.log(a);</div><div class="line">&#125;</div><div class="line"></div><div class="line">f();</div></pre></td></tr></table></figure>
+<p>在解释器中是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var a;</div><div class="line">function f()&#123;</div><div class="line">  var a;	 </div><div class="line">  if(!a)&#123;</div><div class="line">	 a = 100;</div><div class="line">	&#125;</div><div class="line">  console.log(a);</div><div class="line">&#125;</div><div class="line">a = 5;</div><div class="line">f();</div></pre></td></tr></table></figure>
+<p>而let 关键字是不具备变量提升的，所以它声明的变量，其实就是块级作用域。</p>
+<p>最后一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a = 0;</div><div class="line">let b = 0;</div><div class="line">&#123;</div><div class="line">	var a = 1;</div><div class="line">	let b = 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.log(a);//1</div><div class="line">console.log(b);//0</div></pre></td></tr></table></figure>
+<p>而在ES5中不会报错的先使用再声明的模式，在ES6中用let的话，就会报错了。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if (true) &#123;// TDZ开始tmp = &apos;abc&apos;; // ReferenceErrorconsole.log(tmp); // ReferenceErrorlet tmp; // TDZ结束console.log(tmp); // undefinedtmp = 123;console.log(tmp); // 123&#125;</div></pre></td></tr></table></figure>
+<p>所以建议如下：</p>
+<ul>
+<li>ES6中永远使用let</li>
+<li>所有变量的声明，都写在函数的顶部</li>
+</ul>
+<p>这是我在看变量提升的时候，找到一篇质量很棒的blog，本篇的结构和内容也参考了很多<a href="https://segmentfault.com/a/1190000003114255" target="_blank" rel="external">Javascript作用域和变量提升</a></p>
+]]></content>
     
     <summary type="html">
     
+      &lt;p&gt;正在读阮一峰的&lt;a href=&quot;http://es6.ruanyifeng.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;《ECMAScript 6 入门》&lt;/a&gt;,本系列博客都是读书笔记。&lt;/p&gt;
+&lt;h1 id=&quot;ES6-PlayGround&quot;
+    
     </summary>
     
+      <category term="React-Native" scheme="https://github.com/njafei/njafei.github.io/categories/React-Native/"/>
+    
+    
+      <category term="React-Native" scheme="https://github.com/njafei/njafei.github.io/tags/React-Native/"/>
+    
+      <category term="读书笔记" scheme="https://github.com/njafei/njafei.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
