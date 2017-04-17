@@ -98,7 +98,7 @@ ES6 PlayGround在介绍具体的内容之前，想给大家介绍一个好玩的
 <meta property="og:description" content="正在读阮一峰的《ECMAScript 6 入门》,本系列博客都是读书笔记。
 ES6 PlayGround在介绍具体的内容之前，想给大家介绍一个好玩的playgroud，尤其合适边看书，边敲代码的同学们。Traceur%3B%0A%7D%0A%0Aconsole.log(b)%3B%0A%0A)这个工具会在你敲完每行代码之后帮你执行检查是否有错误，然后翻译成es5并执行，然后再配合JS控制台，就是很">
 <meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/es6%20playground.png">
-<meta property="og:updated_time" content="2017-04-17T07:44:31.000Z">
+<meta property="og:updated_time" content="2017-04-17T07:47:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《ES6入门》读书笔记之let命令">
 <meta name="twitter:description" content="正在读阮一峰的《ECMAScript 6 入门》,本系列博客都是读书笔记。
@@ -368,6 +368,7 @@ ES6 PlayGround在介绍具体的内容之前，想给大家介绍一个好玩的
 <li>在最左边的框里面输入代码，</li>
 </ol>
 <p>效果如下：<br>左边：写代码的地方  中间：翻译之后的js代码，右边：控制台<br><img src="http://on0hv7n2x.bkt.clouddn.com/es6%20playground.png" alt=""></p>
+<p>#let命令</p>
 <h2 id="作用域和var不同"><a href="#作用域和var不同" class="headerlink" title="作用域和var不同"></a>作用域和var不同</h2><p>ES6中建议全部使用let来生命变量，let和var的作用用法类似，但是let声明的变量，作用域是在其所在的代码块。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	var a = 0;</div><div class="line">  	let b = 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.log(a);</div><div class="line">console.log(b);//ReferenceError： b is not defined</div></pre></td></tr></table></figure>
 <p>看起来很简单吧，那我们来看下道题目吧</p>
