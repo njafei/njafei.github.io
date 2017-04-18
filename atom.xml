@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-04-18T01:48:05.000Z</updated>
+  <updated>2017-04-18T10:00:03.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,145 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>KVC详解</title>
+    <link href="https://github.com/njafei/njafei.github.io/2017/04/18/KVC/"/>
+    <id>https://github.com/njafei/njafei.github.io/2017/04/18/KVC/</id>
+    <published>2017-04-18T09:58:01.000Z</published>
+    <updated>2017-04-18T10:00:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><h3 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h3><p>正常访问或者修改一个对象的属性，都是通过getter和setter方法，但是Cocoa仍然提供了一个间接访问属性的方法：KVC（Key-Value Coding）。 只要对象支持<code>NSKeyValueCoding</code>协议，我们就可以通过KVC来间接访问或者修改属性和属性中的更深层的属性。</p>
+<p>KVC也是许多Cocoa技术的基础，比如：</p>
+<ul>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i" target="_blank" rel="external">KVO</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CocoaBindings/Concepts/WhatAreBindings.html" target="_blank" rel="external">Cocoa bingdings</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/index.html#//apple_ref/doc/uid/TP40001075" target="_blank" rel="external">Core Data</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/AppleScript/Conceptual/AppleScriptX/AppleScriptX.html#//apple_ref/doc/uid/10000156i" target="_blank" rel="external">AppleScript</a>。</li>
+</ul>
+<h3 id="使用KVC的对象"><a href="#使用KVC的对象" class="headerlink" title="使用KVC的对象"></a>使用KVC的对象</h3><p>所有继承<code>NSObject</code>的类都支持KVC，<code>NSObject</code>实现了<code>NSKeyValueCoding</code>和必要的方法。通过KVC，可以做到以下功能：</p>
+<ul>
+<li>获取对象属性 比如使用 <code>valueForKey</code> 和 <code>setValue:forkey:</code>来获取和修改属性</li>
+<li>操作Collection类型的的属性，比如<code>NSArray</code>、<code>NSSet</code></li>
+<li>使用Collection运算符</li>
+<li>非对象的values</li>
+<li>路径搜索的步骤（本文不会讲这个，请自己看文档）</li>
+</ul>
+<p>下面，我们来挨个看下上面的5种用法</p>
+<h1 id="获取对象属性"><a href="#获取对象属性" class="headerlink" title="获取对象属性"></a>获取对象属性</h1><p>属性可以分为3个类型：</p>
+<ul>
+<li>Attributes（简单属性），比如string，int，bool等简单类型</li>
+<li>To-one relationships（单一关系），比如一个<code>Person</code>类的实例</li>
+<li>To-many relationships（多个关系），比如<code>NSArray</code>或者<code>NSSet</code></li>
+</ul>
+<p>来看下例子,这个一家人的类： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">@interface Person : NSObject</div><div class="line"></div><div class="line">@property (nonatomic, copy) NSString *name;</div><div class="line">@property (nonatomic, assign) NSInteger age;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line"></div><div class="line">@interface Family : NSObject</div><div class="line"></div><div class="line">@property (nonatomic) NSNumber* numbers;              // An attribute</div><div class="line">@property (nonatomic) Person* boss;                         // A to-one relation</div><div class="line">@property (nonatomic) NSArray&lt; Person* &gt;* members; // A to-many relation</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<h3 id="通过key与keyPath读取属性"><a href="#通过key与keyPath读取属性" class="headerlink" title="通过key与keyPath读取属性"></a>通过key与keyPath读取属性</h3><p>在介绍如何读取之前，我简单说下key和keyPath。<br>key可以简答理解为对象某个属性的名称，而keyPath是又<code>.</code>区分的一串string，用来读取更深层的value。举个列子：对于Family来说，他的key有几个：<code>numbers</code>、<code>boss</code>、<code>members</code>。我们可以通过这几个key来读取他对应的属性。但是如果我们想要读取<code>boss</code>的name，一种办法是先读取<code>boss</code>，然后读取<code>boss</code>的name，另一个办法就是我们通过keyPath,直接读取<code>family</code>的<code>boss.name</code>，这个<code>boss.name</code>就是keyPath。</p>
+<p>通过key和keyPath读取属性，有以下几个方法：</p>
+<ul>
+<li><code>valueForKey:</code> 读取key</li>
+<li><code>valueForKeyPath:</code> 读取keyPath </li>
+<li><code>dictionaryWithValuesForKeys:</code> 批量读取</li>
+</ul>
+<p>还是通过例子来看，我们先初始化几个实例出来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Person *father = [Person new];</div><div class="line">father.name = @&quot;Jack&quot;;</div><div class="line">father.age = 50;</div><div class="line"></div><div class="line">Person *mother = [Person new];</div><div class="line">mother.name = @&quot;rose&quot;;</div><div class="line">mother.age = 45;</div><div class="line"></div><div class="line"></div><div class="line">Family *family = [Family new];</div><div class="line">family.numbers = @(2);</div><div class="line">family.boss = father;</div><div class="line">family.members = @[father, mother];</div></pre></td></tr></table></figure>
+<p>我们分别用上面的三个方法来读取属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">NSString *fatherName = [father valueForKey:@&quot;name&quot;];</div><div class="line">NSLog(@&quot;father name: %@,&quot;,fatherName);</div><div class="line"></div><div class="line">NSString *bossName = [family valueForKeyPath:@&quot;boss.name&quot;];</div><div class="line">NSLog(@&quot;boss name: %@,&quot;,bossName);</div><div class="line"></div><div class="line">NSDictionary *names = [family dictionaryWithValuesForKeys:@[@&quot;numbers&quot;,@&quot;members&quot;]];</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，如果是NSArray、NSSet等类型，不能包含nil，而是转皇城NSNull。系统会在使用的时候自动转换。</p>
+</blockquote>
+<h3 id="通过key和keyPath修改属性"><a href="#通过key和keyPath修改属性" class="headerlink" title="通过key和keyPath修改属性"></a>通过key和keyPath修改属性</h3><p>有以下几种方法：</p>
+<ul>
+<li>setValue:forkey:</li>
+<li>setValue:forKeyPath:</li>
+<li>setValuesForKeysWithDictionary:</li>
+</ul>
+<p>还是直接上例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[father setValue:@&quot;Jack is gone&quot; forKey:@&quot;name&quot;];</div><div class="line"></div><div class="line">[family setValue:@&quot;boss&apos;s name&quot; forKeyPath:@&quot;boss.name&quot;];</div><div class="line"></div><div class="line">[family setValuesForKeysWithDictionary:@&#123;@&quot;numbers&quot;:@(3),@&quot;boss&quot;:father&#125;];</div></pre></td></tr></table></figure>
+<h3 id="使用KVC简化你的代码"><a href="#使用KVC简化你的代码" class="headerlink" title="使用KVC简化你的代码"></a>使用KVC简化你的代码</h3><p>讲了半天KVC的使用，那么我们什么时候用？怎么用比较适合呢？看个例子:</p>
+<p>如果你有类column，identifier可能是name、age、favoriteColor，你要根据identifier的不同去展示不同的属性。正常写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- (id)tableView:(NSTableView *)tableview objectValueForTableColumn:(id)column row:(NSInteger)row</div><div class="line">&#123;</div><div class="line">id result = nil;</div><div class="line">Person *person = [self.people objectAtIndex:row];</div><div class="line"></div><div class="line">if ([[column identifier] isEqualToString:@&quot;name&quot;]) &#123;</div><div class="line">result = [person name];</div><div class="line">&#125; else if ([[column identifier] isEqualToString:@&quot;age&quot;]) &#123;</div><div class="line">result = @([person age]);  // Wrap age, a scalar, as an NSNumber</div><div class="line">&#125; else if ([[column identifier] isEqualToString:@&quot;favoriteColor&quot;]) &#123;</div><div class="line">result = [person favoriteColor];</div><div class="line">&#125; // And so on...</div><div class="line"></div><div class="line">return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>简化写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (id)tableView:(NSTableView *)tableview objectValueForTableColumn:(id)column row:(NSInteger)row</div><div class="line">&#123;</div><div class="line">return [[self.people objectAtIndex:row] valueForKey:[column identifier]];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="获取Collection对象属性"><a href="#获取Collection对象属性" class="headerlink" title="获取Collection对象属性"></a>获取Collection对象属性</h1><p>在上面我们看到，其实使用<code>valueForKey:</code>和<code>valueForKeyPath</code>是可以获取<code>NSArray</code>等类型的，但是我们获取的是一个不可变的类型，如果我们希望去修改<code>key</code>或者<code>keyPath</code>对应的数组的时候，怎么做呢？</p>
+<p>使用：</p>
+<ul>
+<li>mutableArrayValueForKey: 和 mutableArrayValueForKeyPath:</li>
+<li>mutableSetValueForKey: and mutableSetValueForKeyPath:</li>
+<li>mutableOrderedSetValueForKey: and mutableOrderedSetValueForKeyPath:</li>
+</ul>
+<p>来个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">NSMutableArray *members = [family mutableArrayValueForKey:@&quot;members&quot;];</div><div class="line"></div><div class="line">Person *son = [Person new];</div><div class="line">father.name = @&quot;Jack&apos;s son&quot;;</div><div class="line">father.age = 15;</div><div class="line"></div><div class="line">[members addObject: son];</div></pre></td></tr></table></figure>
+<h1 id="使用Collection运算符"><a href="#使用Collection运算符" class="headerlink" title="使用Collection运算符"></a>使用Collection运算符</h1><h3 id="基本组成"><a href="#基本组成" class="headerlink" title="基本组成"></a>基本组成</h3><p>我们在实际的使用时，会有很多类似于数组平均数、最大值等计算的需求，除了自己写算法计算之外，如果有类似于数据库的快捷操作符，那该多好啊！</p>
+<p>现在，我们就来看下KVC提供的数组等的快捷计算符。</p>
+<p>正常使用<code>keyPath</code>的时候，我们通常会使用类似<code>person.son.name</code>等来读取属性。<code>KVC</code>同样提供了<code>@</code>操作符和一些基本的操作，我们可以放到<code>keyPath</code>中，就可以在return之前执行这个操作，然后再返回值了，听起来有点变扭，我们先看下结构：</p>
+<p><img src="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/art/keypath.jpg" alt=""></p>
+<p>操作符是由 <code>@</code>符号和操作函数名组成的</p>
+<p>在操作符前面的都叫 <code>left key path</code>，这里指定接收消息的对象，为空的话，就是执行<code>keyPath</code>的对象</p>
+<p>在操作符后面的都叫 <code>right key path</code>, 这里执行操作的对象，除了数组的<code>@count</code>之外，不能为空</p>
+<h3 id="聚合运算"><a href="#聚合运算" class="headerlink" title="聚合运算"></a>聚合运算</h3><p>这样讲，还是有点虚，我们看个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">@interface SaveRecond : NSObject</div><div class="line"></div><div class="line">@property (nonatomic, copy) NSString *name;</div><div class="line">@property (nonatomic, assign) NSInteger money;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line"></div><div class="line">@interface Bank : NSObject</div><div class="line"></div><div class="line">@property (nonatomic) NSArray&lt; SaveRecond* &gt;* reconds;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>初始化下数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">SaveRecond *save1 = [SaveRecond new];</div><div class="line">save1.name = @&quot;Jack&quot;;</div><div class="line">save1.money = 10;</div><div class="line"></div><div class="line">SaveRecond *save2 = [SaveRecond new];</div><div class="line">save2.name = @&quot;rose&quot;;</div><div class="line">save2.money = 20;</div><div class="line"></div><div class="line">SaveRecond *save3 = [SaveRecond new];</div><div class="line">save3.name = @&quot;Jack&quot;;</div><div class="line">save3.money = 30;</div><div class="line"></div><div class="line"></div><div class="line">Bank *bank = [Bank new];</div><div class="line">bank.reconds = @[save1, save2,save3];</div></pre></td></tr></table></figure>
+<p>如果我们想计算这些储户的平均值，可以直接遍历bank的reconds，然后计算，那么，如果用KVC的operation，该如何做呢？一句话解决：</p>
+<p><code>NSObject *count = [bank valueForKeyPath:@&quot;reconds.@count&quot;];</code></p>
+<p>这句话的意思就是 我希望向bank的reconds属性，发送@count消息，执行@count运算。</p>
+<p>我们再来看个有<code>right key path</code>的。这里我希望计算出所有记录的平均储蓄值。</p>
+<p><code>NSObject *avg = [bank valueForKeyPath:@&quot;reconds.@avg.money&quot;];</code><br>这句话的意思是，我希望向bank的reconds属性，发送@avg消息，执行money的avg运算。</p>
+<p>同理，计算符还有很多，我这里就不一一介绍了，简单列下，只要学过数据库的，应该没啥问题（没学过？感觉学习下呀0_0）</p>
+<ul>
+<li>@avg</li>
+<li>@count</li>
+<li>@max</li>
+<li>@min</li>
+<li>@sum</li>
+</ul>
+<h3 id="数组运算"><a href="#数组运算" class="headerlink" title="数组运算"></a>数组运算</h3><p>刚才用的都是聚合之后的计算，我们看下如何对数组进行计算。比如：我想要知道一共有个用户(去重)。</p>
+<p><code>NSArray *array = [bank valueForKeyPath:@&quot;reconds.@distinctUnionOfObjects.name&quot;];</code></p>
+<p>这句话的含义是 我希望向bank的reconds属性发送distinctUnionOfObjects消息，执行基于name的distinctUnionOfObjects操作。</p>
+<p>这里的运算符有两个：</p>
+<ul>
+<li>distinctUnionOfObjects 去重</li>
+<li>unionOfObjects 不去重</li>
+</ul>
+<h3 id="嵌套运算操作"><a href="#嵌套运算操作" class="headerlink" title="嵌套运算操作"></a>嵌套运算操作</h3><p>如果是想操作一个数组的数组(@[array,array,array])，要怎么样做呢？比如我有两个reconds数组，我想看一共有多少个用户(去重)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSArray *arrayOfArray = @[bank.reconds,bank.reconds];</div><div class="line">NSArray *array = [arrayOfArray valueForKeyPath:@&quot;@distinctUnionOfArrays.name&quot;];</div></pre></td></tr></table></figure>
+<p>这里的运算符有三个：</p>
+<ul>
+<li>@distinctUnionOfArrays</li>
+<li>@unionOfArrays</li>
+<li>distinctUnionOfSets</li>
+</ul>
+<h3 id="非对象的values"><a href="#非对象的values" class="headerlink" title="非对象的values"></a>非对象的values</h3><p>当我们获取的是一个非对象的value，比如int、Bool等值，Cocoa会自动转换成NSNumber等对象<br>包括：<br>bool、char、double、float、int、long等等，这个自己去查文档吧</p>
+<p>如果value是一个结构体该如何呢？ 比如NSPoint、NSRange、NSRect、NSSize等还是会返回本类，但是其他的结构体，会被返回一个NSValue</p>
+<h1 id="检查属性"><a href="#检查属性" class="headerlink" title="检查属性"></a>检查属性</h1><p>当我要使用<code>setValueForKey</code>等方法去修改值时，怎么知道是不是合法呢？<br>KVC也提供了方法</p>
+<ul>
+<li>validateValue:forKey:error</li>
+<li>validateValue:forKeyPath:error</li>
+</ul>
+<p>这个方法返回一个bool值，有三种情况：</p>
+<ol>
+<li>value合法，return YES</li>
+<li>value不合法，但是可以给value重新赋值了一个新的object，return YES</li>
+<li>value不合法，且不可以赋值挽救，return NO</li>
+</ol>
+<p>最坑人的是，这个方法要自己实现，否则默认返回YES。Are you kidding？ 那我干嘛要用你的这个方法。。。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;综述&quot;&gt;&lt;a href=&quot;#综述&quot; class=&quot;headerlink&quot; title=&quot;综述&quot;&gt;&lt;/a&gt;综述&lt;/h1&gt;&lt;h3 id=&quot;关于&quot;&gt;&lt;a href=&quot;#关于&quot; class=&quot;headerlink&quot; title=&quot;关于&quot;&gt;&lt;/a&gt;关于&lt;/h3&gt;&lt;p&gt;正常访
+    
+    </summary>
+    
+      <category term="iOS基础" scheme="https://github.com/njafei/njafei.github.io/categories/iOS%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
+    
+  </entry>
   
   <entry>
     <title>《ES6入门》读书笔记之let命令</title>
@@ -342,9 +481,9 @@
       <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
-    
       <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
     
   </entry>
   
@@ -372,9 +511,9 @@
       <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
-    
       <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
     
   </entry>
   
