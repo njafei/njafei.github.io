@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-04-18T10:00:03.000Z</updated>
+  <updated>2017-04-28T03:07:40.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,153 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SQLite-Python学习</title>
+    <link href="https://github.com/njafei/njafei.github.io/2017/04/28/sqlite-python/"/>
+    <id>https://github.com/njafei/njafei.github.io/2017/04/28/sqlite-python/</id>
+    <published>2017-04-28T03:05:29.000Z</published>
+    <updated>2017-04-28T03:07:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>注： 本文默认有基本的数据库和SQLite知识</p>
+</blockquote>
+<p>最近在做SQLite数据库相关的自动化任务，所以学习了下<code>phthon</code>中如何使用<code>SQLite</code>，网上的教程如：<a href="http://www.runoob.com/sqlite/sqlite-python.html" target="_blank" rel="external">runoob</a>、 <a href="https://docs.python.org/2/library/sqlite3.html" target="_blank" rel="external">docs.python</a>等的说明不太详细，而且很多细节和demo都写的比较粗，遂有此文。</p>
+<h2 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h2><p>首先我们要连接数据库，要不然没法操作。<code>python</code>2.5之后，内置了<code>sqlite3</code>，所以我们可以直接用内置的命令。</p>
+<p>介绍第一个命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sqlite3.connect(database [,timeout ,other optional arguments]);</div></pre></td></tr></table></figure>
+<ul>
+<li>database： 数据库的path，如果不给，就会创建一个。如果给的“:memory:”，则会创建一个建在RAM上的数据库。</li>
+<li>timeout: 默认是5s，当数据库锁定的时候，最长的等待时间</li>
+<li><p>optional arguments： 暂时没查到有哪些参数可选</p>
+<p>比如我们想要新建一个数据库：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">import sqlite3</div><div class="line"></div><div class="line">newData = sqlite3.connect(&apos;new.sqlite&apos;)</div><div class="line">print &quot;open new Database successfully&quot;;</div></pre></td></tr></table></figure>
+<p>这样，就建好了一个名为new的数据库，并连接上。</p>
+<p>如果想建一个RAM上面的数据库，就使用<code>:memory</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">newData = sqlite3.connect(&apos;:memory:&apos;)</div></pre></td></tr></table></figure>
+<p>还可以设置10s的<code>timeout</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">newData = sqlite3.connect(&apos;:memory:&apos;[,10]);</div></pre></td></tr></table></figure>
+<p>关闭数据库连接就比较简单了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">newData.close();</div></pre></td></tr></table></figure>
+<h1 id="数据库执行SQL语句"><a href="#数据库执行SQL语句" class="headerlink" title="数据库执行SQL语句"></a>数据库执行<code>SQL</code>语句</h1><h4 id="执行简单语句"><a href="#执行简单语句" class="headerlink" title="执行简单语句"></a>执行简单语句</h4><p>这里主要有两种方式：</p>
+<ul>
+<li>数据库直接执行 <code>connection.execute()</code></li>
+<li>通过cursor执行 <code>cursor.execute</code></li>
+</ul>
+<p>举个例子，我们希望建一个如下的数据表并插入数据：user</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>money</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>jack</td>
+<td>100</td>
+</tr>
+<tr>
+<td>1</td>
+<td>rose</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#create table</div><div class="line">newData.execute(&quot;create table user (id, name, money)&quot;);</div><div class="line"></div><div class="line">#insert data</div><div class="line">newData.execute(&quot;insert into user values (1,&apos;jack&apos;,100)&quot;);</div><div class="line">newData.execute(&quot;insert into user values (2,&apos;rose&apos;,200)&quot;);</div><div class="line"></div><div class="line">#打印看下是否成功</div><div class="line">users = newData.execute(&quot;select * from user&quot;);</div><div class="line">print(&apos;row in new data&apos;);</div><div class="line">for row in users:</div><div class="line">	print row[0],</div><div class="line">	print row[1]</div><div class="line"></div><div class="line">newData.commit();</div><div class="line">newData.close();</div></pre></td></tr></table></figure>
+<p>这里面有个注意点：一定要<code>commit</code> 和 <code>close</code> ，否则不会保存。</p>
+<blockquote>
+<p>commit: 该方法提交当前的事务。如果您未调用该方法，那么自您上一次调用 commit() 以来所做的任何动作对其他数据库连接来说是不可见的。</p>
+</blockquote>
+<p>这里的<code>execute</code>也可以用cursor执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#获取cursor</div><div class="line">c = localData.cursor()</div><div class="line"></div><div class="line">#cursor执行语句</div><div class="line">c.execute(&quot;select * from user&quot;);</div></pre></td></tr></table></figure>
+<h4 id="执行带参数的语句"><a href="#执行带参数的语句" class="headerlink" title="执行带参数的语句"></a>执行带参数的语句</h4><p>如果我们有用到python里声明的变量，就只能通过<code>cursor</code>了。比如想要计算数组的和，放到amy的money中：</p>
+<p>这里先介绍下有参数的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cursor.execute(sql, seq_of_parameters)</div><div class="line"></div><div class="line">cursor.execute(&quot;insert into people values (?, ?)&quot;, (who, age))</div></pre></td></tr></table></figure>
+<p>execute只接收两个参数，sql和param，sql中的变量名，都用?或者命名代替，然后依次写在参数中。记住，一定要放到一个括号中，否则会认为有三个参数，会报错：<code>TypeError: function takes at most 2 arguments (3 given)</code></p>
+<p>实现代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#获取cursor</div><div class="line">c = localData.cursor()</div><div class="line"></div><div class="line">#计算总和</div><div class="line">name = &apos;amy&apos;;</div><div class="line">total = money + money2 + money3;</div><div class="line"></div><div class="line">#写入rose的钱中</div><div class="line">c.execute(&quot;inset into user value (3, ?, ?)&quot;,(name,total));</div><div class="line"></div><div class="line">#or </div><div class="line">#c.execute(&quot;inset into user value (3, name, money)&quot;,(name,total));</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：这里的connect也可以执行带参数的语句，但是其实都是生成临时cursor执行，所以这两种方法本质是一样的，下文中遇到这两个，只会写一个作为示范。</p>
+</blockquote>
+<h4 id="处理多组数据"><a href="#处理多组数据" class="headerlink" title="处理多组数据"></a>处理多组数据</h4><p>如果我们希望针对一组数据，执行同样的sql呢？当然可以<code>for: in</code> 来挨个执行，也可以使用批量的数据处理方法：</p>
+<ul>
+<li><code>cursor.executemany(sql, seq_of_parameters)</code></li>
+<li><code>connection.executemany(sql[, parameters])</code> 最终还是通过cursor执行</li>
+</ul>
+<p>比如刚才的例子，我们不用一条一条数据插入，而是直接插入一个数组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">newUsers = [(1,&apos;jack&apos;,100),(2,&apos;rose&apos;,100)];</div><div class="line">newData.executemany(&quot;insert into user values(?,?,?)&quot;,newUsers);</div></pre></td></tr></table></figure>
+<h4 id="处理多条语句"><a href="#处理多条语句" class="headerlink" title="处理多条语句"></a>处理多条语句</h4><p>如果是想连续执行多条语句如何呢？</p>
+<ul>
+<li>cursor.executescript(sql_script)</li>
+<li>connection.executescript(sql_script)</li>
+</ul>
+<p>比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sqlscript = &quot;&quot;&quot;insert into user values(1,&apos;jack&apos;,100);</div><div class="line">			   insert into user values(2,&apos;rose&apos;,200);&quot;&quot;&quot;</div><div class="line"></div><div class="line">newData.executescript(sqlscript);</div></pre></td></tr></table></figure>
+<h1 id="操作cursor"><a href="#操作cursor" class="headerlink" title="操作cursor"></a>操作cursor</h1><p>这里的cursor可以理解为我们变成时候的光标，光标在哪里，我们当前的操作点和关注点就在哪里。而当我们多次操作的时候，可能想要获取当前光标所在的位置。</p>
+<p>还是举个例子：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>money</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>jack</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2</td>
+<td>rose</td>
+<td>200</td>
+</tr>
+<tr>
+<td>3</td>
+<td>john</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<p>我希望查到谁的money是200，而且我想获得当前的光标坐在的位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">c = newData.cursor();</div><div class="line">c.execute(&quot;select * from user where money = 200&quot;);</div><div class="line">#查第一条</div><div class="line">c.fetchone();//(2,rose,200)</div><div class="line"></div><div class="line"># 查前两条</div><div class="line">c.fetchmany(2);// (2,rose,200),(3,john,200)</div><div class="line"></div><div class="line"># 查所有的</div><div class="line">c.fetchall();//(2,rose,200),(3,john,200)</div><div class="line"></div><div class="line">#如果没有结果返回none</div><div class="line">c.execute(&quot;select * from user where money = 300&quot;);</div><div class="line">c.fetchone();//none</div></pre></td></tr></table></figure>
+<p>说实话，刚开始看我是很疑惑的,看起来，这个光标的作用和我直接用一个数组赋值貌似没有什么区别，难道是这样比较方便来获取最后的结果么？</p>
+<p>后来问了大神，发现原来光标是这样子的，fetch了一条，光标会下移，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">c.execute(&quot;select * from user where money = 200&quot;);</div><div class="line">print c.fetchone();//(2,rose, 200)</div><div class="line">print c.fetchone();//(3,john,200)</div><div class="line">print c.fetchone();//none</div></pre></td></tr></table></figure>
+<p>再结合一些操作光标的操作，就可以实现一些比较复杂的用法了。</p>
+<h1 id="操作相关"><a href="#操作相关" class="headerlink" title="操作相关"></a>操作相关</h1><p>数据库的操作和git还是有点相似的，都是有提交，回滚等，我们依次介绍下：</p>
+<ul>
+<li>connection.commit() 提交修改，否则不会保存</li>
+<li>connection.rollback() 回滚上次的commit</li>
+<li>connection.close() 关闭数据库连接</li>
+<li>connection.total_changes() 查看修改的总行数</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;注： 本文默认有基本的数据库和SQLite知识&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;最近在做SQLite数据库相关的自动化任务，所以学习了下&lt;code&gt;phthon&lt;/code&gt;中如何使用&lt;code&gt;SQLite&lt;/code&gt;，网上的教程如：
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="sqlite" scheme="https://github.com/njafei/njafei.github.io/tags/sqlite/"/>
+    
+      <category term="python" scheme="https://github.com/njafei/njafei.github.io/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>KVC详解</title>
@@ -148,9 +295,9 @@
       <category term="iOS基础" scheme="https://github.com/njafei/njafei.github.io/categories/iOS%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
       <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
+    
+      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
@@ -481,9 +628,9 @@
       <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
       <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
+    
+      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
@@ -511,9 +658,9 @@
       <category term="文档翻译" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
       <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
+    
+      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
