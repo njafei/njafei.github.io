@@ -92,15 +92,15 @@
 <meta name="description" content="正在读阮一峰的《ECMAScript 6 入门》,本系列博客都是读书笔记。
 ES6 PlayGround在介绍具体的内容之前，想给大家介绍一个好玩的playgroud，尤其合适边看书，边敲代码的同学们。Traceur%3B%0A%7D%0A%0Aconsole.log(b)%3B%0A%0A)这个工具会在你敲完每行代码之后帮你执行检查是否有错误，然后翻译成es5并执行，然后再配合JS控制台，就是很">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《ES6入门》读书笔记之let命令">
+<meta property="og:title" content="《ES6入门》读书笔记之let和const命令">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/04/17/ES6-入门-let命令/index.html">
 <meta property="og:site_name" content="njafei's blog">
 <meta property="og:description" content="正在读阮一峰的《ECMAScript 6 入门》,本系列博客都是读书笔记。
 ES6 PlayGround在介绍具体的内容之前，想给大家介绍一个好玩的playgroud，尤其合适边看书，边敲代码的同学们。Traceur%3B%0A%7D%0A%0Aconsole.log(b)%3B%0A%0A)这个工具会在你敲完每行代码之后帮你执行检查是否有错误，然后翻译成es5并执行，然后再配合JS控制台，就是很">
 <meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/es6%20playground.png">
-<meta property="og:updated_time" content="2017-04-18T01:48:05.000Z">
+<meta property="og:updated_time" content="2017-05-02T10:12:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《ES6入门》读书笔记之let命令">
+<meta name="twitter:title" content="《ES6入门》读书笔记之let和const命令">
 <meta name="twitter:description" content="正在读阮一峰的《ECMAScript 6 入门》,本系列博客都是读书笔记。
 ES6 PlayGround在介绍具体的内容之前，想给大家介绍一个好玩的playgroud，尤其合适边看书，边敲代码的同学们。Traceur%3B%0A%7D%0A%0Aconsole.log(b)%3B%0A%0A)这个工具会在你敲完每行代码之后帮你执行检查是否有错误，然后翻译成es5并执行，然后再配合JS控制台，就是很">
 <meta name="twitter:image" content="http://on0hv7n2x.bkt.clouddn.com/es6%20playground.png">
@@ -137,7 +137,7 @@ ES6 PlayGround在介绍具体的内容之前，想给大家介绍一个好玩的
 
 
 
-  <title> 《ES6入门》读书笔记之let命令 | njafei's blog </title>
+  <title> 《ES6入门》读书笔记之let和const命令 | njafei's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -287,7 +287,7 @@ ES6 PlayGround在介绍具体的内容之前，想给大家介绍一个好玩的
             
             
               
-                《ES6入门》读书笔记之let命令
+                《ES6入门》读书笔记之let和const命令
               
             
           </h1>
@@ -423,6 +423,13 @@ ES6 PlayGround在介绍具体的内容之前，想给大家介绍一个好玩的
 <li>所有变量的声明，都写在函数的顶部</li>
 </ul>
 <p>这是我在看变量提升的时候，找到一篇质量很棒的blog，本篇的结构和内容也参考了很多<a href="https://segmentfault.com/a/1190000003114255" target="_blank" rel="external">Javascript作用域和变量提升</a></p>
+<h1 id="const"><a href="#const" class="headerlink" title="const"></a>const</h1><p>const的用法和let基本一致，不可重复定义，不会变量提升，作用域是块作用域。</p>
+<p>要注意的是，const修饰一个对象的话，只会限定这个对象的地址不变，不会限定它的值不变，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const foo = &#123;&#125;;</div><div class="line">foo.pro = &apos;haha&apos;;//work</div></pre></td></tr></table></figure>
+<p>想要值不变的话，可以使用<code>Object.freeze()</code>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const foo = Object.freeze(&#123;&#125;);</div><div class="line">foo.pro = &apos;haha&apos;;//not work</div></pre></td></tr></table></figure>
+<p>如果想将对象全部冻结，要将里面的每个value都冻结：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let constantize = (obj) =&gt; &#123;</div><div class="line">	Object.freeze(obj);</div><div class="line">	Object.keys(obj).forEach((key,value) =&gt; &#123;</div><div class="line">			if (typeof obj[key] === &apos;object&apos; ) &#123;</div><div class="line">				constantize(obj[key]);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -605,7 +612,7 @@ ES6 PlayGround在介绍具体的内容之前，想给大家介绍一个好玩的
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6-PlayGround"><span class="nav-number">1.</span> <span class="nav-text">ES6 PlayGround</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#let命令"><span class="nav-number">2.</span> <span class="nav-text">let命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域和var不同"><span class="nav-number">2.1.</span> <span class="nav-text">作用域和var不同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量提升"><span class="nav-number">2.2.</span> <span class="nav-text">变量提升</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#作用域"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量提升-1"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">变量提升</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6-PlayGround"><span class="nav-number">1.</span> <span class="nav-text">ES6 PlayGround</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#let命令"><span class="nav-number">2.</span> <span class="nav-text">let命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域和var不同"><span class="nav-number">2.1.</span> <span class="nav-text">作用域和var不同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量提升"><span class="nav-number">2.2.</span> <span class="nav-text">变量提升</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#作用域"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量提升-1"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">变量提升</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#const"><span class="nav-number">3.</span> <span class="nav-text">const</span></a></li></ol></div>
             
 
           </div>

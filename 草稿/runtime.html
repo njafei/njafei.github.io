@@ -111,7 +111,8 @@
 - 运行
 编译：将代码转换成底层可执行的语言（如汇编），简单来讲，就是把你能看懂的语言，转换成系统底层可以看懂的东西，这中间通常会有优化，先预处理，再编">
 <meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/compileToLinkToRun.png">
-<meta property="og:updated_time" content="2017-04-25T02:13:32.000Z">
+<meta property="og:image" content="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Art/messaging1.gif">
+<meta property="og:updated_time" content="2017-05-02T05:09:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS Runtime 详解">
 <meta name="twitter:description" content="什么是runtime在解释什么是runtime的时候，我们先看下什么是一段代码，从写完到最终执行的过程中发生了什么。
@@ -348,6 +349,20 @@
 </ul>
 <p>selector和IMP、method等的区别，可以参考博客<a href="http://www.jianshu.com/p/d26ca9ebae87" target="_blank" rel="external">Runtime–Selector、IMP、Method</a>，我之后也会写一篇相关的博客。</p>
 <p>当一个对象被创建之后，内存会被分配，然后属性等也会被初始化。在这些属性的第一位是一个执行它的类数据结构的指针，成为<code>isa</code>，让对象有权限访问它的类，以及通过这个类访问到所有它继承的类。</p>
+<blockquote>
+<p>runtime系统，要求对象必须等价于<code>objc_object</code>,<code>NSObject</code>和<code>NSProxy</code>都自动包含<code>isa</code>属性。</p>
+</blockquote>
+<p>结构和原理如图所示：</p>
+<p><img src="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Art/messaging1.gif" alt=""></p>
+<p>当消息被发送给对象的时候，消息就按照上图的路径寻找对应的<code>selector</code>，直到达到<code>NSObject</code>。</p>
+<p>为了加速消息分发， 系统会对方法和对应的地址进行缓存，所以在实际运行中，大部分常用的方法都是会被缓存起来的，是的<code>runtime</code>系统实际上非常快。</p>
+<h4 id="隐藏参数"><a href="#隐藏参数" class="headerlink" title="隐藏参数"></a>隐藏参数</h4><p>刚才讲了，在一个对象执行一个函数的时候，其实是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">objc_msgSend(receiver, selector, arg1, arg2, ...)</div></pre></td></tr></table></figure>
+<p>那其实在函数中，<code>receiver</code>和<code>selector</code>是两个隐藏的参数，这两个参数是可以使用的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)run</div><div class="line">&#123;</div><div class="line">    [self performSelector:_cmd];  //self: 当前对象  _cmd : &quot;run&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="获取method的地址"><a href="#获取method的地址" class="headerlink" title="获取method的地址"></a>获取method的地址</h5><p>如果你要连续执行同一个method，但是觉得每次都要遍历一遍分发表会效率低，可以直接获取地址(methodForSelector)，然后直接执行函数.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">void (*setter)(id, SEL, BOOL);</div><div class="line">int i;</div><div class="line"> </div><div class="line">setter = (void (*)(id, SEL, BOOL))[target</div><div class="line">    methodForSelector:@selector(setFilled:)];</div><div class="line">for ( i = 0 ; i &lt; 1000 ; i++ )</div><div class="line">    setter(targetList[i], @selector(setFilled:), YES);</div></pre></td></tr></table></figure>
+<p>个人觉得，这样意义不大，因为其实系统会做缓存。</p>
 
     
   </div>
