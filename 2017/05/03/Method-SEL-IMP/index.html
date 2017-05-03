@@ -71,7 +71,7 @@
 <link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Apple文档,基础知识," />
 
 
 
@@ -89,18 +89,22 @@
 
 
 
-<meta name="description" content="缘起利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages">
+<meta name="description" content="这三个概念，虽然在平时的时候总是在用，但是最近写runtime的时候，又感觉有点糊涂，今天就把他们的关系搞清楚。
+Method先看下定义
+123456789runtime.h/// An opaque type that represents a method in a class definition.代表类定义中一个方法的不透明类型typedef struct objc_method *Met">
 <meta property="og:type" content="article">
-<meta property="og:title" content="github pages + hexo 原理探究">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/index.html">
+<meta property="og:title" content="Method,SEL,Imp">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/05/03/Method-SEL-IMP/index.html">
 <meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="缘起利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages">
-<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/github%20pages%20%E6%95%B0%E6%8D%AE%E6%B5%81.png">
-<meta property="og:updated_time" content="2017-03-28T08:29:14.000Z">
+<meta property="og:description" content="这三个概念，虽然在平时的时候总是在用，但是最近写runtime的时候，又感觉有点糊涂，今天就把他们的关系搞清楚。
+Method先看下定义
+123456789runtime.h/// An opaque type that represents a method in a class definition.代表类定义中一个方法的不透明类型typedef struct objc_method *Met">
+<meta property="og:updated_time" content="2017-05-03T08:13:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="github pages + hexo 原理探究">
-<meta name="twitter:description" content="缘起利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages">
-<meta name="twitter:image" content="http://on0hv7n2x.bkt.clouddn.com/github%20pages%20%E6%95%B0%E6%8D%AE%E6%B5%81.png">
+<meta name="twitter:title" content="Method,SEL,Imp">
+<meta name="twitter:description" content="这三个概念，虽然在平时的时候总是在用，但是最近写runtime的时候，又感觉有点糊涂，今天就把他们的关系搞清楚。
+Method先看下定义
+123456789runtime.h/// An opaque type that represents a method in a class definition.代表类定义中一个方法的不透明类型typedef struct objc_method *Met">
 
 
 
@@ -128,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/05/03/Method-SEL-IMP/"/>
 
 
 
 
 
-  <title> github pages + hexo 原理探究 | njafei's blog </title>
+  <title> Method,SEL,Imp | njafei's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -284,7 +288,7 @@
             
             
               
-                github pages + hexo 原理探究
+                Method,SEL,Imp
               
             
           </h1>
@@ -299,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-18T21:07:15+08:00">
-                2017-03-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-03T16:11:23+08:00">
+                2017-05-03
               </time>
             
 
@@ -322,8 +326,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="../../../../categories/闲来研究/" itemprop="url" rel="index">
-                    <span itemprop="name">闲来研究</span>
+                  <a href="../../../../categories/iOS基础/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS基础</span>
                   </a>
                 </span>
 
@@ -357,11 +361,45 @@
       
 
       
-        <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。<br>搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages的流程到底是如何展开的。</p>
-<h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>先说下<a href="https://pages.github.com/" target="_blank" rel="external">github pages</a>,github pages 是github提供给用户用来展示个人或者项目主页的静态网页系统。每个用户都可以使用自己的github项目创建，上传静态页面的html文件，github会帮你自动更新你的页面。</p>
-<p><a href="https://hexo.io/zh-cn/" target="_blank" rel="external">hexo</a>是一个用来生成静态界面的框架，使用hexo，你就可以直接使用mark down 来写文章，而不用关心前端样式的展现。</p>
-<h2 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h2><p>我们来看下流程图：<br><img src="http://on0hv7n2x.bkt.clouddn.com/github%20pages%20%E6%95%B0%E6%8D%AE%E6%B5%81.png" alt="数据流程图"></p>
-<p>这样看就很简单了，我们本地使用markDown语法写好文件，然后执行hexo或者其他静态网页生成工具，生成好静态文件，然后使用hexo等工具的发布功能，就会使用ssh来更新github项目的文件，即生成一个新的commit然后push。github检测到这个项目更新，就会更新你的网站的内容（会有缓存）。</p>
+        <p>这三个概念，虽然在平时的时候总是在用，但是最近写<code>runtime</code>的时候，又感觉有点糊涂，今天就把他们的关系搞清楚。</p>
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><p>先看下定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">runtime.h</div><div class="line">/// An opaque type that represents a method in a class definition.代表类定义中一个方法的不透明类型</div><div class="line">typedef struct objc_method *Method;</div><div class="line"></div><div class="line">struct objc_method &#123;</div><div class="line">    SEL method_name                                          OBJC2_UNAVAILABLE;</div><div class="line">    char *method_types                                       OBJC2_UNAVAILABLE;</div><div class="line">    IMP method_imp                                           OBJC2_UNAVAILABLE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Method和我们平时理解的函数是一致的，就是表示能够独立完成一个功能的一段代码，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)logName</div><div class="line">&#123;</div><div class="line">	NSLog(@&quot;name&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码，就是一个函数。</p>
+<p>我们来看下<code>objc_method</code>这个结构体的内容：</p>
+<ul>
+<li>SEL method_name 方法名</li>
+<li>char *method_types 方法类型</li>
+<li>IMP method_imp 方法实现</li>
+</ul>
+<p>在这个结构体重，我们已经看到了<code>SEL</code>和<code>IMP</code>，说明<code>SEL</code>和<code>IMP</code>其实都是<code>Method</code>的属性。</p>
+<p>我们接着来看<code>SEL</code>。</p>
+<h1 id="SEL"><a href="#SEL" class="headerlink" title="SEL"></a>SEL</h1><p>还是先看定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Objc.h</div><div class="line">/// An opaque type that represents a method selector.代表一个方法的不透明类型</div><div class="line">typedef struct objc_selector *SEL;</div></pre></td></tr></table></figure></p>
+<p>这里要先说明下<code>selector</code>和<code>SEL</code>的关系，我在写本文的时候，其实搜索的是<code>selector</code>，知道我看到了<code>selector</code>的定义，才知道我理解一直不对。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property SEL selector;</div></pre></td></tr></table></figure>
+<p>在文档中，selector的定义都是这样声明，也就是说：selector是SEL的一个实例，只是在iOS中，selector的使用是如此的频繁，我们才会把他当成一个概念。</p>
+<p><code>SEL</code>怎么理解呢？我们可以想想股票，比如市场上有如此多公司在纳斯达克上市，而且他们的名字又非常的长，或者有些公司的名称也是相似的，都是**有限公司。那当市场去指定一个股票的时候，效率会非常低，当你着急想买股票的时候，你会跟你的经纪人说：“hi，peter，给我买一百股Tuniu limited liability company的股票吗？”，也许等你说完，经纪人输入完，市场就变化了，所以纳斯达克通常用代码，比如“TOUR”.这里的<code>selector</code>有类似的作用。</p>
+<p>文档中是这样讲的：</p>
+<blockquote>
+<p> A method selector is a C string that has been registered (or “mapped“) with the Objective-C runtime. Selectors generated by the compiler are automatically mapped by the runtime when the class is loaded.</p>
+</blockquote>
+<p>在iOS中，<code>runtime</code>会在运行的时候，通过<code>load</code>函数，讲所有的<code>method</code>hash然后map到<code>set</code>中。这样在运行的时候，寻找<code>selector</code>的速度就会非常快，不会因为<code>runtime</code>特性牺牲太多的性能。</p>
+<p><code>selector</code>既然是一个string，我觉得应该是类似<code>className+method</code>的组合，规则有两条：</p>
+<ul>
+<li>同一个类，selector不能重复</li>
+<li>不同的类，selector可以重复</li>
+</ul>
+<p>这也带来了一个弊端，我们在写C代码的时候，经常会用到函数重载，就是函数名相同，参数不同，但是这在<code>Objective-C</code>中是行不通的，因为<code>selector</code>只记了<code>method</code>的name，没有参数，所以没法区分不同的method。</p>
+<p>比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)caculate(NSInteger)num;</div><div class="line"></div><div class="line">- (void)caculate(CGFloat)num;</div></pre></td></tr></table></figure>
+<p>是会报错的。</p>
+<p>我们只能通过命名来区别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)caculateWithInt(NSInteger)num;</div><div class="line"></div><div class="line">- (void)caculateWithFloat(CGFloat)num;</div></pre></td></tr></table></figure>
+<h1 id="IMP"><a href="#IMP" class="headerlink" title="IMP"></a>IMP</h1><p>看下<code>IMP</code>的定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/// A pointer to the function of a method implementation.  指向一个方法实现的指针</div><div class="line">typedef id (*IMP)(id, SEL, ...); </div><div class="line">#endif</div></pre></td></tr></table></figure>
+<p>这个就比较好理解了，就是指向最终实现程序的内存地址的指针。</p>
+<p>综上，在iOS的<code>runtime</code>中，<code>Method</code>通过<code>selector</code>和<code>IMP</code>两个属性，实现了快速查询方法及实现。</p>
 
       
     </div>
@@ -383,6 +421,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="../../../../tags/Apple文档/" rel="tag"># Apple文档</a>
+          
+            <a href="../../../../tags/基础知识/" rel="tag"># 基础知识</a>
+          
+        </div>
+      
 
       
         
@@ -392,15 +438,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="../../../04/28/sqlite-python/" rel="next" title="SQLite-Python学习">
+                <i class="fa fa-chevron-left"></i> SQLite-Python学习
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../../21/UIResponder/" rel="prev" title="Apple文档翻译之UIResponder">
-                Apple文档翻译之UIResponder <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,7 +578,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缘起"><span class="nav-number">1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单介绍"><span class="nav-number">2.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据流"><span class="nav-number">3.</span> <span class="nav-text">数据流</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Method"><span class="nav-number">1.</span> <span class="nav-text">Method</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SEL"><span class="nav-number">2.</span> <span class="nav-text">SEL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IMP"><span class="nav-number">3.</span> <span class="nav-text">IMP</span></a></li></ol></div>
             
 
           </div>
