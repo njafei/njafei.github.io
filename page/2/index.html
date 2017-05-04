@@ -259,6 +259,151 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io../../2017/03/21/UIResponder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="njafei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="njafei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="../../2017/03/21/UIResponder/" itemprop="url">
+                  Apple文档翻译之UIResponder
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-21T15:20:54+08:00">
+                2017-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../categories/文档翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">文档翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>UIResponder</code>是回应和处理事件的抽象接口,<code>UIResponder</code>的实例，包括：<code>UIApplication</code>、<code>UIViewController</code>、<code>UIView</code>（包含<code>UIWindow</code>），组成了<code>UIKit</code>处理事件的核心。当事件发生时，<code>UIKit</code>会把事件派发给<code>UIResponder</code>去处理。</p>
+<p>有许多种事件，包括触摸、手势、遥控和点击事件。为了处理特定的事件，一个<code>responder</code>（响应）必须重写<code>corresponding</code>方法。比如，要想处理<code>touch</code>事件，一个<code>responder</code>要实现<code>touchesBegan：withEvent</code>,<code>touchedMoved:withEvent:</code>等方法。在触摸事件的列子中，<code>responder</code>使用UIKit提供的事件信息来追踪触摸的改变，然后适时地更新界面。</p>
+<p>除了处理事件，<code>UIKit responder</code>还负责转发那边没有被处理的事件给app的其他部分。如果一个指定的<code>responder</code>没有处理事件，它就会转发这个事件到响应链的下一个<code>responder</code>。UIKit动态地管理响应链，使用预定的规则来决定下一个收到事件的对象。比如：一个<code>view</code>转发事件到它的<code>superView</code>，或者<code>Rootview</code>转发事件给它的v<code>iew controller</code>。</p>
+<p><code>Responder</code>处理<code>UIEvent</code>和其他通过输入界面的自定义输入，最典型的就是系统的键盘。当用户点击<code>UITextField</code>和<code>UITextView</code>，这个view变成了第一个<code>responder</code>，然后展示它的输入界面：键盘。同样的，你可以创造一个自定义的输入界面，然后在其他<code>responders</code>活跃的时候展示它。为了把输入界面和<code>responder</code>联系在一起，要把<code>view</code>赋值给<code>responder</code>的属性。</p>
+<p>原文链接  <a href="https://developer.apple.com/reference/uikit/uiresponder#//apple_ref/occ/cl/UIResponder" target="_blank" rel="external">UIResponder</a></p>
+<p>如果有任何建议和优化的地方，欢迎给我留言。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io../../2017/03/18/githubPagesStudy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -443,7 +588,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
