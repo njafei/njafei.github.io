@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-05-04T08:52:49.000Z</updated>
+  <updated>2017-05-05T07:39:50.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,74 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>图片的展示清晰度问题研究</title>
+    <link href="https://github.com/njafei/njafei.github.io/2017/05/05/%E5%9B%BE%E7%89%87%E6%B8%85%E6%99%B0%E5%BA%A6%E6%8E%A2%E7%A9%B6/"/>
+    <id>https://github.com/njafei/njafei.github.io/2017/05/05/图片清晰度探究/</id>
+    <published>2017-05-05T07:38:08.000Z</published>
+    <updated>2017-05-05T07:39:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>前两天产品经理找我，说是首页的轮播图，看起来很模糊，我看了下，确实是效果不好，很多的字看起来不都清晰，看明白是什么很费劲。</p>
+<p>看起来效果像是这样（忽然想起一个老朋友，北大高材生，居然喜欢杨幂，这里就用大幂幂吧）</p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/%E5%9B%BE%E7%89%87%E6%95%88%E6%9E%9C%E5%AF%B9%E6%AF%94%E5%9B%BE%20%20%E6%95%88%E6%9E%9C%E5%B7%AE.png" alt=""></p>
+<p>我当时的第一反应就是是不是原图就不清晰。然后我抓包，拿到了图片链接，但是链接的图片在浏览器中看起来效果很不错，像这样：</p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/%E5%9B%BE%E7%89%87%E6%95%88%E6%9E%9C%E5%AF%B9%E6%AF%94%E5%9B%BE%20%20%E5%8E%9F%E5%9B%BE.jpg" alt=""></p>
+<p>但是展示在手机上的效果，真的差强人意，尤其是有文字的时候，文字的边缘锐化的效果很明显。</p>
+<p>百思不得其解的时候，发现原图的链接给的尺寸，比手机行的设定尺寸大了好多。做iOS App开发的都知道，因为手机是retina屏，所以要求给的图都是2x和3x的，比如 100 <em> 100的图，我们通常要设计师给的是 200 </em> 200的，6p等是 300 <em> 300.但是这张图，我们需要的是200 </em> 100的，通常给 600 <em> 300肯定够了，但是服务端给的是 1200 </em> 600的，比我们需要的长宽大了两倍。然后我自己用这张图，转换了一张 600 * 300的图，debug发现效果非常好。和服务端沟通了下，给出的原因是：因为公司的图片尺寸是有限的，所以当时找了一个最接近长宽比的给前端。</p>
+<p>又找了UI的大神聊了，上述的原因是这样的：</p>
+<p>如果一个 9 <em> 9的图，想要在 1 </em> 1的图片中显示，怎会随机从9个像素中选取一个放到1 * 1 中，所以就失真了，类似这样：</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>n</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>1 &lt;= n &lt;= 9</p>
+<p>所以呢，想要图片在app上展示出最好的效果，其实不在于图片要切的非常大，而是图片的尺寸再好和你设计的差不多，否则会失真。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前两天产品经理找我，说是首页的轮播图，看起来很模糊，我看了下，确实是效果不好，很多的字看起来不都清晰，看明白是什么很费劲。&lt;/p&gt;
+&lt;p&gt;看起来效果像是这样（忽然想起一个老朋友，北大高材生，居然喜欢杨幂，这里就用大幂幂吧）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o
+    
+    </summary>
+    
+      <category term="闲来研究" scheme="https://github.com/njafei/njafei.github.io/categories/%E9%97%B2%E6%9D%A5%E7%A0%94%E7%A9%B6/"/>
+    
+    
+      <category term="图片" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9B%BE%E7%89%87/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS Runtime 详解</title>
