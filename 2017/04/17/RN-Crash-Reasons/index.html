@@ -108,7 +108,7 @@ TypeEr">
 如果userInfo为undefined的话，就会崩溃，错误如下：
 
 TypeEr">
-<meta property="og:updated_time" content="2017-04-17T02:52:12.000Z">
+<meta property="og:updated_time" content="2017-05-15T07:42:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RN 最容易crash的代码用法及应对措施（持续更新）">
 <meta name="twitter:description" content="变量保护出现最多的就是在使用redux来做数据层，使用this.props的属性没有去查询时候为undefined，这种情况，基本是必crash
@@ -409,6 +409,14 @@ TypeEr">
 <h4 id="代码保护（推荐）"><a href="#代码保护（推荐）" class="headerlink" title="代码保护（推荐）"></a>代码保护（推荐）</h4><p>Mixin属于ES5语法，对于ES6代码来说，无法直接使用Mixin。如果你的项目是用ES6代码编写，同时又使用了计时器，那么你只需铭记在unmount组件时清除（clearTimeout/clearInterval）所有用到的定时器，那么也可以实现和TimerMixin同样的效果。例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">import React,&#123;</div><div class="line">  Component</div><div class="line">&#125; from &apos;react&apos;;</div><div class="line"></div><div class="line">export default class Hello extends Component &#123;</div><div class="line">  componentDidMount() &#123;</div><div class="line">    this.timer = setTimeout(</div><div class="line">      () =&gt; &#123; console.log(&apos;把一个定时器的引用挂在this上&apos;); &#125;,</div><div class="line">      500</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">  componentWillUnmount() &#123;</div><div class="line">    // 如果存在this.timer，则使用clearTimeout清空。</div><div class="line">    // 如果你使用多个timer，那么用多个变量，或者用个数组来保存引用，然后逐个clear</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>我今天看了我们项目的代码，发现几乎没有人做保护，代码copy的现象，真的是令人发指，可能很多人都没仔细看过官方的文档。。。</p>
+<h2 id="RN0-43-Text组件bug"><a href="#RN0-43-Text组件bug" class="headerlink" title="RN0.43 Text组件bug"></a>RN0.43 Text组件bug</h2><p>最近公司升级了RN的版本，从0.39升级到了0.43，这里出现了一个比较严重的bug。github上的issue地址：<a href="https://github.com/facebook/react-native/issues/13080">https://github.com/facebook/react-native/issues/13080
+</a></p>
+<p>具体来说，就是<code>android</code>上面的<code>Text</code>，string和int等数值混排会出现莫名的bug，无论Text是否加了点击事件，只要触摸int等数值的展示部分，就会崩溃，具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let num = 5;</div><div class="line">&lt;Text&gt;有&#123;num&#125;个赞&lt;/Text&gt; //点击crash</div><div class="line">``` </div><div class="line"></div><div class="line">如何补救呢？使用`.toString`:</div></pre></td></tr></table></figure>
+<p>let num = 5;</p>
+<p><text> 有{num.toString()}个赞</text> //ok<br>```</p>
+<p>看github上的记录，0.44已经修复，但是如果使用0.43的同学，千万要小心。</p>
+<p>更新于 2017-05-10</p>
 
       
     </div>
@@ -599,7 +607,7 @@ TypeEr">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#变量保护"><span class="nav-number">1.</span> <span class="nav-text">变量保护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器"><span class="nav-number">2.</span> <span class="nav-text">定时器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TimerMixin"><span class="nav-number">2.0.1.</span> <span class="nav-text">TimerMixin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码保护（推荐）"><span class="nav-number">2.0.2.</span> <span class="nav-text">代码保护（推荐）</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#变量保护"><span class="nav-number">1.</span> <span class="nav-text">变量保护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器"><span class="nav-number">2.</span> <span class="nav-text">定时器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TimerMixin"><span class="nav-number">2.0.1.</span> <span class="nav-text">TimerMixin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码保护（推荐）"><span class="nav-number">2.0.2.</span> <span class="nav-text">代码保护（推荐）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RN0-43-Text组件bug"><span class="nav-number">3.</span> <span class="nav-text">RN0.43 Text组件bug</span></a></li></ol></div>
             
 
           </div>
