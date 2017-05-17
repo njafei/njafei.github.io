@@ -74,7 +74,7 @@
 <link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="git," />
+  <meta name="keywords" content="自动化,fastlane," />
 
 
 
@@ -92,31 +92,25 @@
 
 
 
-<meta name="description" content="最近在自己的电脑上同时使用github和公司的git仓库，带来了一个问题就是之前只是设置了全局的name和email，但是两边的代码需要使用不同的user，每次都要手动去改，然后我搜索了下，发现其实我们可以给每个git项目，单独配置一个name和email的。规则如下：
-
-如果项目由独立配置，则使用独立配置，如果没有独立配置，则使用全局配置
-
-命令就很简单了：全局name和email配置：
-12$">
+<meta name="description" content="背景目前jenkins服务器上面使用的版本比较老，是1.* 的版本。这个版本的deliver，自定义的功能比较少，存在以下弊端：
+如APP正在审核版本9，这时候上传一个版本,deliver会自动取消当前版本的审核状态。而这种自动的提交和取消审核状态是团队无法接受的。
+所以今天调研了最新的版本
+文档查看了deliver的最新文档，最新的提供了新的参数submit_for_review，目前配置如下：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何给同一个电脑上的不同git项目设置不同的name和email">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/04/11/settingNameAndEmailForEachProject/index.html">
+<meta property="og:title" content="fastlane上传appStore功能调研">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/05/17/fastlane上传APPStore调研/index.html">
 <meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="最近在自己的电脑上同时使用github和公司的git仓库，带来了一个问题就是之前只是设置了全局的name和email，但是两边的代码需要使用不同的user，每次都要手动去改，然后我搜索了下，发现其实我们可以给每个git项目，单独配置一个name和email的。规则如下：
-
-如果项目由独立配置，则使用独立配置，如果没有独立配置，则使用全局配置
-
-命令就很简单了：全局name和email配置：
-12$">
-<meta property="og:updated_time" content="2017-04-24T06:31:50.000Z">
+<meta property="og:description" content="背景目前jenkins服务器上面使用的版本比较老，是1.* 的版本。这个版本的deliver，自定义的功能比较少，存在以下弊端：
+如APP正在审核版本9，这时候上传一个版本,deliver会自动取消当前版本的审核状态。而这种自动的提交和取消审核状态是团队无法接受的。
+所以今天调研了最新的版本
+文档查看了deliver的最新文档，最新的提供了新的参数submit_for_review，目前配置如下：">
+<meta property="og:updated_time" content="2017-05-17T09:32:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何给同一个电脑上的不同git项目设置不同的name和email">
-<meta name="twitter:description" content="最近在自己的电脑上同时使用github和公司的git仓库，带来了一个问题就是之前只是设置了全局的name和email，但是两边的代码需要使用不同的user，每次都要手动去改，然后我搜索了下，发现其实我们可以给每个git项目，单独配置一个name和email的。规则如下：
-
-如果项目由独立配置，则使用独立配置，如果没有独立配置，则使用全局配置
-
-命令就很简单了：全局name和email配置：
-12$">
+<meta name="twitter:title" content="fastlane上传appStore功能调研">
+<meta name="twitter:description" content="背景目前jenkins服务器上面使用的版本比较老，是1.* 的版本。这个版本的deliver，自定义的功能比较少，存在以下弊端：
+如APP正在审核版本9，这时候上传一个版本,deliver会自动取消当前版本的审核状态。而这种自动的提交和取消审核状态是团队无法接受的。
+所以今天调研了最新的版本
+文档查看了deliver的最新文档，最新的提供了新的参数submit_for_review，目前配置如下：">
 
 
 
@@ -144,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/04/11/settingNameAndEmailForEachProject/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/05/17/fastlane上传APPStore调研/"/>
 
 
 
 
 
-  <title>如何给同一个电脑上的不同git项目设置不同的name和email | njafei's blog</title>
+  <title>fastlane上传appStore功能调研 | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -306,7 +300,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何给同一个电脑上的不同git项目设置不同的name和email</h1>
+          <h1 class="post-title" itemprop="name headline">fastlane上传appStore功能调研</h1>
         
 
         <div class="post-meta">
@@ -318,8 +312,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-11T14:38:15+08:00">
-                2017-04-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-17T17:10:34+08:00">
+                2017-05-17
               </time>
             
 
@@ -341,8 +335,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="../../../../categories/小知识/" itemprop="url" rel="index">
-                    <span itemprop="name">小知识</span>
+                  <a href="../../../../categories/自动化/" itemprop="url" rel="index">
+                    <span itemprop="name">自动化</span>
                   </a>
                 </span>
 
@@ -375,15 +369,16 @@
       
 
       
-        <p>最近在自己的电脑上同时使用github和公司的git仓库，带来了一个问题就是之前只是设置了全局的name和email，但是两边的代码需要使用不同的user，每次都要手动去改，然后我搜索了下，发现其实我们可以给每个git项目，单独配置一个name和email的。规则如下：</p>
-<blockquote>
-<p>如果项目由独立配置，则使用独立配置，如果没有独立配置，则使用全局配置</p>
-</blockquote>
-<p>命令就很简单了：<br>全局name和email配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name gitaccount</div><div class="line">$ git config --global user.email gitaccount@example.com</div></pre></td></tr></table></figure>
-<p>给单独的git项目设定配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cd gitFolder</div><div class="line">$ git config user.name gitaccount</div><div class="line">$ git config user.email gitaccount@example.com</div></pre></td></tr></table></figure>
-<p>这样，如果本地有多个git user 或者多个项目的话，使用起来就比较方便了。</p>
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>目前jenkins服务器上面使用的版本比较老，是1.* 的版本。这个版本的deliver，自定义的功能比较少，存在以下弊端：</p>
+<pre><code>如APP正在审核版本9，这时候上传一个版本,deliver会自动取消当前版本的审核状态。而这种自动的提交和取消审核状态是团队无法接受的。
+所以今天调研了最新的版本
+</code></pre><h1 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h1><p>查看了deliver的<a href="https://github.com/fastlane/fastlane/tree/master/deliver">最新文档</a>，最新的提供了新的参数<code>submit_for_review</code>，目前配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app_identifier &quot;com.**.**&quot; # The bundle identifier of your app	</div><div class="line">username &quot;njafei@163.com&quot; # your Apple ID user</div><div class="line">force true #don’t show me the preview html</div><div class="line">submit_for_review false # 这个开关就是控制是否要展示的</div></pre></td></tr></table></figure>
+<h1 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ fastlane deliver init //初始化fastlane 会生成配置文件Deliverfile、文档数据（用于各种说明等）文件夹metadata、screenshots（展图）等文件</div><div class="line">$ 输入itunes connenct账号等</div><div class="line">$ 配置Deliverfile文件，配置同文档中所列</div><div class="line">$ fastlane deliver *.ipa</div></pre></td></tr></table></figure>
+<h1 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h1><p>直接使用公司网络上传3次，均失败<br>使用lantern上传了8次，成功了一次,上传时间大约20min</p>
+<p>线上无app在review中：正常上传，无影响<br>线上有app在review中：正常上传，无影响</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>使用deliver的话，一定要配置一个版本更新说明，地址在<code>./metadata/zh-Hans/release_notes.txt</code>;</p>
+<p>#总结<br>fastlane的上传功能现在已经可以满足使用条件，但是网络状态实在比较差，可以考虑写脚本由上传人员使用，配合jenkins的话，恐怕失败率比较高</p>
 
       
     </div>
@@ -413,7 +408,9 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/git/" rel="tag"># git</a>
+            <a href="../../../../tags/自动化/" rel="tag"># 自动化</a>
+          
+            <a href="../../../../tags/fastlane/" rel="tag"># fastlane</a>
           
         </div>
       
@@ -426,8 +423,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../06/React-Native-Seperate-Bundle/" rel="next" title="React_Native拆分bundle之patch拆包">
-                <i class="fa fa-chevron-left"></i> React_Native拆分bundle之patch拆包
+              <a href="../../11/ES6之变量的解构赋值/" rel="next" title="ES6之变量的解构赋值">
+                <i class="fa fa-chevron-left"></i> ES6之变量的解构赋值
               </a>
             
           </div>
@@ -435,10 +432,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../../17/RN-Crash-Reasons/" rel="prev" title="RN 最容易crash的代码用法及应对措施（持续更新）">
-                RN 最容易crash的代码用法及应对措施（持续更新） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -485,8 +478,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="../../../../images/avatar.png"
@@ -555,6 +557,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文档"><span class="nav-number">2.</span> <span class="nav-text">文档</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用流程"><span class="nav-number">3.</span> <span class="nav-text">使用流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据"><span class="nav-number">4.</span> <span class="nav-text">数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">5.</span> <span class="nav-text">其他</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

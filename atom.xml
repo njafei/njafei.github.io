@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-05-11T08:35:27.000Z</updated>
+  <updated>2017-05-17T09:32:28.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>fastlane上传appStore功能调研</title>
+    <link href="https://github.com/njafei/njafei.github.io/2017/05/17/fastlane%E4%B8%8A%E4%BC%A0APPStore%E8%B0%83%E7%A0%94/"/>
+    <id>https://github.com/njafei/njafei.github.io/2017/05/17/fastlane上传APPStore调研/</id>
+    <published>2017-05-17T09:10:34.000Z</published>
+    <updated>2017-05-17T09:32:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>目前jenkins服务器上面使用的版本比较老，是1.* 的版本。这个版本的deliver，自定义的功能比较少，存在以下弊端：</p>
+<pre><code>如APP正在审核版本9，这时候上传一个版本,deliver会自动取消当前版本的审核状态。而这种自动的提交和取消审核状态是团队无法接受的。
+所以今天调研了最新的版本
+</code></pre><h1 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h1><p>查看了deliver的<a href="https://github.com/fastlane/fastlane/tree/master/deliver">最新文档</a>，最新的提供了新的参数<code>submit_for_review</code>，目前配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app_identifier &quot;com.**.**&quot; # The bundle identifier of your app	</div><div class="line">username &quot;njafei@163.com&quot; # your Apple ID user</div><div class="line">force true #don’t show me the preview html</div><div class="line">submit_for_review false # 这个开关就是控制是否要展示的</div></pre></td></tr></table></figure>
+<h1 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ fastlane deliver init //初始化fastlane 会生成配置文件Deliverfile、文档数据（用于各种说明等）文件夹metadata、screenshots（展图）等文件</div><div class="line">$ 输入itunes connenct账号等</div><div class="line">$ 配置Deliverfile文件，配置同文档中所列</div><div class="line">$ fastlane deliver *.ipa</div></pre></td></tr></table></figure>
+<h1 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h1><p>直接使用公司网络上传3次，均失败<br>使用lantern上传了8次，成功了一次,上传时间大约20min</p>
+<p>线上无app在review中：正常上传，无影响<br>线上有app在review中：正常上传，无影响</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>使用deliver的话，一定要配置一个版本更新说明，地址在<code>./metadata/zh-Hans/release_notes.txt</code>;</p>
+<p>#总结<br>fastlane的上传功能现在已经可以满足使用条件，但是网络状态实在比较差，可以考虑写脚本由上传人员使用，配合jenkins的话，恐怕失败率比较高</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;目前jenkins服务器上面使用的版本比较老，是1.* 的版本。这个版本的deliver，自定义的功能比较少，存在以下弊端：&lt;/p&gt;
+&lt;pr
+    
+    </summary>
+    
+      <category term="自动化" scheme="https://github.com/njafei/njafei.github.io/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+    
+      <category term="自动化" scheme="https://github.com/njafei/njafei.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+      <category term="fastlane" scheme="https://github.com/njafei/njafei.github.io/tags/fastlane/"/>
+    
+  </entry>
   
   <entry>
     <title>ES6之变量的解构赋值</title>
