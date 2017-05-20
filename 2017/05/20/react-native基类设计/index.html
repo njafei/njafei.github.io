@@ -1,0 +1,789 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="React-Native," />
+
+
+
+
+
+  <link rel="alternate" href="../../../../atom.xml" title="njafei's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="背景前段时间发现iOS手机上，很多页面的字体样式会随着系统配置字体的大小而变换，使得界面不太美观。而这个其实只要给一个参数就可以解决，但是整个app中用该组件的地方非常多，开发挨个替换的话，工作量很大，而且很容易出现遗漏。
+另外升级RN后，出现了Android手机上面的Text点击崩溃问题，底层的bug，前端需求的话，也是要花费相当精力而且容易遗漏。
+那么，对于类似的问题，有没有好的解决方案呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react-native基类设计">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/05/20/react-native基类设计/index.html">
+<meta property="og:site_name" content="njafei's blog">
+<meta property="og:description" content="背景前段时间发现iOS手机上，很多页面的字体样式会随着系统配置字体的大小而变换，使得界面不太美观。而这个其实只要给一个参数就可以解决，但是整个app中用该组件的地方非常多，开发挨个替换的话，工作量很大，而且很容易出现遗漏。
+另外升级RN后，出现了Android手机上面的Text点击崩溃问题，底层的bug，前端需求的话，也是要花费相当精力而且容易遗漏。
+那么，对于类似的问题，有没有好的解决方案呢？">
+<meta property="og:updated_time" content="2017-05-20T03:17:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react-native基类设计">
+<meta name="twitter:description" content="背景前段时间发现iOS手机上，很多页面的字体样式会随着系统配置字体的大小而变换，使得界面不太美观。而这个其实只要给一个参数就可以解决，但是整个app中用该组件的地方非常多，开发挨个替换的话，工作量很大，而且很容易出现遗漏。
+另外升级RN后，出现了Android手机上面的Text点击崩溃问题，底层的bug，前端需求的话，也是要花费相当精力而且容易遗漏。
+那么，对于类似的问题，有没有好的解决方案呢？">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/05/20/react-native基类设计/"/>
+
+
+
+
+
+  <title>react-native基类设计 | njafei's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?213e2c779faee10b12ecbe3686f09200";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">njafei's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="https://njafei.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="https://njafei.github.io/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="https://njafei.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="https://njafei.github.io/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="njafei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="njafei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">react-native基类设计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-20T11:16:04+08:00">
+                2017-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/React-Native/" itemprop="url" rel="index">
+                    <span itemprop="name">React-Native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>前段时间发现iOS手机上，很多页面的字体样式会随着系统配置字体的大小而变换，使得界面不太美观。而这个其实只要给一个参数就可以解决，但是整个app中用该组件的地方非常多，开发挨个替换的话，工作量很大，而且很容易出现遗漏。</p>
+<p>另外升级RN后，出现了<code>Android</code>手机上面的<code>Text</code>点击崩溃问题，底层的bug，前端需求的话，也是要花费相当精力而且容易遗漏。</p>
+<p>那么，对于类似的问题，有没有好的解决方案呢？</p>
+<h1 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h1><p>如果抽象以下，我们其实是要解决两个痛点：</p>
+<ul>
+<li>风险控制问题</li>
+<li>提高开发效率</li>
+</ul>
+<h4 id="风险控制问题"><a href="#风险控制问题" class="headerlink" title="风险控制问题"></a>风险控制问题</h4><p>这个是要解决<code>RN</code>框架界面突然爆发问题或者bug，我们应该是能及时、快速修复掉。目前其实<code>RN</code>还是可以热修复的，但是面对上面两个问题，其实没办法热修复，因为涉及到的点太多，工作量等太大。</p>
+<p>所以，要解决风险控制问题，保证底层对于业务的组件是有控制力的，从而避免突然爆发问题而束手无策。</p>
+<h4 id="提高开发效率"><a href="#提高开发效率" class="headerlink" title="提高开发效率"></a>提高开发效率</h4><p>这里还要介绍下在<code>Image</code>这个组件遇到的问题。一个是当前所有的图片都是没有默认的占位图的，另外就是如果图片下载失败，<code>Image</code>就会是空白，只有做特殊处理才能显示占位图。如果每个业务开发在使用<code>Image</code>的时候，都要加几行这种类似的重复代码，效率是非常低的。</p>
+<p>或者临时遇到诸如整体换颜色、字体等问题，都是非常痛苦的。</p>
+<p>所以提出想要能把开发从这种重复低价值劳动中解放出来。</p>
+<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><p>基类的方案，有两个核心点：</p>
+<ul>
+<li>所有的页面都继承自基类</li>
+<li>所有的组件都不再从<code>react-native</code>库中取，而是从基类中取</li>
+</ul>
+<p>如果一句话来概括的话，就是我们封装了一层<code>react-native</code>。业务开发使用的组件都是从我们自己库中取，而库中的控件，可以是定制的，也可以是简单从<code>react-native</code>中调用。</p>
+<h1 id="包含控件"><a href="#包含控件" class="headerlink" title="包含控件"></a>包含控件</h1><p>这里是基类<code>Component</code>和其他几个开发过程中遇到的问题比较多的：</p>
+<ul>
+<li>Component</li>
+<li>Text</li>
+<li>Image</li>
+</ul>
+<p>具体的定制需求如下（还需要向开发搜集）：</p>
+<h4 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h4><ul>
+<li>默认字体等配置 </li>
+<li>是否自动根据系统字体设定大小 false</li>
+<li>解决number等的崩溃问题</li>
+</ul>
+<h4 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h4><ul>
+<li>加载失败的处理</li>
+<li>默认图片 （牛头图）</li>
+<li>自动更换webp的操作</li>
+</ul>
+<h1 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h1><p>好处就是解决上文提的两个痛点：</p>
+<ul>
+<li>风险控制问题</li>
+<li>提高开发效率</li>
+</ul>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>基类如果出现bug，影响范围会比较大。</p>
+<h1 id="待确定的问题"><a href="#待确定的问题" class="headerlink" title="待确定的问题"></a>待确定的问题</h1><ul>
+<li>具体定制组件的需求还要搜集下</li>
+</ul>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h4 id="Base-Component"><a href="#Base-Component" class="headerlink" title="Base Component"></a>Base Component</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div></pre></td><td class="code"><pre><div class="line">import React from &apos;react&apos;;</div><div class="line"></div><div class="line">import &#123;</div><div class="line">    Button,</div><div class="line">    DatePickerIOS,</div><div class="line">    DrawerLayoutAndroid,</div><div class="line">    FlatList,</div><div class="line">    Image,</div><div class="line">    KeyboardAvoidingView,</div><div class="line">    ListView,</div><div class="line">    Modal,</div><div class="line">    Navigator,</div><div class="line">    NavigatorIOS,</div><div class="line">    Picker,</div><div class="line">    PickerIOS,</div><div class="line">    ProgressBarAndroid,</div><div class="line">    ProgressViewIOS,</div><div class="line">    RefreshControl,</div><div class="line">    ScrollView,</div><div class="line">    SectionList,</div><div class="line">    SegmentedControlIOS,</div><div class="line">    Slider,</div><div class="line">    StatusBar,</div><div class="line">    Switch,</div><div class="line">    TabBarIOS,</div><div class="line">    TextInput,</div><div class="line">    ToolbarAndroid,</div><div class="line">    TouchableHighlight,</div><div class="line">    TouchableNativeFeedback,</div><div class="line">    TouchableWithoutFeedback,</div><div class="line">    View,</div><div class="line">    ViewPagerAndroid,</div><div class="line">    VirtualizedList,</div><div class="line">    WebView,</div><div class="line">    StyleSheet,</div><div class="line">    Platform,</div><div class="line">    AsyncStorage,</div><div class="line">    TouchableOpacity,</div><div class="line">    DeviceEventEmitter,</div><div class="line">    ActivityIndicator,</div><div class="line">    NativeModules,</div><div class="line">    findNodeHandle,</div><div class="line">    ActionSheetIOS,</div><div class="line">    AdSupportIOS,</div><div class="line">    Alert,</div><div class="line">    AlertIOS,</div><div class="line">    Animated,</div><div class="line">    AppRegistry,</div><div class="line">    AppState,</div><div class="line">    BackAndroid,</div><div class="line">    CameraRoll,</div><div class="line">    Clipboard,</div><div class="line">    DatePickerAndroid,</div><div class="line">    Dimensions,</div><div class="line">    Easing,</div><div class="line">    Geolocation,</div><div class="line">    ImageEditor,</div><div class="line">    ImagePickerIOS,</div><div class="line">    ImageStore,</div><div class="line">    InteractionManager,</div><div class="line">    Keyboard,</div><div class="line">    LayoutAnimation,</div><div class="line">    Linking,</div><div class="line">    NativeMethodsMixin,</div><div class="line">    NetInfo,</div><div class="line">    PanResponder,</div><div class="line">    PermissionsAndroid,</div><div class="line">    PixelRatio,</div><div class="line">    PushNotificationIOS,</div><div class="line">    Share,</div><div class="line">    Systrace,</div><div class="line">    TimePickerAndroid,</div><div class="line">    ToastAndroid,</div><div class="line">    Vibration,</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">import Text from &apos;./BaseText.js&apos;</div><div class="line"></div><div class="line">class BaseComponent extends React.Component &#123;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        return (</div><div class="line">            &lt;View&gt;</div><div class="line"></div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">export default  BaseComponent;</div><div class="line"></div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">    //自定义的组件</div><div class="line">    BaseComponent,</div><div class="line">    Text,</div><div class="line">    //使用系统的组件</div><div class="line">    Button,</div><div class="line">    DatePickerIOS,</div><div class="line">    DrawerLayoutAndroid,</div><div class="line">    FlatList,</div><div class="line">    Image,</div><div class="line">    KeyboardAvoidingView,</div><div class="line">    ListView,</div><div class="line">    Modal,</div><div class="line">    Navigator,</div><div class="line">    NavigatorIOS,</div><div class="line">    Picker,</div><div class="line">    PickerIOS,</div><div class="line">    ProgressBarAndroid,</div><div class="line">    ProgressViewIOS,</div><div class="line">    RefreshControl,</div><div class="line">    ScrollView,</div><div class="line">    SectionList,</div><div class="line">    SegmentedControlIOS,</div><div class="line">    Slider,</div><div class="line">    StatusBar,</div><div class="line">    Switch,</div><div class="line">    TabBarIOS,</div><div class="line">    TextInput,</div><div class="line">    ToolbarAndroid,</div><div class="line">    TouchableHighlight,</div><div class="line">    TouchableNativeFeedback,</div><div class="line">    TouchableWithoutFeedback,</div><div class="line">    View,</div><div class="line">    ViewPagerAndroid,</div><div class="line">    VirtualizedList,</div><div class="line">    WebView,</div><div class="line">    Platform,</div><div class="line">    AsyncStorage,</div><div class="line">    TouchableOpacity,</div><div class="line">    DeviceEventEmitter,</div><div class="line">    ActivityIndicator,</div><div class="line">    NativeModules,</div><div class="line">    findNodeHandle,</div><div class="line">    ActionSheetIOS,</div><div class="line">    AdSupportIOS,</div><div class="line">    Alert,</div><div class="line">    AlertIOS,</div><div class="line">    Animated,</div><div class="line">    AppRegistry,</div><div class="line">    AppState,</div><div class="line">    BackAndroid,</div><div class="line">    CameraRoll,</div><div class="line">    Clipboard,</div><div class="line">    DatePickerAndroid,</div><div class="line">    Dimensions,</div><div class="line">    Easing,</div><div class="line">    Geolocation,</div><div class="line">    ImageEditor,</div><div class="line">    ImagePickerIOS,</div><div class="line">    ImageStore,</div><div class="line">    InteractionManager,</div><div class="line">    Keyboard,</div><div class="line">    LayoutAnimation,</div><div class="line">    Linking,</div><div class="line">    NativeMethodsMixin,</div><div class="line">    NetInfo,</div><div class="line">    PanResponder,</div><div class="line">    PermissionsAndroid,</div><div class="line">    PixelRatio,</div><div class="line">    PushNotificationIOS,</div><div class="line">    Share,</div><div class="line">    StyleSheet,</div><div class="line">    Systrace,</div><div class="line">    TimePickerAndroid,</div><div class="line">    ToastAndroid,</div><div class="line">    Vibration,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="定制Text："><a href="#定制Text：" class="headerlink" title="定制Text："></a>定制Text：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">import React from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">    Text,</div><div class="line">    StyleSheet,</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">class BaseText extends React.Component&#123;</div><div class="line">    constructor(props)&#123;</div><div class="line">        super(props);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line"></div><div class="line">    let &#123;style,...others&#125; =this.props;</div><div class="line"></div><div class="line">    return (</div><div class="line">            &lt;Text &#123;...others&#125;</div><div class="line">                  allowFontScaling=&#123;false&#125;</div><div class="line">                  style=&#123;[styles.defaltStyle,style]&#125;</div><div class="line">            /&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">    fontSize: 12,</div><div class="line">&#125;)</div><div class="line"></div><div class="line">export default  BaseText;</div></pre></td></tr></table></figure>
+<h4 id="子类使用"><a href="#子类使用" class="headerlink" title="子类使用:"></a>子类使用:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import &#123;</div><div class="line">    Text,</div><div class="line">    BaseComponent,</div><div class="line">&#125; from &apos;../../../../../common/BaseComponent&apos;</div><div class="line"></div><div class="line">render() &#123;</div><div class="line"></div><div class="line">        return (</div><div class="line">            &lt;Text&gt;这是Text的内容&lt;/Text&gt;</div><div class="line">        )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h1><h4 id="第一期"><a href="#第一期" class="headerlink" title="第一期"></a>第一期</h4><p>首先可以先把紧迫的诸如<code>Text</code>、<code>Image</code>等待解决的bug和样式等做好，基类写好，替换诸如某个模块，如果上线之后没有问题，可以替换所有的RN页面。</p>
+<h4 id="第二期"><a href="#第二期" class="headerlink" title="第二期"></a>第二期</h4><ul>
+<li>将默认样式和诸如快捷写法等集成到基类中，提高大家书写RN代码的效率，也方便以后更换等。</li>
+<li>考虑一些AOP的使用，比如打点，统计等。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/React-Native/" rel="tag"># React-Native</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../18/android-RN-bigImage/" rel="next" title="Android上的RN不能展示尺寸大的图，怎么办？">
+                <i class="fa fa-chevron-left"></i> Android上的RN不能展示尺寸大的图，怎么办？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="../../../../images/avatar.png"
+               alt="njafei" />
+          <p class="site-author-name" itemprop="name">njafei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="https://njafei.github.io/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="../../../../categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="../../../../tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="../../../../atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决思路"><span class="nav-number">2.</span> <span class="nav-text">解决思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#风险控制问题"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">风险控制问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提高开发效率"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">提高开发效率</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方案"><span class="nav-number">3.</span> <span class="nav-text">方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#包含控件"><span class="nav-number">4.</span> <span class="nav-text">包含控件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Text"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">Text</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Image"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">Image</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#好处"><span class="nav-number">5.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缺点"><span class="nav-number">6.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#待确定的问题"><span class="nav-number">7.</span> <span class="nav-text">待确定的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">8.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Base-Component"><span class="nav-number">8.0.0.1.</span> <span class="nav-text">Base Component</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定制Text："><span class="nav-number">8.0.0.2.</span> <span class="nav-text">定制Text：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子类使用"><span class="nav-number">8.0.0.3.</span> <span class="nav-text">子类使用:</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计划"><span class="nav-number">9.</span> <span class="nav-text">计划</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一期"><span class="nav-number">9.0.0.1.</span> <span class="nav-text">第一期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二期"><span class="nav-number">9.0.0.2.</span> <span class="nav-text">第二期</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">njafei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
