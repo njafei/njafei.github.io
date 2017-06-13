@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-05-26T03:27:52.000Z</updated>
+  <updated>2017-06-13T05:23:02.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,71 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>block</title>
+    <link href="https://github.com/njafei/njafei.github.io/2017/06/13/block/"/>
+    <id>https://github.com/njafei/njafei.github.io/2017/06/13/block/</id>
+    <published>2017-06-13T05:20:58.000Z</published>
+    <updated>2017-06-13T05:23:02.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>其实使用<code>block</code>的时间也蛮久了，比如使用<code>__block</code>,<code>weak</code>防止循环引用，<code>copy</code>修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。</p>
+<h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><p>苹果在介绍<code>block</code>的使用场景时，是这么说的：</p>
+<blockquote>
+<p>You use a block when you want to create units of work (that is, code segments) that can be passed around as though they are values. Blocks offer more flexible programming and more power. </p>
+</blockquote>
+<p>当你想要做一连串的工作时（代码片段），block可以被当成值来传递，从而使程序更加灵活、易用。</p>
+<p>我觉得，这个类似于<code>JS</code>的<code>callback</code>，这样写看起来比较直观，不像代理，满天飞，易读性不好。</p>
+<h1 id="声明和使用"><a href="#声明和使用" class="headerlink" title="声明和使用"></a>声明和使用</h1><p>正常使用<code>block</code>类似于这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int multiplier = 7;</div><div class="line">int (^myBlock)(int) = ^(int num) &#123;</div><div class="line">    return num * multiplier;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>以前其实我自己在写block的时候，很容易迷糊，因为格式容易记不住，但是看了下面的图，仔细了解下它的结构，以后就好记了</p>
+<p><img src="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Art/blocks.jpg" alt=""></p>
+<p>首先是它的返回值，然后是它的name，接着是参数的类型，声明和实现结构是一样的，只是实现里面会多形参。</p>
+<p>看下如何使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">int multiplier = 7;</div><div class="line">int (^myBlock)(int) = ^(int num) &#123;</div><div class="line">    return num * multiplier;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">printf(&quot;%d&quot;, myBlock(3));</div><div class="line">// prints &quot;21&quot;</div></pre></td></tr></table></figure>
+<p>在苹果提供<code>block</code>之后，它提供了大量的<code>block</code>的函数用法， 比较多的应该就是数据等的遍历。我们自己在写代码的时候，通常数据请求、alert等也都会封装成<code>block</code>的形式，因为真的是易读性比较好。</p>
+<h1 id="block和变量"><a href="#block和变量" class="headerlink" title="block和变量"></a>block和变量</h1><p>在<code>block</code>中，是可以直接引用外部的变量的，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int a = 0;</div><div class="line">block(a);</div></pre></td></tr></table></figure>
+<p>但是不能直接修改外部的变量，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int a = 0;</div><div class="line">block = ^(int a)&#123;</div><div class="line">	a = 5;//error</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="block"><a href="#block" class="headerlink" title="block"></a>block</h4><p>如果你想要在<code>block</code>中改变外部变量的值的话，需要使用<code>__block</code>来修饰，为什么这个关键词可以呢？我们来看下苹果的解释</p>
+<blockquote>
+<p>__block variables live in storage that is shared between the lexical scope of the variable and all blocks and block copies declared or created within the variable’s lexical scope. Thus, the storage will survive the destruction of the stack frame if any copies of the blocks declared within the frame survive beyond the end of the frame (for example, by being enqueued somewhere for later execution). Multiple blocks in a given lexical scope can simultaneously use a shared variable.</p>
+<p>As an optimization, block storage starts out on the stack—just like blocks themselves do. If the block is copied using Block_copy (or in Objective-C when the block is sent a copy), variables are copied to the heap. Thus, the address of a __block variable can change over time.</p>
+<p>There are two further restrictions on __block variables: they cannot be variable length arrays, and cannot be structures that contain C99 variable-length arrays.</p>
+</blockquote>
+<p><code>__block</code>会把变量放到<code>block</code>等的存在的内存中，这样在<code>block</code>存在期间，可以直接修改变量，不同的<code>block</code>都使用这个共享的变量。</p>
+<p><code>block</code>默认是存在栈中的，但是如果<code>block</code>被拷贝，则会放到堆中</p>
+<p><code>__block</code>有两个注意点，不能是可变化长度的数据，也不能是<a href="https://en.wikipedia.org/wiki/Variable-length_array" target="_blank" rel="external">C99标准可变长度的数组</a></p>
+<h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><ol>
+<li>为什么要用copy</li>
+<li>为什么要避免循环引用，如何避免</li>
+<li>避免两个错误模式</li>
+</ol>
+<h4 id="为什么要用copy"><a href="#为什么要用copy" class="headerlink" title="为什么要用copy"></a>为什么要用copy</h4><p>如上面所述，<code>block</code>默认是存在栈中的，但是如果<code>block</code>被拷贝，则会放到堆中，所以即使你使用strong，其实系统也是会copy一份的，用copy是为了让自己知道，这个<code>block</code>在使用中是会被copy一份的。那么，为什么呢？这因为如果<code>block</code>在栈中，则他的作用域就是栈中所在的作用域，如果在作用域外调用栈的内容，则会崩溃，所以要用copy。当然，用strong也不会有任何问题，但是copy更能让我们使用的时候，知道使用的原因。</p>
+<h4 id="循环引用，如何避免"><a href="#循环引用，如何避免" class="headerlink" title="循环引用，如何避免"></a>循环引用，如何避免</h4><p>先看下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">self.printBlock = ^(block)(NSString *) = ^(NSString *name)&#123;</div><div class="line">	[self print: name];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里，self会对block强引用，而block中，又会对self强引用，所以系统在回收内存的时候，这两个对象都没有办法回收内存，就造成了内存的泄露了。</p>
+<p>怎么避免呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">__weak typeof(self) weakself = self</div><div class="line">self.printBlock = ^(block)(NSString *) = ^(NSString *name)&#123;</div><div class="line">	__strong __typeof(self) strongSelf = weakSelf;//里面使用strong，防止执行block的时候 self被销毁</div><div class="line">	[weakself print: name];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="避免两个错误模式"><a href="#避免两个错误模式" class="headerlink" title="避免两个错误模式"></a>避免两个错误模式</h4><p>苹果在文档中，特意提了两个错误的模式，让大家不要使用，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">void dontDoThis() &#123;</div><div class="line">    void (^blockArray[3])(void);  // an array of 3 block references</div><div class="line"> </div><div class="line">    for (int i = 0; i &lt; 3; ++i) &#123;</div><div class="line">        blockArray[i] = ^&#123; printf(&quot;hello, %d\n&quot;, i); &#125;;</div><div class="line">        // WRONG: The block literal scope is the &quot;for&quot; loop.</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void dontDoThisEither() &#123;</div><div class="line">    void (^block)(void);</div><div class="line"> </div><div class="line">    int i = random():</div><div class="line">    if (i &gt; 1000) &#123;</div><div class="line">        block = ^&#123; printf(&quot;got i at: %d\n&quot;, i); &#125;;</div><div class="line">        // WRONG: The block literal scope is the &quot;then&quot; clause.</div><div class="line">    &#125;</div><div class="line">    // ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这两个用法本身是可以执行的，但是效率太差。本来block是内联的，所以应该先定义，再使用，而不是上文的用法，每次都重新定义一个。</p>
+<p>PS： 内联函数的效率非常高，可以理解为内联是之前把代码片段嵌入到使用的地方，而非内联的函数就是要调用函数了</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;其实使用&lt;code&gt;block&lt;/code&gt;的时间也蛮久了，比如使用&lt;code&gt;__block&lt;/code&gt;,&lt;code&gt;weak&lt;/code&gt;防止循环引用，&lt;code&gt;copy&lt;/code&gt;修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方
+    
+    </summary>
+    
+      <category term="iOS基础" scheme="https://github.com/njafei/njafei.github.io/categories/iOS%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
+    
+  </entry>
   
   <entry>
     <title>os.system如何传参</title>
