@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-06-13T05:23:02.000Z</updated>
+  <updated>2017-06-13T05:26:13.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/njafei/njafei.github.io/2017/06/13/block/"/>
     <id>https://github.com/njafei/njafei.github.io/2017/06/13/block/</id>
     <published>2017-06-13T05:20:58.000Z</published>
-    <updated>2017-06-13T05:23:02.000Z</updated>
+    <updated>2017-06-13T05:26:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>其实使用<code>block</code>的时间也蛮久了，比如使用<code>__block</code>,<code>weak</code>防止循环引用，<code>copy</code>修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。</p>
 <h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><p>苹果在介绍<code>block</code>的使用场景时，是这么说的：</p>
@@ -41,7 +41,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int a = 0;</div><div class="line">block(a);</div></pre></td></tr></table></figure>
 <p>但是不能直接修改外部的变量，比如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int a = 0;</div><div class="line">block = ^(int a)&#123;</div><div class="line">	a = 5;//error</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="block"><a href="#block" class="headerlink" title="block"></a>block</h4><p>如果你想要在<code>block</code>中改变外部变量的值的话，需要使用<code>__block</code>来修饰，为什么这个关键词可以呢？我们来看下苹果的解释</p>
+<h4 id="block"><a href="#block" class="headerlink" title="__block"></a>__block</h4><p>如果你想要在<code>block</code>中改变外部变量的值的话，需要使用<code>__block</code>来修饰，为什么这个关键词可以呢？我们来看下苹果的解释</p>
 <blockquote>
 <p>__block variables live in storage that is shared between the lexical scope of the variable and all blocks and block copies declared or created within the variable’s lexical scope. Thus, the storage will survive the destruction of the stack frame if any copies of the blocks declared within the frame survive beyond the end of the frame (for example, by being enqueued somewhere for later execution). Multiple blocks in a given lexical scope can simultaneously use a shared variable.</p>
 <p>As an optimization, block storage starts out on the stack—just like blocks themselves do. If the block is copied using Block_copy (or in Objective-C when the block is sent a copy), variables are copied to the heap. Thus, the address of a __block variable can change over time.</p>
@@ -55,7 +55,7 @@
 <li>为什么要避免循环引用，如何避免</li>
 <li>避免两个错误模式</li>
 </ol>
-<h4 id="为什么要用copy"><a href="#为什么要用copy" class="headerlink" title="为什么要用copy"></a>为什么要用copy</h4><p>如上面所述，<code>block</code>默认是存在栈中的，但是如果<code>block</code>被拷贝，则会放到堆中，所以即使你使用strong，其实系统也是会copy一份的，用copy是为了让自己知道，这个<code>block</code>在使用中是会被copy一份的。那么，为什么呢？这因为如果<code>block</code>在栈中，则他的作用域就是栈中所在的作用域，如果在作用域外调用栈的内容，则会崩溃，所以要用copy。当然，用strong也不会有任何问题，但是copy更能让我们使用的时候，知道使用的原因。</p>
+<h4 id="为什么要用copy"><a href="#为什么要用copy" class="headerlink" title="为什么要用copy"></a>为什么要用copy</h4><p>如上面所述，<code>block</code>默认是存在栈中的，但是如果<code>block</code>被拷贝，则会放到堆中，所以即使你使用strong，其实系统也是会copy一份的，用copy是为了让自己知道，这个<code>block</code>在使用中是会被copy一份的。那么，为什么呢？这因为如果<code>block</code>在栈中，则他的作用域就是栈中所在的作用域，如果在作用域外调用栈的内容，则会崩溃，所以要用copy，就会将其复制到堆中，调用就不会出现问题。当然，用strong也不会有任何问题，但是copy更能让我们使用的时候，知道使用的原因。</p>
 <h4 id="循环引用，如何避免"><a href="#循环引用，如何避免" class="headerlink" title="循环引用，如何避免"></a>循环引用，如何避免</h4><p>先看下代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">self.printBlock = ^(block)(NSString *) = ^(NSString *name)&#123;</div><div class="line">	[self print: name];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在这里，self会对block强引用，而block中，又会对self强引用，所以系统在回收内存的时候，这两个对象都没有办法回收内存，就造成了内存的泄露了。</p>
