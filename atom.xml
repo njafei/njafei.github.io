@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-06-13T05:26:13.000Z</updated>
+  <updated>2017-06-14T03:13:36.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Error RawText ** must be wrapped in an explicit &lt;Text&gt; component 问题解决</title>
+    <link href="https://github.com/njafei/njafei.github.io/2017/06/14/stringToBoolError/"/>
+    <id>https://github.com/njafei/njafei.github.io/2017/06/14/stringToBoolError/</id>
+    <published>2017-06-14T03:05:55.000Z</published>
+    <updated>2017-06-14T03:13:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天忽然遇到一个页面崩溃，查到错误如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error: RawText &quot;&quot; must be wrapped in an explicit &lt;Text&gt; component.</div></pre></td></tr></table></figure>
+<p>查了代码，发现好久都没有动这块的代码了，所以非常疑惑。最后通过2分法不停地查哪里出了问题，最终查到了这个语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">return (</div><div class="line">    &lt;View&gt;</div><div class="line">        &#123;test &amp;&amp; test.string &amp;&amp;</div><div class="line">        &lt;Text&gt;&#123;test.string&#125;&lt;/Text&gt;</div><div class="line">        &#125;</div><div class="line">    &lt;/View&gt;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>其实作用很简单，如果string有值，则展示string。但是这条语句为什么会报错呢？查了半天，发现是因为string的值是’’,然后系统就报错了，类似这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let test = &#123;string: &apos;&apos;&#125;;</div><div class="line">return (</div><div class="line">    &lt;View&gt;</div><div class="line">        &#123;test &amp;&amp; test.string &amp;&amp;</div><div class="line">        &lt;Text&gt;&#123;test.string&#125;&lt;/Text&gt;</div><div class="line">        &#125;</div><div class="line">    &lt;/View&gt;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>后来查了下github，发现很多人也遇到了类似的错误，解决办法如下,使用!!来判断string是否有值，因为这里其实你是希望将<code>string</code>当成<code>bool</code>来使用的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let test = &#123;string: &apos;&apos;&#125;;</div><div class="line">return (</div><div class="line">    &lt;View&gt;</div><div class="line">        &#123;test &amp;&amp; test.string &amp;&amp;</div><div class="line">        &lt;Text&gt;&#123;test.string&#125;&lt;/Text&gt;</div><div class="line">        &#125;</div><div class="line">    &lt;/View&gt;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>所以以后string的判断，都用!!去判断，否则出现string恰好为’’的时候，就会崩溃。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天忽然遇到一个页面崩溃，查到错误如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class
+    
+    </summary>
+    
+      <category term="bugFix" scheme="https://github.com/njafei/njafei.github.io/categories/bugFix/"/>
+    
+    
+      <category term="React-Native" scheme="https://github.com/njafei/njafei.github.io/tags/React-Native/"/>
+    
+      <category term="奇怪的bug" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%A5%87%E6%80%AA%E7%9A%84bug/"/>
+    
+  </entry>
   
   <entry>
     <title>block</title>
@@ -1398,31 +1432,6 @@
       <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
     
       <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>github pages + hexo 原理探究</title>
-    <link href="https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/"/>
-    <id>https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/</id>
-    <published>2017-03-18T13:07:15.000Z</published>
-    <updated>2017-03-28T08:29:14.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。<br>搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages的流程到底是如何展开的。</p>
-<h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>先说下<a href="https://pages.github.com/" target="_blank" rel="external">github pages</a>,github pages 是github提供给用户用来展示个人或者项目主页的静态网页系统。每个用户都可以使用自己的github项目创建，上传静态页面的html文件，github会帮你自动更新你的页面。</p>
-<p><a href="https://hexo.io/zh-cn/" target="_blank" rel="external">hexo</a>是一个用来生成静态界面的框架，使用hexo，你就可以直接使用mark down 来写文章，而不用关心前端样式的展现。</p>
-<h2 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h2><p>我们来看下流程图：<br><img src="http://on0hv7n2x.bkt.clouddn.com/github%20pages%20%E6%95%B0%E6%8D%AE%E6%B5%81.png" alt="数据流程图"></p>
-<p>这样看就很简单了，我们本地使用markDown语法写好文件，然后执行hexo或者其他静态网页生成工具，生成好静态文件，然后使用hexo等工具的发布功能，就会使用ssh来更新github项目的文件，即生成一个新的commit然后push。github检测到这个项目更新，就会更新你的网站的内容（会有缓存）。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;缘起&quot;&gt;&lt;a href=&quot;#缘起&quot; class=&quot;headerlink&quot; title=&quot;缘起&quot;&gt;&lt;/a&gt;缘起&lt;/h2&gt;&lt;p&gt;利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。&lt;b
-    
-    </summary>
-    
-      <category term="闲来研究" scheme="https://github.com/njafei/njafei.github.io/categories/%E9%97%B2%E6%9D%A5%E7%A0%94%E7%A9%B6/"/>
-    
     
   </entry>
   
