@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-06-15T10:06:05.000Z</updated>
+  <updated>2017-06-15T10:08:46.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>iOS面试题-如何访问和修改一个对象的私有属性</title>
+    <title>如何访问和修改一个对象的私有属性</title>
     <link href="https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/"/>
     <id>https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/</id>
     <published>2017-06-15T10:03:36.000Z</published>
-    <updated>2017-06-15T10:06:05.000Z</updated>
+    <updated>2017-06-15T10:08:46.000Z</updated>
     
     <content type="html"><![CDATA[<p>有两个思路：</p>
 <ul>
