@@ -104,7 +104,7 @@
 1Error: RawText &amp;quot;&amp;quot; must be wrapped in an explicit &amp;lt;Text&amp;gt; component.
 查了代码，发现好久都没有动这块的代码了，所以非常疑惑。最后通过2分法不停地查哪里出了问题，最终查到了这个语句：
 1234567return (    &amp;lt;View&amp;gt;">
-<meta property="og:updated_time" content="2017-06-14T03:15:38.000Z">
+<meta property="og:updated_time" content="2017-06-16T03:28:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Error RawText ** must be wrapped in an explicit <Text> component 问题解决">
 <meta name="twitter:description" content="今天忽然遇到一个页面崩溃，查到错误如下：
@@ -376,7 +376,7 @@
 <p>其实作用很简单，如果string有值，则展示string。但是这条语句为什么会报错呢？查了半天，发现是因为string的值是’’,然后系统就报错了，类似这样：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let test = &#123;string: &apos;&apos;&#125;;</div><div class="line">return (</div><div class="line">    &lt;View&gt;</div><div class="line">        &#123;test &amp;&amp; test.string &amp;&amp;</div><div class="line">        &lt;Text&gt;&#123;test.string&#125;&lt;/Text&gt;</div><div class="line">        &#125;</div><div class="line">    &lt;/View&gt;</div><div class="line">)</div></pre></td></tr></table></figure>
 <p>后来查了下github，发现很多人也遇到了类似的错误，解决办法如下,使用!!来判断string是否有值，因为这里其实你是希望将<code>string</code>当成<code>bool</code>来使用的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let test = &#123;string: &apos;&apos;&#125;;</div><div class="line">return (</div><div class="line">    &lt;View&gt;</div><div class="line">        &#123;test &amp;&amp; test.string &amp;&amp;</div><div class="line">        &lt;Text&gt;&#123;test.string&#125;&lt;/Text&gt;</div><div class="line">        &#125;</div><div class="line">    &lt;/View&gt;</div><div class="line">)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let test = &#123;string: &apos;&apos;&#125;;</div><div class="line">return (</div><div class="line">    &lt;View&gt;</div><div class="line">        &#123;test &amp;&amp; !!test.string &amp;&amp;</div><div class="line">        &lt;Text&gt;&#123;test.string&#125;&lt;/Text&gt;</div><div class="line">        &#125;</div><div class="line">    &lt;/View&gt;</div><div class="line">)</div></pre></td></tr></table></figure>
 <p>所以以后string的判断，都用!!去判断，否则出现string恰好为’’的时候，就会崩溃。</p>
 <p>参考文章：</p>
 <ul>
