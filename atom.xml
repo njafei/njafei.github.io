@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2017-07-26T11:31:22.000Z</updated>
+  <updated>2017-07-27T07:51:23.000Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>react-native time定时器 防止内存泄露的注意点</title>
+    <link href="https://github.com/njafei/njafei.github.io/2017/07/27/react-native-time-attations/"/>
+    <id>https://github.com/njafei/njafei.github.io/2017/07/27/react-native-time-attations/</id>
+    <published>2017-07-27T07:50:21.000Z</published>
+    <updated>2017-07-27T07:51:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><code>time</code>是<code>react-native</code>提供的一个定时器，在实际使用中，经常会有使用不对，造成内存泄露的情况。很多<code>React Native</code>应用发生致命错误（闪退）是与计时器有关。具体来说，是在某个组件被卸载<code>（unmount）</code>之后，计时器却仍然在运行。</p>
+<p>防止出问题的办法也很简单，在<code>unmount</code>的时候，增加卸载定时器的操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">componentDidMount() &#123;</div><div class="line">    this.timer = setTimeout(</div><div class="line">      () =&gt; &#123; console.log(&apos;把一个定时器的引用挂在this上&apos;); &#125;,</div><div class="line">      500</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">componentWillUnmount() &#123;</div><div class="line">    // 请注意Un&quot;m&quot;ount的m是小写</div><div class="line">    // 如果存在this.timer，则使用clearTimeout清空。</div><div class="line">    // 如果你使用多个timer，那么用多个变量，或者用个数组来保存引用，然后逐个clear</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>这里的timer是在<code>DidMount</code>中赋值的，如果是多次赋值呢？比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">export default class test extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click5000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,5000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click2000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,2000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;clean timer&apos;&#125; onPress=&#123;this.cleanTimer.bind(this)&#125; /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  alertInfo(time)&#123;</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  cleanTimer()&#123;</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">    console.log(&apos;timer cleared&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;test&apos;, () =&gt; test);</div></pre></td></tr></table></figure>
+<p>这里要介绍下<code>setTimeout</code>的返回值，我们打断点可以看到，<code>this.timer</code>是一个number。根据stack上面的其他网友的回答<a href="https://stackoverflow.com/questions/10068981/what-does-settimeout-return" target="_blank" rel="external">what-does-settimeout-return</a>，setTimer会返回一个id，代表你已经向js的runtime系统中成功注册了一个定时器任务，这个id就是系统返回的id。</p>
+<p>那如果是需要多次赋值，就一定要先将time clear掉，然后再赋值，或者使用多个参数来标志，否则之后就找不到上次的id，也就没办法clear了，同样可能造成内存泄露的情况。</p>
+<p>例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Sample React Native App</div><div class="line"> * https://github.com/facebook/react-native</div><div class="line"> * @flow</div><div class="line"> */</div><div class="line"></div><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">  AppRegistry,</div><div class="line">  StyleSheet,</div><div class="line">  Text,</div><div class="line">  View,</div><div class="line">  Button</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class test extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click5000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,5000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click2000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,2000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;clean timer&apos;&#125; onPress=&#123;this.cleanTimer.bind(this)&#125; /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  alertInfo(time)&#123;</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  cleanTimer()&#123;</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">    console.log(&apos;timer cleared&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">  container: &#123;</div><div class="line">    flex: 1,</div><div class="line">    justifyContent: &apos;center&apos;,</div><div class="line">    alignItems: &apos;center&apos;,</div><div class="line">    backgroundColor: &apos;#F5FCFF&apos;,</div><div class="line">  &#125;,</div><div class="line">  welcome: &#123;</div><div class="line">    fontSize: 20,</div><div class="line">    textAlign: &apos;center&apos;,</div><div class="line">    margin: 10,</div><div class="line">  &#125;,</div><div class="line">  instructions: &#123;</div><div class="line">    textAlign: &apos;center&apos;,</div><div class="line">    color: &apos;#333333&apos;,</div><div class="line">    marginBottom: 5,</div><div class="line">  &#125;,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;test&apos;, () =&gt; test);</div></pre></td></tr></table></figure>
+<p>这里的timer多次赋值，虽然前面的值被后面的覆盖，但是前面的time仍然会起效果，如果不想前面的time work，需要clear掉，然后再赋值。</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">alertInfo(time)&#123;</div><div class="line">		this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>综上，使用time的注意点：</p>
+<ol>
+<li>记得unmount的时候，clear</li>
+<li>多个timer要使用多个变量或者数组</li>
+<li>多次赋值，记得把之前的值clear掉</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;time&lt;/code&gt;是&lt;code&gt;react-native&lt;/code&gt;提供的一个定时器，在实际使用中，经常会有使用不对，造成内存泄露的情况。很多&lt;code&gt;React Native&lt;/code&gt;应用发生致命错误（闪退）是与计时器有关。具体来说，是在某个组件被
+    
+    </summary>
+    
+      <category term="react-native" scheme="https://github.com/njafei/njafei.github.io/categories/react-native/"/>
+    
+    
+      <category term="react-native" scheme="https://github.com/njafei/njafei.github.io/tags/react-native/"/>
+    
+      <category term="注意事项" scheme="https://github.com/njafei/njafei.github.io/tags/%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
+    
+  </entry>
   
   <entry>
     <title>listView和FlatList的flexGrow默认值为1</title>
@@ -993,9 +1035,9 @@
       <category term="数据库" scheme="https://github.com/njafei/njafei.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="python" scheme="https://github.com/njafei/njafei.github.io/tags/python/"/>
-    
       <category term="sqlite" scheme="https://github.com/njafei/njafei.github.io/tags/sqlite/"/>
+    
+      <category term="python" scheme="https://github.com/njafei/njafei.github.io/tags/python/"/>
     
   </entry>
   
@@ -1390,48 +1432,6 @@
     
     
       <category term="React-Native" scheme="https://github.com/njafei/njafei.github.io/tags/React-Native/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS 响应链 Responder Chain</title>
-    <link href="https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/"/>
-    <id>https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/</id>
-    <published>2017-03-29T07:12:33.000Z</published>
-    <updated>2017-03-29T09:21:07.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h1><p>iOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是<code>Event</code>。<br><img src="http://on0hv7n2x.bkt.clouddn.com/UIEvent_Type.png" alt="UIEvent category"></p>
-<h1 id="Responder"><a href="#Responder" class="headerlink" title="Responder"></a>Responder</h1><p>有了<code>Event</code>之后，系统需要找到能够处理这个<code>event</code>的对象，而能够处理event的对象，就是<code>UIResponder</code>.我们常用的<code>UIApplication</code>、<code>UIView</code>、<code>UIViewController</code>，其实都是<code>UIResponder</code>的实例。<code>UIResponder</code>为了要处理特定的事件，要实现<code>corresponding</code>方法。比如touch事件，那么<code>Responder</code>就要实现<code>touchesBegan：withEvent</code>,<code>touchedMoved:withEvent:</code>等方法。</p>
-<p><img src="http://on0hv7n2x.bkt.clouddn.com/UIResponder.png" alt="UIResponder"></p>
-<h1 id="Responder-Chain"><a href="#Responder-Chain" class="headerlink" title="Responder Chain"></a>Responder Chain</h1><p>如果有当前的界面有多个Responder的时候，到底是谁来响应呢？这里其实是根据特定的一个顺序，依次寻找响应的对象，这个就叫响应链（<code>Responder Chain</code>）机制了。在<code>Responder Chain</code>中，系统首先<code>UIkit</code>会按照一定的规则（下节会讲到）来找到当前的<code>first responder</code>，通常是事件发生的<code>view</code>，我们叫做<code>initial view</code>,然后根据这个view是否有处理的能力（比如touch事件就是看是否实现了上述的<code>touchesBegan：withEvent</code>等方法），如果当前的<code>responder</code>无法处理该事件，那么会响应链的顺序来查找下个响应者，通常的顺序是： view -&gt; super view -&gt; viewController -&gt; window -&gt; UIApplicaiton，如下图：<br><img src="http://on0hv7n2x.bkt.clouddn.com/ResponderChain.png" alt="ResponderChain"></p>
-<p>如果到了响应链的最后一个节点，还是没有找到响应者，那么系统就会抛弃这条event。</p>
-<h1 id="Hit-Test-View，Hit-Testing"><a href="#Hit-Test-View，Hit-Testing" class="headerlink" title="Hit-Test View，Hit-Testing"></a>Hit-Test View，Hit-Testing</h1><p>那么系统是如何找到<code>first responder</code>的呢？答：使用<code>Hit-Testing</code>。<br>当触摸事件发生时，iOS会使用<code>Hit-Testing</code>超找当前事件所在的<code>view</code>，它会从<code>UIApplication</code>开始，依次往下寻找事件发生的<code>view</code>，直到找到这个<code>view</code>，顺序和上述的响应链，其实是相反的，我怀疑可能响应链就是在<code>Hit-Testing</code>的过程中建立的，但是没有查到相关的资料。</p>
-<p>我们看个苹果的官方列子：<br><img src="http://on0hv7n2x.bkt.clouddn.com/Hit-Testing.png" alt=""></p>
-<p>如果触摸事件发生在D中，那么系统会依次检查：</p>
-<ol>
-<li>触摸区域在A中，遍历它的所有subViews</li>
-<li>触摸区域在C中，遍历它的所有subViews</li>
-<li>触摸事件在D中</li>
-</ol>
-<p>D就是所谓的<code>Hit-Test View</code>，也是上述的响应链中的<code>first responder</code></p>
-<h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ul>
-<li><a href="https://developer.apple.com/library/content/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/event_delivery_responder_chain/event_delivery_responder_chain.html" target="_blank" rel="external">EventHandlingiPhoneOS 官方文档忽然实效了</a></li>
-<li><a href="https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Responder.html#//apple_ref/doc/uid/TP40009071-CH1-SW2" target="_blank" rel="external">Responder object</a></li>
-<li><a href="https://www.zybuluo.com/MicroCai/note/66142" target="_blank" rel="external">iOS Events and Responder Chain</a></li>
-<li><a href="http://www.jianshu.com/p/05cbcd774f45" target="_blank" rel="external">iOS中的响应链（The Responder Chain）</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Event&quot;&gt;&lt;a href=&quot;#Event&quot; class=&quot;headerlink&quot; title=&quot;Event&quot;&gt;&lt;/a&gt;Event&lt;/h1&gt;&lt;p&gt;iOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一
-    
-    </summary>
-    
-      <category term="iOS基础" scheme="https://github.com/njafei/njafei.github.io/categories/iOS%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
