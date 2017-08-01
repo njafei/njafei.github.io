@@ -1,0 +1,899 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="react-native,触摸事件," />
+
+
+
+
+
+  <link rel="alternate" href="../../../../atom.xml" title="njafei's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="我们知道，react-native封装了一系列的组件例如&amp;lt;Touchable**&amp;gt;来提供触摸事件的反馈，另外Button、Text等组件也提供了简单的点击方法来给组件快速添加触摸事件。但是这些组件都是针对某个特定的效果，因其是定制的，所以可自定义、调整的部分就会很少，至多是效果有个选项。那么，如果我们希望做复杂的效果，改怎么办呢？答案是panResopner。
+先看下panRespon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="panResponder详解及Demo">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/08/01/panResopnder/index.html">
+<meta property="og:site_name" content="njafei's blog">
+<meta property="og:description" content="我们知道，react-native封装了一系列的组件例如&amp;lt;Touchable**&amp;gt;来提供触摸事件的反馈，另外Button、Text等组件也提供了简单的点击方法来给组件快速添加触摸事件。但是这些组件都是针对某个特定的效果，因其是定制的，所以可自定义、调整的部分就会很少，至多是效果有个选项。那么，如果我们希望做复杂的效果，改怎么办呢？答案是panResopner。
+先看下panRespon">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/PanResopnderTouchChain.png">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchStartAndRelease.gif">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchNativeEventLocationXY.gif">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchPageXAndPageY.gif">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchNativeEventPageXInParentView.gif">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchGestureDxDy.gif">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchDoubleView.gif">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchDoubleViewOneCannotTouch.gif">
+<meta property="og:updated_time" content="2017-08-01T10:58:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="panResponder详解及Demo">
+<meta name="twitter:description" content="我们知道，react-native封装了一系列的组件例如&amp;lt;Touchable**&amp;gt;来提供触摸事件的反馈，另外Button、Text等组件也提供了简单的点击方法来给组件快速添加触摸事件。但是这些组件都是针对某个特定的效果，因其是定制的，所以可自定义、调整的部分就会很少，至多是效果有个选项。那么，如果我们希望做复杂的效果，改怎么办呢？答案是panResopner。
+先看下panRespon">
+<meta name="twitter:image" content="http://on0hv7n2x.bkt.clouddn.com/PanResopnderTouchChain.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/08/01/panResopnder/"/>
+
+
+
+
+
+  <title>panResponder详解及Demo | njafei's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?213e2c779faee10b12ecbe3686f09200";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">njafei's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="https://njafei.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="https://njafei.github.io/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="https://njafei.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="https://njafei.github.io/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="njafei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="njafei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">panResponder详解及Demo</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-01T18:34:44+08:00">
+                2017-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react-native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们知道，<code>react-native</code>封装了一系列的组件例如<code>&lt;Touchable**&gt;</code>来提供触摸事件的反馈，另外<code>Button</code>、<code>Text</code>等组件也提供了简单的点击方法来给组件快速添加触摸事件。但是这些组件都是针对某个特定的效果，因其是定制的，所以可自定义、调整的部分就会很少，至多是效果有个选项。那么，如果我们希望做复杂的效果，改怎么办呢？答案是<code>panResopner</code>。</p>
+<p>先看下<code>panResponder</code>的说明：</p>
+<blockquote>
+<p>它可以将多点触摸操作协调成一个手势。它使得一个单点触摸可以接受更多的触摸操作，也可以用于识别简单的多点触摸手势。<br>它提供了一个对触摸响应系统响应器的可预测的包装。对于每一个处理函数，它在原生事件之外提供了一个新的gestureState对象。</p>
+</blockquote>
+<h1 id="触摸整体流程"><a href="#触摸整体流程" class="headerlink" title="触摸整体流程"></a>触摸整体流程</h1><p>简单来说，就是它会将触摸中发生的每次事件，每次状态的转换都通过api提供出来，供开发者做深入的开发和操作。这里的状态和过程包括：</p>
+<ol>
+<li><p>要求成为响应者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">onStartShouldSetPanResponder: (evt, gestureState) =&gt; true,</div><div class="line">onStartShouldSetPanResponderCapture: (evt, gestureState) =&gt; true,</div><div class="line">onMoveShouldSetPanResponder: (evt, gestureState) =&gt; true,</div><div class="line">onMoveShouldSetPanResponderCapture: (evt, gestureState) =&gt; true,</div></pre></td></tr></table></figure>
+</li>
+<li><p>开始手势操作</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">onPanResponderGrant: (evt, gestureState) =&gt; &#123;&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>触摸点移动</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">onPanResponderMove: (evt, gestureState) =&gt; &#123;&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>用户放开了所有的触摸点，且此时视图已经成为了响应者</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">onPanResponderTerminationRequest: (evt, gestureState) =&gt; true,</div><div class="line">	onPanResponderRelease: (evt, gestureState) =&gt; &#123;&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>另一个组件已经成为了新的响应者，所以当前手势将被取消</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">onPanResponderTerminate: (evt, gestureState) =&gt; &#123;&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>返回一个布尔值，决定当前组件是否应该阻止原生组件成为JS响应者（暂只支持android）</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">onShouldBlockNativeResponder: (evt, gestureState) =&gt; &#123;</div><div class="line">		return true;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>整体的流程图是：</p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/PanResopnderTouchChain.png" alt=""></p>
+<h1 id="触摸事件参数"><a href="#触摸事件参数" class="headerlink" title="触摸事件参数"></a>触摸事件参数</h1><p>从上面的函数就可以看到，触摸事件中，基本都包含这两个参数：</p>
+<ol>
+<li><p>nativeEvent</p>
+<ul>
+<li>changedTouches - 在上一次事件之后，所有发生变化的触摸事件的数组集合（即上一次事件后，所有移动过的触摸点）<ul>
+<li>identifier - 触摸点的ID</li>
+<li>locationX - 触摸点相对于父元素的横坐标</li>
+<li>locationY - 触摸点相对于父元素的纵坐标</li>
+<li>pageX - 触摸点相对于根元素的横坐标</li>
+<li>pageY - 触摸点相对于根元素的纵坐标</li>
+<li>target - 触摸点所在的元素ID</li>
+<li>timestamp - 触摸事件的时间戳，可用于移动速度的计算</li>
+<li>touches - 当前屏幕上的所有触摸点的集合</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>gestureState</p>
+<ul>
+<li>stateID - 触摸状态的ID。在屏幕上有至少一个触摸点的情况下，这个ID会一直有效。</li>
+<li>moveX - 最近一次移动时的屏幕横坐标</li>
+<li>moveY - 最近一次移动时的屏幕纵坐标</li>
+<li>x0 - 当响应器产生时的屏幕坐标</li>
+<li>y0 - 当响应器产生时的屏幕坐标</li>
+<li>dx - 从触摸操作开始时的累计横向路程</li>
+<li>dy - 从触摸操作开始时的累计纵向路程</li>
+<li>vx - 当前的横向移动速度</li>
+<li>vy - 当前的纵向移动速度</li>
+<li>numberActiveTouches - 当前在屏幕上的有效触摸点的数量</li>
+</ul>
+</li>
+</ol>
+<p>这里先给出定义，具体的每个参数的时候，会在讲触摸move的时候一起讲</p>
+<h1 id="给组件添加触摸事件"><a href="#给组件添加触摸事件" class="headerlink" title="给组件添加触摸事件"></a>给组件添加触摸事件</h1><p>给一个组件添加触摸事件很简单，有两步：</p>
+<ol>
+<li>创建一个panResponder</li>
+<li>将panResponder的panHandles传给这个组件</li>
+</ol>
+<p>看下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">import React, &#123;PureComponent, Component&#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">    AppRegistry,</div><div class="line">    StyleSheet,</div><div class="line">    Text,</div><div class="line">    View,</div><div class="line">    PanResponder,</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class TouchStartAndRelease extends PureComponent &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            redViewBgColor: &apos;red&apos;,</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillMount()&#123;</div><div class="line">        this._panResponder = PanResponder.create(&#123;</div><div class="line">            onStartShouldSetPanResponder: (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onMoveShouldSetPanResponder:  (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderGrant: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._highlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderMove: (evt, gestureState) =&gt; &#123;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderRelease: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._unhighlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderTerminate: (evt, gestureState) =&gt; &#123;</div><div class="line">            &#125;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _unhighlight()&#123;</div><div class="line">        this.setState(&#123;redViewBgColor: &apos;red&apos;&#125;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _highlight()&#123;</div><div class="line">        this.setState(&#123;redViewBgColor: &apos;blue&apos;&#125;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                &lt;View style=&#123;[styles.redView,&#123;backgroundColor: this.state.redViewBgColor&#125;]&#125;</div><div class="line">                    &#123;...this._panResponder.panHandlers&#125;</div><div class="line">                &gt;&lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">    container: &#123;</div><div class="line">        flex: 1,</div><div class="line">    &#125;,</div><div class="line">    redView: &#123;</div><div class="line">        width: 100,</div><div class="line">        height: 100,</div><div class="line">        marginTop: 100,</div><div class="line">        marginLeft: 100,</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;TouchStartAndRelease&apos;, () =&gt; TouchStartAndRelease);</div></pre></td></tr></table></figure>
+<p><code>onPanResponderGrant</code>是当用户触摸到屏幕时，我们需要给用户一个反馈，让他知道，触摸已经起作用了。这里我们将view变蓝。</p>
+<p><code>onPanResponderRelease</code>是当用户触摸结束时，我们也要给个反馈，让用户知道触摸已经停止。这里我们将view变回红色。</p>
+<p>之前记得看过，之所以native比web的效果用起来好很多，就是因为native的每个步骤，都会给用户反馈，让用户知道，他的行为已经有回应了。这也是我们在做前端包括交互设计的时候，非常需要注意的事情，要知道，用户是很不耐烦的，你一定要给用户一个不太需要思考的交互，不要让他去想诸如：‘我碰到这个按钮了吗？’，‘这个是这样用的吗？’类似的问题。感兴趣的可以看下一本书《Don’t make me think》。</p>
+<p>效果如下：</p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchStartAndRelease.gif" alt=""></p>
+<h1 id="触摸移动"><a href="#触摸移动" class="headerlink" title="触摸移动"></a>触摸移动</h1><h2 id="nativeEvnet"><a href="#nativeEvnet" class="headerlink" title="nativeEvnet"></a>nativeEvnet</h2><h3 id="locationX-loactionY"><a href="#locationX-loactionY" class="headerlink" title="locationX loactionY"></a>locationX loactionY</h3><p>我们试着在移动的时候，让view随着手指的移动而移动。这里主要需要处理onPanResponderMove函数，先试试用<code>nativeEvent</code>的<code>locationX</code>和<code>locationY</code>来处理，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line">import React, &#123;PureComponent, Component&#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">    AppRegistry,</div><div class="line">    StyleSheet,</div><div class="line">    Text,</div><div class="line">    View,</div><div class="line">    PanResponder,</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class TouchStartAndRelease extends PureComponent &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">            marginTop: 100,</div><div class="line">            marginLeft: 100,</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillMount()&#123;</div><div class="line">        this._panResponder = PanResponder.create(&#123;</div><div class="line">            onStartShouldSetPanResponder: (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onMoveShouldSetPanResponder:  (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderGrant: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._highlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderMove: (evt, gestureState) =&gt; &#123;</div><div class="line">                console.log(`locationX : $&#123;evt.nativeEvent.locationX&#125;   locationY : $&#123;evt.nativeEvent.locationY&#125;`);</div><div class="line">                this.setState(&#123;</div><div class="line">                        marginLeft: evt.nativeEvent.locationX,</div><div class="line">                        marginTop: evt.nativeEvent.locationY,</div><div class="line">                &#125;);</div><div class="line">            &#125;,</div><div class="line">            onPanResponderRelease: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._unhighlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderTerminate: (evt, gestureState) =&gt; &#123;</div><div class="line">            &#125;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _unhighlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _highlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;blue&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                &lt;View style=&#123;[styles.redView,</div><div class="line">                    &#123;</div><div class="line">                        backgroundColor: this.state.backgroundColor,</div><div class="line">                        marginTop: this.state.marginTop,</div><div class="line">                        marginLeft: this.state.marginLeft,</div><div class="line">                    &#125;</div><div class="line">                ]&#125;</div><div class="line">                    &#123;...this._panResponder.panHandlers&#125;</div><div class="line">                &gt;&lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">    container: &#123;</div><div class="line">        flex: 1,</div><div class="line">    &#125;,</div><div class="line">    redView: &#123;</div><div class="line">        width: 100,</div><div class="line">        height: 100,</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;TouchStartAndRelease&apos;, () =&gt; TouchStartAndRelease);</div></pre></td></tr></table></figure>
+<p>在实际操作中，发现<code>locationX</code>和<code>locationY</code>的移动是非常跳跃的，和api上面的介绍并不一样。查了<code>github</code>的<code>issues</code>，发现很多人提<code>locationX</code>在<code>android</code>上面不准确或者不变的bug，但这个问题没有人提，所以我就提了一个，地址是： <a href="https://github.com/facebook/react-native/issues/15290">When I use panResponder.nativeEvent.locationX and locationY, it changes queite strange</a></p>
+<p>效果如下：<br><img src="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchNativeEventLocationXY.gif" alt=""></p>
+<h3 id="pageX-pageY"><a href="#pageX-pageY" class="headerlink" title="pageX pageY"></a>pageX pageY</h3><p>ok、根据介绍，pageX和pageY是触摸点相对于根元素的横纵坐标，其效果如何呢？ 我们将上述代码中的locationX和locationY替换为pageX和pageY.代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line">import React, &#123;PureComponent, Component&#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">    AppRegistry,</div><div class="line">    StyleSheet,</div><div class="line">    Text,</div><div class="line">    View,</div><div class="line">    PanResponder,</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class TouchStartAndRelease extends PureComponent &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">            marginTop: 100,</div><div class="line">            marginLeft: 100,</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillMount()&#123;</div><div class="line">        this._panResponder = PanResponder.create(&#123;</div><div class="line">            onStartShouldSetPanResponder: (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onMoveShouldSetPanResponder:  (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderGrant: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._highlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderMove: (evt, gestureState) =&gt; &#123;</div><div class="line">                console.log(`pageX : $&#123;evt.nativeEvent.pageX&#125;   pageY : $&#123;evt.nativeEvent.pageY&#125;`);</div><div class="line">                this.setState(&#123;</div><div class="line">                        marginLeft: evt.nativeEvent.pageX,</div><div class="line">                        marginTop: pageY,</div><div class="line">                &#125;);</div><div class="line">            &#125;,</div><div class="line">            onPanResponderRelease: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._unhighlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderTerminate: (evt, gestureState) =&gt; &#123;</div><div class="line">            &#125;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _unhighlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _highlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;blue&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                &lt;View style=&#123;[styles.redView,</div><div class="line">                    &#123;</div><div class="line">                        backgroundColor: this.state.backgroundColor,</div><div class="line">                        marginTop: this.state.marginTop,</div><div class="line">                        marginLeft: this.state.marginLeft,</div><div class="line">                    &#125;</div><div class="line">                ]&#125;</div><div class="line">                    &#123;...this._panResponder.panHandlers&#125;</div><div class="line">                &gt;&lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">    container: &#123;</div><div class="line">        flex: 1,</div><div class="line">    &#125;,</div><div class="line">    redView: &#123;</div><div class="line">        width: 100,</div><div class="line">        height: 100,</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;TouchStartAndRelease&apos;, () =&gt; TouchStartAndRelease);</div></pre></td></tr></table></figure>
+<p>reload下。看下效果：</p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchPageXAndPageY.gif" alt=""></p>
+<p>这里发现，移动开始的时候，pageX和pageY其实会有个跳跃，但是在移动的过程中，其变化比较稳定。这里打了下log，发现本来是(100,100)的View，在点击的时候，(pageX,pageY)为（176，156）,研究了下发现是因为我的触摸点相对于view其实是有距离的，所以造成了开始的跳跃。</p>
+<p>接下里，我们在这个redView的外围增加一个view,看下获得的pageX和pageY是什么，代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">export default class TouchStartAndRelease extends PureComponent &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">            marginTop: 100,</div><div class="line">            marginLeft: 100,</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillMount()&#123;</div><div class="line">        this._panResponder = PanResponder.create(&#123;</div><div class="line">            onStartShouldSetPanResponder: (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onMoveShouldSetPanResponder:  (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderGrant: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._highlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderMove: (evt, gestureState) =&gt; &#123;</div><div class="line">                console.log(`locationX : $&#123;evt.nativeEvent.pageX&#125;   locationY : $&#123;evt.nativeEvent.pageY&#125;`);</div><div class="line">                this.setState(&#123;</div><div class="line">                    marginLeft: evt.nativeEvent.pageX,</div><div class="line">                    marginTop: evt.nativeEvent.pageY,</div><div class="line">                &#125;);</div><div class="line">            &#125;,</div><div class="line">            onPanResponderRelease: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._unhighlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderTerminate: (evt, gestureState) =&gt; &#123;</div><div class="line">            &#125;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _unhighlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _highlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;blue&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                &lt;View style=&#123;&#123;height: 200,width: 200,backgroundColor:&quot;grey&quot;&#125;&#125;&gt;</div><div class="line">                    &lt;View style=&#123;[styles.redView,</div><div class="line">                        &#123;</div><div class="line">                            backgroundColor: this.state.backgroundColor,</div><div class="line">                            marginTop: this.state.marginTop,</div><div class="line">                            marginLeft: this.state.marginLeft,</div><div class="line">                        &#125;</div><div class="line">                    ]&#125;</div><div class="line">                          &#123;...this._panResponder.panHandlers&#125;</div><div class="line">                    &gt;&lt;/View&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line"></div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果：<br><img src="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchNativeEventPageXInParentView.gif" alt=""></p>
+<p>这里可以看到，pageX和pageY确实是当前的屏幕坐标，和其父view没有关系</p>
+<p>怎么解决跳跃的问题呢？ 目前从nativeEvent中的参数来看，是没办法解决的，所以我们继续看下gesture中的参数。（后面会给出解决方案）</p>
+<h2 id="gesture"><a href="#gesture" class="headerlink" title="gesture"></a>gesture</h2><h3 id="moveX-moveY"><a href="#moveX-moveY" class="headerlink" title="moveX moveY"></a>moveX moveY</h3><p>这里先看下moveX moveY，定义是最近一次移动时的屏幕横坐标和纵坐标，从定义上讲，和nativeEvent中的pageX和pageY应该是一样的，我们看下demo。</p>
+<p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">export default class TouchStartAndRelease extends PureComponent &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">            marginTop: 100,</div><div class="line">            marginLeft: 100,</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillMount()&#123;</div><div class="line">        this._panResponder = PanResponder.create(&#123;</div><div class="line">            onStartShouldSetPanResponder: (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onMoveShouldSetPanResponder:  (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderGrant: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._highlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderMove: (evt, gestureState) =&gt; &#123;</div><div class="line">                console.log(`gestureState.moveX : $&#123;gestureState.moveX&#125;   gestureState.moveY : $&#123;gestureState.moveY&#125;`);</div><div class="line">                this.setState(&#123;</div><div class="line">                    marginLeft: gestureState.moveX,</div><div class="line">                    marginTop: gestureState.moveY,</div><div class="line">                &#125;);</div><div class="line">            &#125;,</div><div class="line">            onPanResponderRelease: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._unhighlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderTerminate: (evt, gestureState) =&gt; &#123;</div><div class="line">            &#125;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _unhighlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _highlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;blue&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                    &lt;View style=&#123;[styles.redView,</div><div class="line">                        &#123;</div><div class="line">                            backgroundColor: this.state.backgroundColor,</div><div class="line">                            marginTop: this.state.marginTop,</div><div class="line">                            marginLeft: this.state.marginLeft,</div><div class="line">                        &#125;</div><div class="line">                    ]&#125;</div><div class="line">                          &#123;...this._panResponder.panHandlers&#125;</div><div class="line">                    &gt;&lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果和pageX，pageY一样，这里就不贴出来截屏了。<br>在有parentView的情况下，效果也是没有区别。</p>
+<h3 id="x0-y0"><a href="#x0-y0" class="headerlink" title="x0 y0"></a>x0 y0</h3><p>x0和y0定义写的很清楚：</p>
+<blockquote>
+<p>x0 - 当响应器产生时的屏幕坐标<br>y0 - 当响应器产生时的屏幕坐标</p>
+</blockquote>
+<p>就是当响应器产生时，即可以理解为触摸开始时，触摸的屏幕坐标。所以一旦触摸产生，x0 和 y0其实不会变了，除非这次触摸release，产生下次触摸。</p>
+<h3 id="dx-dy"><a href="#dx-dy" class="headerlink" title="dx dy"></a>dx dy</h3><blockquote>
+<p>dx - 从触摸操作开始时的累计横向路程<br>dy - 从触摸操作开始时的累计纵向路程</p>
+</blockquote>
+<p>这个定义写的也蛮清楚的，就是本次触摸的累积横向路程和纵向路程。嘿、还记得上面我们遇到的问题吗？pageX、pageY 和 moveX、moveY都会有的问题，第一次如果不是点击左上角来移动，第一会有点跳跃，因为我们不知道当前的触摸点相对于view的坐标，所以坐标会偏移一些。<br>有了dx和dy，我们就可以想办法解决这个问题了。我们只要记住上次这个view的left和top，然后set的时候，增加移动的距离，就解决了移动跳跃的问题了，先上代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line">import React, &#123;PureComponent, Component&#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">    AppRegistry,</div><div class="line">    StyleSheet,</div><div class="line">    Text,</div><div class="line">    View,</div><div class="line">    PanResponder,</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class TouchStartAndRelease extends PureComponent &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">            marginTop: 100,</div><div class="line">            marginLeft: 100,</div><div class="line">        &#125;;</div><div class="line">        this.lastX = this.state.marginLeft;</div><div class="line">        this.lastY = this.state.marginTop;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillMount()&#123;</div><div class="line">        this._panResponder = PanResponder.create(&#123;</div><div class="line">            onStartShouldSetPanResponder: (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onMoveShouldSetPanResponder:  (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderGrant: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._highlight();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderMove: (evt, gestureState) =&gt; &#123;</div><div class="line">                console.log(`gestureState.dx : $&#123;gestureState.dx&#125;   gestureState.dy : $&#123;gestureState.dy&#125;`);</div><div class="line">                this.setState(&#123;</div><div class="line">                    marginLeft: this.lastX + gestureState.dx,</div><div class="line">                    marginTop: this.lastY + gestureState.dy,</div><div class="line">                &#125;);</div><div class="line">            &#125;,</div><div class="line">            onPanResponderRelease: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._unhighlight();</div><div class="line">                this.lastX = this.state.marginLeft;</div><div class="line">                this.lastY = this.state.marginTop;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderTerminate: (evt, gestureState) =&gt; &#123;</div><div class="line">            &#125;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _unhighlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _highlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;blue&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                    &lt;View style=&#123;[styles.redView,</div><div class="line">                        &#123;</div><div class="line">                            backgroundColor: this.state.backgroundColor,</div><div class="line">                            marginTop: this.state.marginTop,</div><div class="line">                            marginLeft: this.state.marginLeft,</div><div class="line">                        &#125;</div><div class="line">                    ]&#125;</div><div class="line">                          &#123;...this._panResponder.panHandlers&#125;</div><div class="line">                    &gt;&lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">    container: &#123;</div><div class="line">        flex: 1,</div><div class="line">    &#125;,</div><div class="line">    redView: &#123;</div><div class="line">        width: 100,</div><div class="line">        height: 100,</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;TouchStartAndRelease&apos;, () =&gt; TouchStartAndRelease);</div></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchGestureDxDy.gif" alt=""></p>
+<h3 id="vx-vy"><a href="#vx-vy" class="headerlink" title="vx vy"></a>vx vy</h3><p>接下来的参数是vx和vy，这里不详细介绍，给出定义：</p>
+<blockquote>
+<p>vx - 当前的横向移动速度<br>vy - 当前的纵向移动速度</p>
+</blockquote>
+<h1 id="控制触摸是否响应"><a href="#控制触摸是否响应" class="headerlink" title="控制触摸是否响应"></a>控制触摸是否响应</h1><p>上面一直在讲move的时候的用法， 下面看下如何控制是否响应</p>
+<h2 id="onStartShouldSetPanResponder"><a href="#onStartShouldSetPanResponder" class="headerlink" title="onStartShouldSetPanResponder"></a>onStartShouldSetPanResponder</h2><p>这个很简单了，返回true，怎变成响应器，否则不会响应.但是当我真的去demo 的时候，诡异的事情发生了，<code>onStartShouldSetPanResponder</code> return false，居然view还能移动。打断点看了下，原来是因为<code>onMoveShouldSetPanResponder</code>是true，那么其移动是正常的。所以<code>onStartShouldSetPanResponder</code>只控制当触摸开始时，不会执行<code>onPanResponderGrant</code>函数。但是如果发生了move，则还是会走onPanResponderGrant函数。</p>
+<p>上面简介的时候，还有个<code>onStartShouldSetPanResponderCapture</code>没有介绍，这个我尝试了几种组合：</p>
+<table>
+<thead>
+<tr>
+<th>onStartShouldSetPanResponder</th>
+<th>onStartShouldSetPanResponderCapture</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true</td>
+<td>true</td>
+<td>work</td>
+</tr>
+<tr>
+<td>true</td>
+<td>false</td>
+<td>work</td>
+</tr>
+<tr>
+<td>false</td>
+<td>true</td>
+<td>work</td>
+</tr>
+<tr>
+<td>false</td>
+<td>false</td>
+<td>not work</td>
+</tr>
+</tbody>
+</table>
+<p>这说明，只要两者有一个true，则触摸都会进入<code>onPanResponderGrant</code>。网上搜索了下，也没有找到两者的区别。说实话，我对这里还是表示疑惑的，如果有读者知道原因，请指教。我目前怀疑是<code>react-native</code>的bug</p>
+<h2 id="onMoveShouldSetPanResponder"><a href="#onMoveShouldSetPanResponder" class="headerlink" title="onMoveShouldSetPanResponder"></a>onMoveShouldSetPanResponder</h2><p><code>onMoveShouldSetPanResponder</code> 从字面上理解，也是是否可以在移动中响应。我们先将其返回false，看下效果。居然可以移动…</p>
+<p>查了github，貌似是个bug <a href="https://github.com/facebook/react-native/issues/1046">[Touchable] How to stopPropagation touch event</a></p>
+<p>还是好多bug啊，一声叹息。。。（还是我太蠢没找到？？？）</p>
+<h1 id="多层响应"><a href="#多层响应" class="headerlink" title="多层响应"></a>多层响应</h1><p>我们先尝试，在红色区域下面加一个灰色的区域，而且实现上面的触摸移动效果：<br>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div></pre></td><td class="code"><pre><div class="line">import React, &#123;PureComponent, Component&#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">    AppRegistry,</div><div class="line">    StyleSheet,</div><div class="line">    Text,</div><div class="line">    View,</div><div class="line">    PanResponder,</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class TouchStartAndRelease extends PureComponent &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        this.state = &#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">            marginTop: 100,</div><div class="line">            marginLeft: 100,</div><div class="line">            backgroundColor1: &apos;grey&apos;,</div><div class="line">            marginTop1: 100,</div><div class="line">            marginLeft1: 100,</div><div class="line">        &#125;;</div><div class="line">        this.lastX = this.state.marginLeft;</div><div class="line">        this.lastY = this.state.marginTop;</div><div class="line">        this.lastX1 = this.state.marginLeft1;</div><div class="line">        this.lastY1 = this.state.marginTop1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillMount()&#123;</div><div class="line">        this._panResponder = PanResponder.create(&#123;</div><div class="line">            onStartShouldSetPanResponder: (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onMoveShouldSetPanResponder:  (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderGrant: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._highlight();</div><div class="line">                console.log(&apos;highlight&apos;);</div><div class="line">            &#125;,</div><div class="line">            onPanResponderMove: (evt, gestureState) =&gt; &#123;</div><div class="line">                console.log(`gestureState.dx : $&#123;gestureState.dx&#125;   gestureState.dy : $&#123;gestureState.dy&#125;`);</div><div class="line">                this.setState(&#123;</div><div class="line">                    marginLeft: this.lastX + gestureState.dx,</div><div class="line">                    marginTop: this.lastY + gestureState.dy,</div><div class="line">                &#125;);</div><div class="line">            &#125;,</div><div class="line">            onPanResponderRelease: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._unhighlight();</div><div class="line">                this.lastX = this.state.marginLeft;</div><div class="line">                this.lastY = this.state.marginTop;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderTerminate: (evt, gestureState) =&gt; &#123;</div><div class="line">            &#125;,</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        this._panResponder1 = PanResponder.create(&#123;</div><div class="line">            onStartShouldSetPanResponder: (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onMoveShouldSetPanResponder:  (evt, gestureState) =&gt; &#123;</div><div class="line">                return true;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderGrant: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._highlight1();</div><div class="line">            &#125;,</div><div class="line">            onPanResponderMove: (evt, gestureState) =&gt; &#123;</div><div class="line">                console.log(`gestureState.dx : $&#123;gestureState.dx&#125;   gestureState.dy : $&#123;gestureState.dy&#125;`);</div><div class="line">                this.setState(&#123;</div><div class="line">                    marginLeft1: this.lastX1 + gestureState.dx,</div><div class="line">                    marginTop1: this.lastY1 + gestureState.dy,</div><div class="line">                &#125;);</div><div class="line">            &#125;,</div><div class="line">            onPanResponderRelease: (evt, gestureState) =&gt; &#123;</div><div class="line">                this._unhighlight1();</div><div class="line">                this.lastX1 = this.state.marginLeft1;</div><div class="line">                this.lastY1 = this.state.marginTop1;</div><div class="line">            &#125;,</div><div class="line">            onPanResponderTerminate: (evt, gestureState) =&gt; &#123;</div><div class="line">            &#125;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _unhighlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;red&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _highlight()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor: &apos;blue&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _unhighlight1()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor1: &apos;grey&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _highlight1()&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            backgroundColor1: &apos;green&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                &lt;View style=&#123;</div><div class="line">                    [styles.greyView,</div><div class="line">                    &#123;</div><div class="line">                        backgroundColor: this.state.backgroundColor1,</div><div class="line">                        marginTop: this.state.marginTop1,</div><div class="line">                        marginLeft: this.state.marginLeft1,</div><div class="line">                    &#125;</div><div class="line">                    ]&#125;</div><div class="line">                      &#123;...this._panResponder1.panHandlers&#125;</div><div class="line">                &gt;</div><div class="line">                    &lt;View style=&#123;[styles.redView,</div><div class="line">                        &#123;</div><div class="line">                            backgroundColor: this.state.backgroundColor,</div><div class="line">                            marginTop: this.state.marginTop,</div><div class="line">                            marginLeft: this.state.marginLeft,</div><div class="line">                        &#125;</div><div class="line">                    ]&#125;</div><div class="line">                          &#123;...this._panResponder.panHandlers&#125;</div><div class="line">                    &gt;&lt;/View&gt;</div><div class="line">                &lt;/View&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">    container: &#123;</div><div class="line">        flex: 1,</div><div class="line">    &#125;,</div><div class="line">    greyView: &#123;</div><div class="line">        width: 200,</div><div class="line">        height: 200,</div><div class="line">    &#125;,</div><div class="line">    redView: &#123;</div><div class="line">        width: 100,</div><div class="line">        height: 100,</div><div class="line">    &#125;,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;TouchStartAndRelease&apos;, () =&gt; TouchStartAndRelease);</div></pre></td></tr></table></figure>
+<p>看下效果：</p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchDoubleView.gif" alt=""></p>
+<p>点击红色区域，其变蓝，然后移动开始之后，底部的灰色也会变绿，移动发现，整体移动，相当于移动下面的区域。松开手后，上面的view不变回红色，下面的view变回灰色.只有单独点上面的view，而不移动，松开后其才会转成变回红色。</p>
+<p>这是为什么呢？ 我们分别在两个view的move函数中打log，发现根本没有进入上面view的move函数。这时就要介绍下上面讲到的另一个函数了：<code>onPanResponderTerminate</code>，我们发现，移动的时候，进入了上面view的这个函数，说明它的控制权，被抢走了。rn的多层触摸事件，我理解是从底层挨个网上查询，看哪个view想要接收，一定被接收，则消息不再传递。</p>
+<p>把红色view的<code>onStartShouldSetPanResponder</code> 和 <code>onMoveShouldSetPanResponder</code>都返回false，发现点击红色区域的时候，灰色的区域也会有效果，和我们正常的理解也一样。效果如下：</p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/Demo/Touch/TouchDoubleViewOneCannotTouch.gif" alt=""></p>
+<h1 id="多点触摸"><a href="#多点触摸" class="headerlink" title="多点触摸"></a>多点触摸</h1><p>如果是多点触摸呢？这里就要通过nativeEvent里面的touches去处理。记得，当前活跃的panResponder只有一个，所以需要在一个responder里面取处理两个触摸。</p>
+<p>本篇文章到底结束，这里我们简单介绍了<code>panResponder</code>的触摸事件各个阶段的处理，以及参数的使用。还是有很多的问题，如果有新的消息，我会udpate这篇blog。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/react-native/" rel="tag"># react-native</a>
+          
+            <a href="../../../../tags/触摸事件/" rel="tag"># 触摸事件</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../../07/27/pureComponent/" rel="next" title="React-Native优化之PureComponent">
+                <i class="fa fa-chevron-left"></i> React-Native优化之PureComponent
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="../../../../images/avatar.png"
+               alt="njafei" />
+          <p class="site-author-name" itemprop="name">njafei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="https://njafei.github.io/archives">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="../../../../categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="../../../../tags/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="../../../../atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#触摸整体流程"><span class="nav-number">1.</span> <span class="nav-text">触摸整体流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#触摸事件参数"><span class="nav-number">2.</span> <span class="nav-text">触摸事件参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#给组件添加触摸事件"><span class="nav-number">3.</span> <span class="nav-text">给组件添加触摸事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#触摸移动"><span class="nav-number">4.</span> <span class="nav-text">触摸移动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nativeEvnet"><span class="nav-number">4.1.</span> <span class="nav-text">nativeEvnet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#locationX-loactionY"><span class="nav-number">4.1.1.</span> <span class="nav-text">locationX loactionY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pageX-pageY"><span class="nav-number">4.1.2.</span> <span class="nav-text">pageX pageY</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gesture"><span class="nav-number">4.2.</span> <span class="nav-text">gesture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#moveX-moveY"><span class="nav-number">4.2.1.</span> <span class="nav-text">moveX moveY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x0-y0"><span class="nav-number">4.2.2.</span> <span class="nav-text">x0 y0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dx-dy"><span class="nav-number">4.2.3.</span> <span class="nav-text">dx dy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vx-vy"><span class="nav-number">4.2.4.</span> <span class="nav-text">vx vy</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控制触摸是否响应"><span class="nav-number">5.</span> <span class="nav-text">控制触摸是否响应</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#onStartShouldSetPanResponder"><span class="nav-number">5.1.</span> <span class="nav-text">onStartShouldSetPanResponder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#onMoveShouldSetPanResponder"><span class="nav-number">5.2.</span> <span class="nav-text">onMoveShouldSetPanResponder</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多层响应"><span class="nav-number">6.</span> <span class="nav-text">多层响应</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多点触摸"><span class="nav-number">7.</span> <span class="nav-text">多点触摸</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">njafei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
