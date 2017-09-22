@@ -272,7 +272,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io2017/08/01/panResopnder/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io2017/09/22/Java-space-encode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="njafei">
@@ -291,7 +291,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="2017/08/01/panResopnder/" itemprop="url">panResponder详解及Demo</a></h1>
+                <a class="post-title-link" href="2017/09/22/Java-space-encode/" itemprop="url">Java对空格的encode格式问题</a></h1>
         
 
         <div class="post-meta">
@@ -303,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-01T18:34:44+08:00">
-                2017-08-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T16:57:41+08:00">
+                2017-09-22
               </time>
             
 
@@ -313,28 +313,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react-native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -362,12 +340,19 @@
       
         
           
-          我们知道，react-native封装了一系列的组件例如&lt;Touchable**&gt;来提供触摸事件的反馈，另外Button、Text等组件也提供了简单的点击方法来给组件快速添加触摸事件。但是这些组件都是针对某个特定的效果，因其是定制的，所以可自定义、调整的部分就会很少，至多是效果有个选项。那么，如果我们希望做复杂的效果，改怎么办呢？答案是panResopner。
-先看下panRespon
+          今天发现了一个非常奇怪的问题，服务端给了一个encode的url，内容是位“1 1”：
+encode之后是
+11+1
+前端decode之后是
+11+1
+可是在其他的浏览器等decode之后的结果是：
+11 1
+发现java的encode有个坑，在java中，encode遵循的标准是rfc1738，而在iOS中，encode遵循的标准是rfc2396，两者对于空格的encode不同
+12rfc173
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="2017/08/01/panResopnder/#more" rel="contents">
+            <a class="btn" href="2017/09/22/Java-space-encode/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
