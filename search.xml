@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[安装cocoapod中遇到openssl的问题]]></title>
-    <url>%2F2017%2F10%2F10%2FcocoapodOpenSsl%2F</url>
-    <content type="text"><![CDATA[Mac这两天升级了新的系统High sierra,发现cocoapods运行出现了问题： 1Unable to require openssl, install OpenSSL and rebuild ruby (preferred) or use non-HTTPS sources 使用homebrew，发现已经安装了openssl，但是始终报错，后来网上查了策略，如下： 123456789101112131415rvm get stablebrew updatebrew doctorbrew install opensslrvm install ruby-2.3.3 最好安装目前最新的ruby版本,目前最新的就是2.3.3rvm use ruby-2.3.3rvm gemset create jekyllgem install jekyll 安装完之后就解决了。]]></content>
-      <tags>
-        <tag>cocoapods</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[python os.system 执行shell的环境问题]]></title>
-    <url>%2F2017%2F09%2F26%2FpythonOSSyetemEnviroment%2F</url>
-    <content type="text"><![CDATA[先来个例子,有脚本如下： 12345import osos.system(&apos;cd ~/Documents/AppCode/rn&apos;)os.system(&apos;cd ~/Documents/AppCode/rn-new&apos;)os.system(&apos;open .&apos;) 请求打开的是哪个文件夹？ Documents/AppCode/rn Documents/AppCode/rn-new python执行时候所在的文件夹 答案是 ： 3 为什么呢? 因为os.system的实现是通过新开一个命令行的环境来执行的，类似我们新开一个terminal的窗口来执行，所以，多条os.system之间是互不影响的，在执行最后一个条的时候，执行的环境还是python脚本开始执行的环境。]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[ImageOptm 自动化无损优化图片]]></title>
     <url>%2F2017%2F09%2F26%2FImageOptm%2F</url>
     <content type="text"><![CDATA[iOS控制包的大小对于公司来说，是个非常重要的事情。因为苹果公司对于包的大小超过100M的，不会允许用户使用移动网络来下载，这很可能造成商业上的损失。 而在控制包的大小中，一个很重要的原则就是禁止大图片。之前研究其他公司的ipa包的时候，就出现过一个icon高达1M的事故。而平时，虽然程序员们百般小心，难免被设计师暗算给张大图（玩笑），所以靠人终究不是一个可持续的保证质量的方法。 平时用的无损压缩最多的工具是ImageOptm，它可以无损压缩图片（即用户看起来感官无变化，而图片尽可能小），而且它是提供命令行的，ImageOptm command line. 我们就可以通过Jenkins的定时任务，每天凌晨去优化所有的图片，然后再自动commit上传。 具体任务就很简单了，大概几个步骤： 1、Jenkins开个定时任务，更新代码 2、执行ImageOptm脚本 1/Applications/ImageOptim.app/Contents/MacOS/ImageOptim $WORKSPACE/ 3、上传代码]]></content>
@@ -322,20 +303,5 @@
       <categories>
         <category>闲来研究</category>
       </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[文章分类]]></title>
-    <url>%2Fcategories%2Findex.html</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
-    <title><![CDATA[tags]]></title>
-    <url>%2Ftags%2Findex.html</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>%2F%E8%8D%89%E7%A8%BF%2F%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95.html</url>
-    <content type="text"><![CDATA[微信阅读信息读取 需求领导提了一个需求，希望把我们自己破解的微信聊天记录，每天自动地读取放到电脑上面做备份。 然后android的同事给了我两个文件，是从Root的android手机里面拿到的 msg.db password 然后说可以用SQLiteManager软件来读取。 因为之前负责jenkins等自动化的相关工作，也经常做脚本等的自动化工作，领导就把事情交给我来做。 不过我一直做的iOS的前端开发，对后台、数据库等确实不熟悉，所以用这篇文章记录下中间的过程，希望能通过这次实践和blog的记录，增加对数据库的理解。 先说说这个需求，我的理解是这样子的： 所以我们要做的大概是两件事情： 如何读取db文件 如何写入到mysql 调研我们要从读SQLite和写mysql两个方面来调研下： SQLite首先从读取软件看，获取的db文件是一个SQLite的数据库文件。什么是SQLite呢？ SQLite 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的SQL数据库引擎。 简单说，SQLite就是一个数据库的标准，各种组织和公司都可以依照这个标准来创建自己的数据库。而我们从微信获取的SQLite比较特殊，是一个带加密的SQLite。而mac自带的SQLite是不能支持加密功能的，所以我们要本地成一个SQLite读取工具。这里我选择的是SQLCipher，GitHub地址：SQLCipher。 关于SQLite加密等的具体信息可以看下这篇文章：途牛原创|SQLite 加密解决方案 mysql这个很多人应该都知道，我这里给出个引用，具体的内容可以去官网看下。 Mysql是最流行的关系型数据库管理系统，在WEB应用方面MySQL是最好的RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一。 安装带加密的SQLite： sqlcipher首先现在最新的包，地址https://github.com/sqlcipher/sqlcipher/releases 下载之后，解压，执行 1./config 报错： 1configure: error: Library crypto not found. Install openssl!&quot; 原来是依赖openssl。 openssl官网地址：wiki.openssl.org 下载soucecode 1git clone git://git.openssl.org/openssl.git 现在之后进入文件夹，打开INSTALL，按照上面写的步骤执行： 1234$ ./config$ make$ make test$ make install 最后一部的时候报出错误： 1Cannot create directory /usr/local/ssl: No such file or directory 在网上搜索了下，有人人用sudo 解决了问题，尝试了下，果然可以 1$ sudo make install 时间比较长，要耐心等待下。安装结束，确认/usr/local/bin里面有libcrypto.a文件。 但是执行仍然表示找不到crypto，github上面找到了类似的问题，找到了可以执行的命令 1./configure --disable-tcl --disable-shared --enable-static=yes --enable-tempstore=yes --with-crypto-lib=none CFLAGS=&quot;-DSQLITE_HAS_CODEC -DSQLCIPHER_CRYPTO_OPENSSL&quot; LDFLAGS=&quot;/usr/local/lib/libcrypto.a&quot; 虽然没有报错，但是仍然失败了。 在这时候，救星出现了，在一篇文章中找到了这个： 1brew install sqlcipher 显示安装成功。 SQLITE加密–SQLCIPHER #安装mysql 安装包我安装的是mac版本，下载地址是：mysql-workbench-community-6.3.9-osx-x86_64.dmg 安装步骤： 双击安装 将mysql拖到Applications 安装成功 mysql workbench 文档 homebrew网上找的命令， 1brew install mysql 但是我执行的时候，一直卡在一个地方： 1==&gt; ./b2 --prefix=/usr/local/Cellar/boost/1.59.0 --libdir=/usr/local/Cellar/boos 不知道是不是网络问题，所以我最终没有始终命令行的形式。 具体的安装可以参考mac安装mysql的两种方法（含配置） 使用SQLCipher]]></content>
   </entry>
 </search>
