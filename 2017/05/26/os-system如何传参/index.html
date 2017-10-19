@@ -74,7 +74,7 @@
 <link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python," />
 
 
 
@@ -92,18 +92,25 @@
 
 
 
-<meta name="description" content="缘起利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages">
+<meta name="description" content="今天写脚本的时候，正好希望在python脚本中调用另外一个python脚本，就使用了os.system来实现这个功能（当然，还有很多的办法，而且每种方法满足的需求不都一样，有兴趣的读者可以谷歌下）。
+但是我需要给这个调用里面传入一个参数，网上查了半天，感觉都不太清晰，就写了这篇，简单介绍下。
+os.system的定义是这样的
+1os.system(&amp;quot;shell command argus">
 <meta property="og:type" content="article">
-<meta property="og:title" content="github pages + hexo 原理探究">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/index.html">
+<meta property="og:title" content="os.system如何传参">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/05/26/os-system如何传参/index.html">
 <meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="缘起利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages">
-<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/github%20pages%20%E6%95%B0%E6%8D%AE%E6%B5%81.png">
-<meta property="og:updated_time" content="2017-10-19T03:37:16.727Z">
+<meta property="og:description" content="今天写脚本的时候，正好希望在python脚本中调用另外一个python脚本，就使用了os.system来实现这个功能（当然，还有很多的办法，而且每种方法满足的需求不都一样，有兴趣的读者可以谷歌下）。
+但是我需要给这个调用里面传入一个参数，网上查了半天，感觉都不太清晰，就写了这篇，简单介绍下。
+os.system的定义是这样的
+1os.system(&amp;quot;shell command argus">
+<meta property="og:updated_time" content="2017-10-19T07:34:08.201Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="github pages + hexo 原理探究">
-<meta name="twitter:description" content="缘起利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages">
-<meta name="twitter:image" content="http://on0hv7n2x.bkt.clouddn.com/github%20pages%20%E6%95%B0%E6%8D%AE%E6%B5%81.png">
+<meta name="twitter:title" content="os.system如何传参">
+<meta name="twitter:description" content="今天写脚本的时候，正好希望在python脚本中调用另外一个python脚本，就使用了os.system来实现这个功能（当然，还有很多的办法，而且每种方法满足的需求不都一样，有兴趣的读者可以谷歌下）。
+但是我需要给这个调用里面传入一个参数，网上查了半天，感觉都不太清晰，就写了这篇，简单介绍下。
+os.system的定义是这样的
+1os.system(&amp;quot;shell command argus">
 
 
 
@@ -131,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/05/26/os-system如何传参/"/>
 
 
 
 
 
-  <title>github pages + hexo 原理探究 | njafei's blog</title>
+  <title>os.system如何传参 | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -327,7 +334,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">github pages + hexo 原理探究</h1>
+          <h1 class="post-title" itemprop="name headline">os.system如何传参</h1>
         
 
         <div class="post-meta">
@@ -339,8 +346,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-18T21:07:15+08:00">
-                2017-03-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-26T11:21:12+08:00">
+                2017-05-26
               </time>
             
 
@@ -362,8 +369,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="../../../../categories/闲来研究/" itemprop="url" rel="index">
-                    <span itemprop="name">闲来研究</span>
+                  <a href="../../../../categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -396,11 +403,15 @@
       
 
       
-        <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>利用一个下午搭建起了github pages + hexo 的静态博客，试用了下效果，还是挺满意的，至少比csdn的页面好看多了，哈哈。<br>搭建的过程中，也遇到了很多的问题，尤其是中间如何把hexo 和github连在一起，又是如何更新博客这块，有很多疑问，我自己尝试，还不小心把本地的hexo的文件删除了，不得不重新init了一个，配置都要重新来一遍，所以这篇文章着重探讨，github pages的流程到底是如何展开的。</p>
-<h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>先说下<a href="https://pages.github.com/" target="_blank" rel="external">github pages</a>,github pages 是github提供给用户用来展示个人或者项目主页的静态网页系统。每个用户都可以使用自己的github项目创建，上传静态页面的html文件，github会帮你自动更新你的页面。</p>
-<p><a href="https://hexo.io/zh-cn/" target="_blank" rel="external">hexo</a>是一个用来生成静态界面的框架，使用hexo，你就可以直接使用mark down 来写文章，而不用关心前端样式的展现。</p>
-<h2 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h2><p>我们来看下流程图：<br><img src="http://on0hv7n2x.bkt.clouddn.com/github%20pages%20%E6%95%B0%E6%8D%AE%E6%B5%81.png" alt="数据流程图"></p>
-<p>这样看就很简单了，我们本地使用markDown语法写好文件，然后执行hexo或者其他静态网页生成工具，生成好静态文件，然后使用hexo等工具的发布功能，就会使用ssh来更新github项目的文件，即生成一个新的commit然后push。github检测到这个项目更新，就会更新你的网站的内容（会有缓存）。</p>
+        <p>今天写脚本的时候，正好希望在python脚本中调用另外一个python脚本，就使用了os.system来实现这个功能（当然，还有很多的办法，而且每种方法满足的需求不都一样，有兴趣的读者可以谷歌下）。</p>
+<p>但是我需要给这个调用里面传入一个参数，网上查了半天，感觉都不太清晰，就写了这篇，简单介绍下。</p>
+<p>os.system的定义是这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">os.system(&quot;shell command argusFormat&quot; % argus)</div></pre></td></tr></table></figure>
+<p>在双引号里面正常写命令，需要用到参数的地方，使用%s等格式代替，然后在双引号的后面加空格，加%号，然后在括号里写入所有的参数，用逗号隔开。</p>
+<h4 id="单个参数"><a href="#单个参数" class="headerlink" title="单个参数"></a>单个参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">param = &apos;I&apos;m param&apos;</div><div class="line">os.system(&quot;python haha.py %s&quot; % (param))</div></pre></td></tr></table></figure>
+<h4 id="多个参数"><a href="#多个参数" class="headerlink" title="多个参数"></a>多个参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">paramA = &apos;I&apos;m paramA&apos;</div><div class="line">paramB = &apos;I&apos;m paramB&apos;</div><div class="line">os.system(&quot;python haha.py %s %s&quot; % (paramA,paramB))</div></pre></td></tr></table></figure>
+<p>需要注意的是，shell中对于空格的要求特别严格，一定要注意别多或者少（写js的来写shell真的好难受0_0）。</p>
+<h4 id="python格式化"><a href="#python格式化" class="headerlink" title="python格式化"></a>python格式化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">%s    字符串 (采用str()的显示)</div><div class="line"></div><div class="line">%r    字符串 (采用repr()的显示)</div><div class="line"></div><div class="line">%c    单个字符</div><div class="line"></div><div class="line">%b    二进制整数</div><div class="line"></div><div class="line">%d    十进制整数</div><div class="line"></div><div class="line">%i    十进制整数</div><div class="line"></div><div class="line">%o    八进制整数</div><div class="line"></div><div class="line">%x    十六进制整数</div><div class="line"></div><div class="line">%e    指数 (基底写为e)</div><div class="line"></div><div class="line">%E    指数 (基底写为E)</div><div class="line"></div><div class="line">%f    浮点数</div><div class="line"></div><div class="line">%F    浮点数，与上相同</div><div class="line"></div><div class="line">%g    指数(e)或浮点数 (根据显示长度)</div><div class="line"></div><div class="line">%G    指数(E)或浮点数 (根据显示长度)</div><div class="line"></div><div class="line">%%    字符&quot;%&quot;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -428,6 +439,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="../../../../tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
 
       
         
@@ -437,14 +454,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="../../23/ES6之字符串拓展/" rel="next" title="ES6之字符串拓展">
+                <i class="fa fa-chevron-left"></i> ES6之字符串拓展
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../../21/UIResponder/" rel="prev" title="Apple文档翻译之UIResponder">
-                Apple文档翻译之UIResponder <i class="fa fa-chevron-right"></i>
+              <a href="../../../06/13/block/" rel="prev" title="block">
+                block <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -581,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缘起"><span class="nav-number">1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单介绍"><span class="nav-number">2.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据流"><span class="nav-number">3.</span> <span class="nav-text">数据流</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#单个参数"><span class="nav-number">1.</span> <span class="nav-text">单个参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个参数"><span class="nav-number">2.</span> <span class="nav-text">多个参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python格式化"><span class="nav-number">3.</span> <span class="nav-text">python格式化</span></a></li></ol></div>
             
 
           </div>
