@@ -74,7 +74,7 @@
 <link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Apple文档," />
+  <meta name="keywords" content="React-Native,performance," />
 
 
 
@@ -92,27 +92,21 @@
 
 
 
-<meta name="description" content="其实使用block的时间也蛮久了，比如使用__block,weak防止循环引用，copy修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。
-使用场景苹果在介绍block的使用场景时，是这么说的：
-
-You use a block when you want to create units of work (that is, code segm">
+<meta name="description" content="关于帧在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？
+这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="block">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/06/13/block/index.html">
+<meta property="og:title" content="React Native性能优化">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/10/25/RNpreformance/index.html">
 <meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="其实使用block的时间也蛮久了，比如使用__block,weak防止循环引用，copy修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。
-使用场景苹果在介绍block的使用场景时，是这么说的：
-
-You use a block when you want to create units of work (that is, code segm">
-<meta property="og:image" content="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Art/blocks.jpg">
-<meta property="og:updated_time" content="2017-10-19T03:37:16.726Z">
+<meta property="og:description" content="关于帧在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？
+这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS">
+<meta property="og:image" content="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d1160924ab18972be457999ee2cd7b899e510a70.jpg">
+<meta property="og:updated_time" content="2017-10-25T03:03:48.201Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="block">
-<meta name="twitter:description" content="其实使用block的时间也蛮久了，比如使用__block,weak防止循环引用，copy修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。
-使用场景苹果在介绍block的使用场景时，是这么说的：
-
-You use a block when you want to create units of work (that is, code segm">
-<meta name="twitter:image" content="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Art/blocks.jpg">
+<meta name="twitter:title" content="React Native性能优化">
+<meta name="twitter:description" content="关于帧在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？
+这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS">
+<meta name="twitter:image" content="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d1160924ab18972be457999ee2cd7b899e510a70.jpg">
 
 
 
@@ -140,13 +134,13 @@ You use a block when you want to create units of work (that is, code segm">
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/06/13/block/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/10/25/RNpreformance/"/>
 
 
 
 
 
-  <title>block | njafei's blog</title>
+  <title>React Native性能优化 | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -336,7 +330,7 @@ You use a block when you want to create units of work (that is, code segm">
 
         
         
-          <h1 class="post-title" itemprop="name headline">block</h1>
+          <h1 class="post-title" itemprop="name headline">React Native性能优化</h1>
         
 
         <div class="post-meta">
@@ -348,8 +342,8 @@ You use a block when you want to create units of work (that is, code segm">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-13T13:20:58+08:00">
-                2017-06-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T11:00:45+08:00">
+                2017-10-25
               </time>
             
 
@@ -371,8 +365,8 @@ You use a block when you want to create units of work (that is, code segm">
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="../../../../categories/iOS基础/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS基础</span>
+                  <a href="../../../../categories/React-Native/" itemprop="url" rel="index">
+                    <span itemprop="name">React-Native</span>
                   </a>
                 </span>
 
@@ -405,49 +399,93 @@ You use a block when you want to create units of work (that is, code segm">
       
 
       
-        <p>其实使用<code>block</code>的时间也蛮久了，比如使用<code>__block</code>,<code>weak</code>防止循环引用，<code>copy</code>修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。</p>
-<h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><p>苹果在介绍<code>block</code>的使用场景时，是这么说的：</p>
-<blockquote>
-<p>You use a block when you want to create units of work (that is, code segments) that can be passed around as though they are values. Blocks offer more flexible programming and more power. </p>
-</blockquote>
-<p>当你想要做一连串的工作时（代码片段），block可以被当成值来传递，从而使程序更加灵活、易用。</p>
-<p>我觉得，这个类似于<code>JS</code>的<code>callback</code>，这样写看起来比较直观，不像代理，满天飞，易读性不好。</p>
-<h1 id="声明和使用"><a href="#声明和使用" class="headerlink" title="声明和使用"></a>声明和使用</h1><p>正常使用<code>block</code>类似于这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int multiplier = 7;</div><div class="line">int (^myBlock)(int) = ^(int num) &#123;</div><div class="line">    return num * multiplier;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>以前其实我自己在写block的时候，很容易迷糊，因为格式容易记不住，但是看了下面的图，仔细了解下它的结构，以后就好记了</p>
-<p><img src="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Art/blocks.jpg" alt=""></p>
-<p>首先是它的返回值，然后是它的name，接着是参数的类型，声明和实现结构是一样的，只是实现里面会多形参。</p>
-<p>看下如何使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">int multiplier = 7;</div><div class="line">int (^myBlock)(int) = ^(int num) &#123;</div><div class="line">    return num * multiplier;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">printf(&quot;%d&quot;, myBlock(3));</div><div class="line">// prints &quot;21&quot;</div></pre></td></tr></table></figure>
-<p>在苹果提供<code>block</code>之后，它提供了大量的<code>block</code>的函数用法， 比较多的应该就是数据等的遍历。我们自己在写代码的时候，通常数据请求、alert等也都会封装成<code>block</code>的形式，因为真的是易读性比较好。</p>
-<h1 id="block和变量"><a href="#block和变量" class="headerlink" title="block和变量"></a>block和变量</h1><p>在<code>block</code>中，是可以直接引用外部的变量的，比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int a = 0;</div><div class="line">block(a);</div></pre></td></tr></table></figure>
-<p>但是不能直接修改外部的变量，比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int a = 0;</div><div class="line">block = ^(int a)&#123;</div><div class="line">	a = 5;//error</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="block"><a href="#block" class="headerlink" title="__block"></a>__block</h4><p>如果你想要在<code>block</code>中改变外部变量的值的话，需要使用<code>__block</code>来修饰，为什么这个关键词可以呢？我们来看下苹果的解释</p>
-<blockquote>
-<p>__block variables live in storage that is shared between the lexical scope of the variable and all blocks and block copies declared or created within the variable’s lexical scope. Thus, the storage will survive the destruction of the stack frame if any copies of the blocks declared within the frame survive beyond the end of the frame (for example, by being enqueued somewhere for later execution). Multiple blocks in a given lexical scope can simultaneously use a shared variable.</p>
-<p>As an optimization, block storage starts out on the stack—just like blocks themselves do. If the block is copied using Block_copy (or in Objective-C when the block is sent a copy), variables are copied to the heap. Thus, the address of a __block variable can change over time.</p>
-<p>There are two further restrictions on __block variables: they cannot be variable length arrays, and cannot be structures that contain C99 variable-length arrays.</p>
-</blockquote>
-<p><code>__block</code>会把变量放到<code>block</code>等的存在的内存中，这样在<code>block</code>存在期间，可以直接修改变量，不同的<code>block</code>都使用这个共享的变量。</p>
-<p><code>block</code>默认是存在栈中的，但是如果<code>block</code>被拷贝，则会放到堆中</p>
-<p><code>__block</code>有两个注意点，不能是可变化长度的数据，也不能是<a href="https://en.wikipedia.org/wiki/Variable-length_array" target="_blank" rel="external">C99标准可变长度的数组</a></p>
-<h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><ol>
-<li>为什么要用copy</li>
-<li>为什么要避免循环引用，如何避免</li>
-<li>避免两个错误模式</li>
+        <h2 id="关于帧"><a href="#关于帧" class="headerlink" title="关于帧"></a>关于帧</h2><p>在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？</p>
+<p>这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS等设备，标准是每秒60帧（即每秒连续展示60张图片），这个标准足以保证用户的体验。</p>
+<p><img src="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d1160924ab18972be457999ee2cd7b899e510a70.jpg" alt="动画示意"></p>
+<p>系统会每16.6毫秒询问你下一帧的数据，如果你正在处理比较复杂的任务，则系统会默认这一帧内容保持不变，即出现了丢帧的现象。如果丢的帧比较多，则界面会看起来卡顿，比如用户点击了按钮，但是没有反馈。</p>
+<p>对<code>React Native</code>来说，帧分为两种： <code>JavaScript</code>帧和主线程帧（<code>UI</code>帧）</p>
+<h3 id="JavaScript帧"><a href="#JavaScript帧" class="headerlink" title="JavaScript帧"></a>JavaScript帧</h3><p><code>React Native</code>大部分的业务处理，都是在<code>JavaScript</code>帧中进行，包括API调用和触摸等交互的处理。那么当处理比较复杂的任务，比如<code>setState</code>然后<code>render</code>，则很可能会丢帧。或者做由JS处理的动画时，也极容易出现丢帧卡顿。</p>
+<h3 id="主线程帧（UI帧）"><a href="#主线程帧（UI帧）" class="headerlink" title="主线程帧（UI帧）"></a>主线程帧（<code>UI</code>帧）</h3><p>iOS的主线程是UI线程，所以在iOS的UI效果基本是非常出色的，这也是为什么<code>NavigatorIOS</code>比<code>Navigator</code>的性能好很多的原因（<code>NavigatorIOS</code>是主线程处理，而<code>Navigator</code>是JS线程处理）</p>
+<h3 id="如何查看帧数据"><a href="#如何查看帧数据" class="headerlink" title="如何查看帧数据"></a>如何查看帧数据</h3><p>我们可以通过打开<code>RN</code>的<code>Debug</code>菜单，然后选择<code>Show Perf Monitor</code>来查看当前页面的<code>JS</code>帧和主线程帧。</p>
+<p>好了，性能的定义和我们评估性能标准已经知道了，下面我们来看下影响性能的因素。</p>
+<h2 id="影响性能的因素和提升方案"><a href="#影响性能的因素和提升方案" class="headerlink" title="影响性能的因素和提升方案"></a>影响性能的因素和提升方案</h2><h3 id="宽泛的原因"><a href="#宽泛的原因" class="headerlink" title="宽泛的原因"></a>宽泛的原因</h3><p>我们先抛开RN或者iOS的前端框架，看下对一台带屏幕的设备来说，影响性能的原因有哪些。</p>
+<p>我们用金字塔模式来看，首先最明显的有两个</p>
+<ul>
+<li>设备性能</li>
+<li>程序设计</li>
+</ul>
+<p>从根本上来说，设备性能是最大的瓶颈，不过这个我们程序员暂时无能为力。而程序设计可能引起性能差的有哪些呢？判断程序设计的一个标准就是复杂度， 而复杂度又分为两个：</p>
+<ul>
+<li>时间复杂度</li>
+<li>空间复杂度</li>
+</ul>
+<p>这时我们的性能因素树是：</p>
+<ul>
+<li>设备性能</li>
+<li>程序设计<ul>
+<li>时间复杂度</li>
+<li>空间复杂度</li>
+</ul>
+</li>
+</ul>
+<p>在设备空间充足的情况下，主要的影响就是时间复杂度，而时间复杂度高的原因有几个：</p>
+<ul>
+<li>前端方案不合理，UI层次或者顺序设计不合理，浪费性能</li>
+<li>使用的算法过于复杂</li>
+</ul>
+<p>我们挨个说下这两个个问题，前端方案是最容易造成性能不好的原因，比如我们有屏幕上有几个区域，互相之间没有影响，而由于不合理的设计，在一个区域变化的时候，要刷新这个界面，就会出现卡顿。一个合理的前端方案，应该是尽可能减少页面的刷新频率和刷新范围，保证每帧的计算是相对小的。</p>
+<p>而算法过于复杂，则是算法消耗的时间太长，影响了UI的渲染。比如使用了圈复杂度非常高的算法，或者有大量的数据要不停地计算。</p>
+<p>这样我们的性能因素树变成了：</p>
+<ul>
+<li>设备性能</li>
+<li>程序设计<ul>
+<li>空间复杂度</li>
+<li>时间复杂度<ul>
+<li>前端方案不合理，UI层次或者顺序设计不合理，浪费性能<ul>
+<li>使用的算法过于复杂</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>可能还会有人觉得网络等原因会造成卡顿，但是我觉得如果交互设计良好，网络状况不好的话，只会影响数据出现的时间长，而不会造成页面的卡顿。</p>
+<p>看完了比较普遍宽泛的原因，我们看下针对RN的</p>
+<h3 id="RN的特有原因"><a href="#RN的特有原因" class="headerlink" title="RN的特有原因"></a>RN的特有原因</h3><h4 id="JS-Bridge的效率"><a href="#JS-Bridge的效率" class="headerlink" title="JS Bridge的效率"></a>JS Bridge的效率</h4><p>虽然官方的文章里没有写，但是从我测试看到的数据来看，虽然RN的性能比较接近Native，但是因为JS是运行在子线程中的，所以处理大量数据或者动画的时候，JS的帧数会比较少。</p>
+<p>这个我们暂时无能为力</p>
+<h4 id="动画和Touchable组件在JS线程中运行"><a href="#动画和Touchable组件在JS线程中运行" class="headerlink" title="动画和Touchable组件在JS线程中运行"></a>动画和Touchable组件在JS线程中运行</h4><p>Animated和Touchable系列组件都是在JS中运行，所以在处理复杂动画或者复杂操作的时候，会出现卡顿。</p>
+<p>这里给几个建议：</p>
+<ul>
+<li><p>关于导航</p>
+<ol>
+<li>iOS上使用<code>NavigatorIOS</code>替换<code>Navigator</code>，同时，react也推出了新的<a href="https://reactnavigation.org/" target="_blank" rel="external">Navigation库</a>希望解决导航卡顿的问题</li>
+<li>push的新界面的动画，使用<code>InteractionManager</code>，就是在导航动画结束后执行新的动画，而不是同时执行</li>
 </ol>
-<h4 id="为什么要用copy"><a href="#为什么要用copy" class="headerlink" title="为什么要用copy"></a>为什么要用copy</h4><p>如上面所述，<code>block</code>默认是存在栈中的，但是如果<code>block</code>被拷贝，则会放到堆中，所以即使你使用strong，其实系统也是会copy一份的，用copy是为了让自己知道，这个<code>block</code>在使用中是会被copy一份的。那么，为什么呢？这因为如果<code>block</code>在栈中，则他的作用域就是栈中所在的作用域，如果在作用域外调用栈的内容，则会崩溃，所以要用copy，就会将其复制到堆中，调用就不会出现问题。当然，用strong也不会有任何问题，但是copy更能让我们使用的时候，知道使用的原因。</p>
-<h4 id="循环引用，如何避免"><a href="#循环引用，如何避免" class="headerlink" title="循环引用，如何避免"></a>循环引用，如何避免</h4><p>先看下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">self.printBlock = ^(block)(NSString *) = ^(NSString *name)&#123;</div><div class="line">	[self print: name];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这里，self会对block强引用，而block中，又会对self强引用，所以系统在回收内存的时候，这两个对象都没有办法回收内存，就造成了内存的泄露了。</p>
-<p>怎么避免呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">__weak typeof(self) weakself = self</div><div class="line">self.printBlock = ^(block)(NSString *) = ^(NSString *name)&#123;</div><div class="line">	__strong __typeof(self) strongSelf = weakSelf;//里面使用strong，防止执行block的时候 self被销毁</div><div class="line">	[weakself print: name];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="避免两个错误模式"><a href="#避免两个错误模式" class="headerlink" title="避免两个错误模式"></a>避免两个错误模式</h4><p>苹果在文档中，特意提了两个错误的模式，让大家不要使用，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">void dontDoThis() &#123;</div><div class="line">    void (^blockArray[3])(void);  // an array of 3 block references</div><div class="line"> </div><div class="line">    for (int i = 0; i &lt; 3; ++i) &#123;</div><div class="line">        blockArray[i] = ^&#123; printf(&quot;hello, %d\n&quot;, i); &#125;;</div><div class="line">        // WRONG: The block literal scope is the &quot;for&quot; loop.</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void dontDoThisEither() &#123;</div><div class="line">    void (^block)(void);</div><div class="line"> </div><div class="line">    int i = random():</div><div class="line">    if (i &gt; 1000) &#123;</div><div class="line">        block = ^&#123; printf(&quot;got i at: %d\n&quot;, i); &#125;;</div><div class="line">        // WRONG: The block literal scope is the &quot;then&quot; clause.</div><div class="line">    &#125;</div><div class="line">    // ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这两个用法本身是可以执行的，但是效率太差。本来block是内联的，所以应该先定义，再使用，而不是上文的用法，每次都重新定义一个。</p>
-<p>PS： 内联函数的效率非常高，可以理解为内联是之前把代码片段嵌入到使用的地方，而非内联的函数就是要调用函数了</p>
+</li>
+<li><p>关于动画</p>
+<ol>
+<li>如果<code>Animated</code>的效果不能接受，使用<code>LayoutAnimation</code>，它是基于<code>Core Animation</code></li>
+<li>android上面尽量少用动画（真的很卡0_0）</li>
+</ol>
+</li>
+</ul>
+<h4 id="其他建议"><a href="#其他建议" class="headerlink" title="其他建议"></a>其他建议</h4><ul>
+<li>使用<a href="">PureComponent</a></li>
+<li>使用 <code>shouldComponentUpdate</code>函数，这个函数默认返回true，但是我们可以通过自定义来优化重新绘制的逻辑</li>
+<li>release 去除console.log()</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>(!__DEV__) &#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">  global.console = &#123;</div><div class="line">    info: () =&gt; &#123;&#125;,</div><div class="line">    log: () =&gt; &#123;&#125;,</div><div class="line">    warn: () =&gt; &#123;&#125;,</div><div class="line">    debug: () =&gt; &#123;&#125;,</div><div class="line">    error: () =&gt; &#123;&#125;,</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="最重要的建议"><a href="#最重要的建议" class="headerlink" title="最重要的建议"></a>最重要的建议</h4><ol>
+<li>仔细考虑UI的设计</li>
+<li>仔细考虑UI的设计</li>
+<li>仔细考虑UI的设计</li>
+</ol>
+<p>一个好的UI设计方案，是可以抵过上面所有的建议加起来的效果的，所以一定要仔细考虑再动手。</p>
+<p>参考：</p>
+<ul>
+<li><a href="http://reactnative.cn/docs/0.49/performance.html#content" target="_blank" rel="external">官方文档：性能</a></li>
+</ul>
 
       
     </div>
@@ -477,7 +515,9 @@ You use a block when you want to create units of work (that is, code segm">
       
         <div class="post-tags">
           
-            <a href="../../../../tags/Apple文档/" rel="tag"># Apple文档</a>
+            <a href="../../../../tags/React-Native/" rel="tag"># React-Native</a>
+          
+            <a href="../../../../tags/performance/" rel="tag"># performance</a>
           
         </div>
       
@@ -490,8 +530,8 @@ You use a block when you want to create units of work (that is, code segm">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../../05/26/os-system如何传参/" rel="next" title="os.system如何传参">
-                <i class="fa fa-chevron-left"></i> os.system如何传参
+              <a href="../../19/Next-add-localSearch/" rel="next" title="Next增加搜索localSearch">
+                <i class="fa fa-chevron-left"></i> Next增加搜索localSearch
               </a>
             
           </div>
@@ -499,10 +539,6 @@ You use a block when you want to create units of work (that is, code segm">
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../../14/stringToBoolError/" rel="prev" title="Error RawText ** must be wrapped in an explicit <Text> component 问题解决">
-                Error RawText ** must be wrapped in an explicit <Text> component 问题解决 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -638,7 +674,7 @@ You use a block when you want to create units of work (that is, code segm">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用场景"><span class="nav-number">1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#声明和使用"><span class="nav-number">2.</span> <span class="nav-text">声明和使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#block和变量"><span class="nav-number">3.</span> <span class="nav-text">block和变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#block"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">__block</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意点"><span class="nav-number">4.</span> <span class="nav-text">注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要用copy"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">为什么要用copy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环引用，如何避免"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">循环引用，如何避免</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#避免两个错误模式"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">避免两个错误模式</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于帧"><span class="nav-number">1.</span> <span class="nav-text">关于帧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript帧"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript帧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主线程帧（UI帧）"><span class="nav-number">1.2.</span> <span class="nav-text">主线程帧（UI帧）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何查看帧数据"><span class="nav-number">1.3.</span> <span class="nav-text">如何查看帧数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#影响性能的因素和提升方案"><span class="nav-number">2.</span> <span class="nav-text">影响性能的因素和提升方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#宽泛的原因"><span class="nav-number">2.1.</span> <span class="nav-text">宽泛的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RN的特有原因"><span class="nav-number">2.2.</span> <span class="nav-text">RN的特有原因</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JS-Bridge的效率"><span class="nav-number">2.2.1.</span> <span class="nav-text">JS Bridge的效率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动画和Touchable组件在JS线程中运行"><span class="nav-number">2.2.2.</span> <span class="nav-text">动画和Touchable组件在JS线程中运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他建议"><span class="nav-number">2.2.3.</span> <span class="nav-text">其他建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最重要的建议"><span class="nav-number">2.2.4.</span> <span class="nav-text">最重要的建议</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
