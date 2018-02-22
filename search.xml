@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[ES6-Symbols]]></title>
+    <url>%2F2018%2F02%2F22%2FES6-Symbols%2F</url>
+    <content type="text"><![CDATA[#背景ES5中，属性都可以通过点方法来获取和赋值。这也带来了一个问题，当我想给一个类增加属性的时候，除非我看完这个类的所有细节，否则我很难知道一个属性名是否已经被占用。而ES6为了解决这个问题，引入了一个新的原始类型Symbol，它表示独一无二的值，来避免重复的命名。 加入Symbol之后，JS中的基础类型共有： undefined Null Boolean String Number Object Symbol #使用 初始化Symbol的初始化方法很简单，但是要注意，它不是对象（Object），所以不能用new初始化 1let s = Symbol(); Symbol没有属性，是一个类似于string的数据类型，我的理解，Symbol其实就是独一无二的string。 1s.name = &apos;symbol&apos;; //error Symbol可以通过加参数的形式来区分不同的Symbol，如下： 1let s = Symbol(&apos;foo&apos;); 注意，即使使用相同的参数来初始化，得到的实例也是不同的，比如： 123456let a = Symbol(&apos;foo&apos;);let b = Symbol(&apos;foo&apos;);let same = a === b;console.log(same); //false 如果想要获取以某个string为参数的Symbol，在之后会讲到Symbol.for()函数。 赋值使用Symbol给属性赋值，用法和string属性赋值基本相似，但是不可以用.,要用[]。以下是三种赋值方法： 12345678910111213141516let s = Symbol();let a = &#123;&#125;;// method 1a[s] = &apos;hello&apos;;//method 2a = &#123; [s] = &apos;hello&apos;;&#125;//method 3Object.defineProperty(a, s, &#123;value: &apos;hello&apos;&#125;); 使用场景Symbol的一个场景是上述提到的，给一个类增加属性，而避免属性重复。 第二是使用在常量中，switch case来保证唯一性。 1234567891011let CASE1 = Symbol();let CASE2 = Symbol();switch (case) &#123; case CASE1 :&#123; return 1; &#125; case CASE2 :&#123; return 2; &#125;&#125; 注意事项（和string属性不同的地方）最主要的区别，使用 for ... in、 for ... of 或者Object.keys()、 Object.getOwnPropertyNames()不会返回Symbol 如果想获取对象的所有Symbols，使用函数getOwnPropertySymbols 有个新的API，Reflect.ownKyes，会返回所有的String属性和Symbol属性 Symbol.keyFor和Symbol.forSymbol.forSymbol会返回一个新的实例，无论参数是什么，上面已经将到了。 1234let a = Symbol(&apos;foo&apos;);let b = Symbol(&apos;foo&apos;);let same = a === b; //false 而Symbol.for则会先搜索是否有以这个参数初始化的Symbol，如果有则放回这个Symbol，否则初始化一个新的,实现逻辑如下 1234567Symbol.for(params) = &#123; if (searchSymbolInitWithParams)&#123; return found_symbol; &#125; else &#123; return Symbol(params); &#125;&#125; 和第一个例子对比看下： 1234let a = Symbol.for(&apos;foo&apos;);let b = Symbol.for(&apos;foo&apos;);let same = a === b; //true 如果Symbol和Symbol.for混用呢？ 1234let a = Symbol(&apos;foo&apos;);let b = Symbol.for(&apos;foo&apos;);console.log(a===b); //false 这说明两者是没有打通的，即Symbol初始化的实例无法被Symbol.for找到 Symbol.keyFor用Symbol.for来初始化的Symbol，如何知道它的初始化参数呢，这里提供了一个方法： Symbol.keyFor 12let a = Symbol.for(&apos;foo&apos;);let b = Symbol.Keyfor(a);// &apos;foo&apos; 注意，Symbol初始化不能用这个函数 12let a = Symbol(&apos;foo&apos;);let b = Symbol.Keyfor(a);// undefined 注意：Symbol.for 为Symbol值登记的是全局的，这意味着在不同的iframe都可以取到同一个值。]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[React Native性能优化]]></title>
     <url>%2F2017%2F10%2F25%2FRNpreformance%2F</url>
     <content type="text"><![CDATA[关于帧在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？ 这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS等设备，标准是每秒60帧（即每秒连续展示60张图片），这个标准足以保证用户的体验。 系统会每16.6毫秒询问你下一帧的数据，如果你正在处理比较复杂的任务，则系统会默认这一帧内容保持不变，即出现了丢帧的现象。如果丢的帧比较多，则界面会看起来卡顿，比如用户点击了按钮，但是没有反馈。 对React Native来说，帧分为两种： JavaScript帧和主线程帧（UI帧） JavaScript帧React Native大部分的业务处理，都是在JavaScript帧中进行，包括API调用和触摸等交互的处理。那么当处理比较复杂的任务，比如setState然后render，则很可能会丢帧。或者做由JS处理的动画时，也极容易出现丢帧卡顿。 主线程帧（UI帧）iOS的主线程是UI线程，所以在iOS的UI效果基本是非常出色的，这也是为什么NavigatorIOS比Navigator的性能好很多的原因（NavigatorIOS是主线程处理，而Navigator是JS线程处理） 如何查看帧数据我们可以通过打开RN的Debug菜单，然后选择Show Perf Monitor来查看当前页面的JS帧和主线程帧。 好了，性能的定义和我们评估性能标准已经知道了，下面我们来看下影响性能的因素。 影响性能的因素和提升方案宽泛的原因我们先抛开RN或者iOS的前端框架，看下对一台带屏幕的设备来说，影响性能的原因有哪些。 我们用金字塔模式来看，首先最明显的有两个 设备性能 程序设计 从根本上来说，设备性能是最大的瓶颈，不过这个我们程序员暂时无能为力。而程序设计可能引起性能差的有哪些呢？判断程序设计的一个标准就是复杂度， 而复杂度又分为两个： 时间复杂度 空间复杂度 这时我们的性能因素树是： 设备性能 程序设计 时间复杂度 空间复杂度 在设备空间充足的情况下，主要的影响就是时间复杂度，而时间复杂度高的原因有几个： 前端方案不合理，UI层次或者顺序设计不合理，浪费性能 使用的算法过于复杂 我们挨个说下这两个个问题，前端方案是最容易造成性能不好的原因，比如我们有屏幕上有几个区域，互相之间没有影响，而由于不合理的设计，在一个区域变化的时候，要刷新这个界面，就会出现卡顿。一个合理的前端方案，应该是尽可能减少页面的刷新频率和刷新范围，保证每帧的计算是相对小的。 而算法过于复杂，则是算法消耗的时间太长，影响了UI的渲染。比如使用了圈复杂度非常高的算法，或者有大量的数据要不停地计算。 这样我们的性能因素树变成了： 设备性能 程序设计 空间复杂度 时间复杂度 前端方案不合理，UI层次或者顺序设计不合理，浪费性能 使用的算法过于复杂 可能还会有人觉得网络等原因会造成卡顿，但是我觉得如果交互设计良好，网络状况不好的话，只会影响数据出现的时间长，而不会造成页面的卡顿。 看完了比较普遍宽泛的原因，我们看下针对RN的 RN的特有原因JS Bridge的效率虽然官方的文章里没有写，但是从我测试看到的数据来看，虽然RN的性能比较接近Native，但是因为JS是运行在子线程中的，所以处理大量数据或者动画的时候，JS的帧数会比较少。 这个我们暂时无能为力 动画和Touchable组件在JS线程中运行Animated和Touchable系列组件都是在JS中运行，所以在处理复杂动画或者复杂操作的时候，会出现卡顿。 这里给几个建议： 关于导航 iOS上使用NavigatorIOS替换Navigator，同时，react也推出了新的Navigation库希望解决导航卡顿的问题 push的新界面的动画，使用InteractionManager，就是在导航动画结束后执行新的动画，而不是同时执行 关于动画 如果Animated的效果不能接受，使用LayoutAnimation，它是基于Core Animation android上面尽量少用动画（真的很卡0_0） 其他建议 使用PureComponent 使用 shouldComponentUpdate函数，这个函数默认返回true，但是我们可以通过自定义来优化重新绘制的逻辑 release 去除console.log() (!__DEV__) &#123;12345678 global.console = &#123; info: () =&gt; &#123;&#125;, log: () =&gt; &#123;&#125;, warn: () =&gt; &#123;&#125;, debug: () =&gt; &#123;&#125;, error: () =&gt; &#123;&#125;, &#125;;&#125; 最重要的建议 仔细考虑UI的设计 仔细考虑UI的设计 仔细考虑UI的设计 一个好的UI设计方案，是可以抵过上面所有的建议加起来的效果的，所以一定要仔细考虑再动手。 参考： 官方文档：性能]]></content>
@@ -173,8 +184,8 @@
         <category>React-Native</category>
       </categories>
       <tags>
-        <tag>React-Native</tag>
         <tag>ES6</tag>
+        <tag>React-Native</tag>
       </tags>
   </entry>
   <entry>

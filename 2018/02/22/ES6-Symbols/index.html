@@ -35,7 +35,7 @@
 
   
   
-  <link href="../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -69,35 +69,63 @@
 
 
 
-<link href="../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
+<link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-
-
-
-  <link rel="alternate" href="../../atom.xml" title="njafei's blog" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico?v=5.1.0" />
+  <meta name="keywords" content="ES6," />
 
 
 
 
 
+  <link rel="alternate" href="../../../../atom.xml" title="njafei's blog" type="application/atom+xml" />
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="njafei's blog">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/tags/图片/index.html">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="#背景ES5中，属性都可以通过点方法来获取和赋值。这也带来了一个问题，当我想给一个类增加属性的时候，除非我看完这个类的所有细节，否则我很难知道一个属性名是否已经被占用。而ES6为了解决这个问题，引入了一个新的原始类型Symbol，它表示独一无二的值，来避免重复的命名。
+加入Symbol之后，JS中的基础类型共有：
+
+undefined
+Null
+Boolean
+String
+Number
+Obje">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6-Symbols">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2018/02/22/ES6-Symbols/index.html">
 <meta property="og:site_name" content="njafei's blog">
+<meta property="og:description" content="#背景ES5中，属性都可以通过点方法来获取和赋值。这也带来了一个问题，当我想给一个类增加属性的时候，除非我看完这个类的所有细节，否则我很难知道一个属性名是否已经被占用。而ES6为了解决这个问题，引入了一个新的原始类型Symbol，它表示独一无二的值，来避免重复的命名。
+加入Symbol之后，JS中的基础类型共有：
+
+undefined
+Null
+Boolean
+String
+Number
+Obje">
+<meta property="og:updated_time" content="2018-02-22T06:00:11.628Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="njafei's blog">
+<meta name="twitter:title" content="ES6-Symbols">
+<meta name="twitter:description" content="#背景ES5中，属性都可以通过点方法来获取和赋值。这也带来了一个问题，当我想给一个类增加属性的时候，除非我看完这个类的所有细节，否则我很难知道一个属性名是否已经被占用。而ES6为了解决这个问题，引入了一个新的原始类型Symbol，它表示独一无二的值，来避免重复的命名。
+加入Symbol之后，JS中的基础类型共有：
+
+undefined
+Null
+Boolean
+String
+Number
+Obje">
 
 
 
@@ -125,13 +153,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/tags/图片/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2018/02/22/ES6-Symbols/"/>
 
 
 
 
 
-  <title>标签: 图片 | njafei's blog</title>
+  <title>ES6-Symbols | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -166,7 +194,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -294,44 +322,212 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>图片<small>标签</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="njafei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="njafei's blog">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6-Symbols</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T13:57:42+08:00">
+                2018-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>#背景<br>ES5中，属性都可以通过点方法来获取和赋值。这也带来了一个问题，当我想给一个类增加属性的时候，除非我看完这个类的所有细节，否则我很难知道一个属性名是否已经被占用。而ES6为了解决这个问题，引入了一个新的原始类型Symbol，它表示独一无二的值，来避免重复的命名。</p>
+<p>加入Symbol之后，JS中的基础类型共有：</p>
+<ul>
+<li>undefined</li>
+<li>Null</li>
+<li>Boolean</li>
+<li>String</li>
+<li>Number</li>
+<li>Object</li>
+<li>Symbol</li>
+</ul>
+<p>#使用</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>Symbol的初始化方法很简单，但是要注意，它不是对象（Object），所以不能用new初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let s = Symbol();</div></pre></td></tr></table></figure>
+<p>Symbol没有属性，是一个类似于string的数据类型，我的理解，Symbol其实就是独一无二的string。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s.name = &apos;symbol&apos;; //error</div></pre></td></tr></table></figure>
+<p>Symbol可以通过加参数的形式来区分不同的Symbol，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let s = Symbol(&apos;foo&apos;);</div></pre></td></tr></table></figure>
+<p>注意，即使使用相同的参数来初始化，得到的实例也是不同的，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">let a = Symbol(&apos;foo&apos;);</div><div class="line">let b = Symbol(&apos;foo&apos;);</div><div class="line"></div><div class="line">let same = a === b;</div><div class="line"></div><div class="line">console.log(same); //false</div></pre></td></tr></table></figure>
+<p>如果想要获取以某个string为参数的Symbol，在之后会讲到Symbol.for()函数。</p>
+<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><p>使用Symbol给属性赋值，用法和string属性赋值基本相似，但是不可以用<code>.</code>,要用<code>[]</code>。以下是三种赋值方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">let s = Symbol();</div><div class="line"></div><div class="line"></div><div class="line">let a = &#123;&#125;;</div><div class="line"></div><div class="line">// method 1</div><div class="line">a[s] = &apos;hello&apos;;</div><div class="line"></div><div class="line">//method 2</div><div class="line">a = &#123;</div><div class="line">	[s] = &apos;hello&apos;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//method 3</div><div class="line"></div><div class="line">Object.defineProperty(a, s, &#123;value: &apos;hello&apos;&#125;);</div></pre></td></tr></table></figure>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>Symbol的一个场景是上述提到的，给一个类增加属性，而避免属性重复。</p>
+<p>第二是使用在常量中，<code>switch case</code>来保证唯一性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">let CASE1 = Symbol();</div><div class="line">let CASE2 = Symbol();</div><div class="line"></div><div class="line">switch (case) &#123;</div><div class="line">	case CASE1 :&#123;</div><div class="line">		return 1;</div><div class="line">	&#125;</div><div class="line">	case CASE2 :&#123;</div><div class="line">		return 2;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="注意事项（和string属性不同的地方）"><a href="#注意事项（和string属性不同的地方）" class="headerlink" title="注意事项（和string属性不同的地方）"></a>注意事项（和string属性不同的地方）</h1><p>最主要的区别，使用 <code>for ... in</code>、 <code>for ... of</code> 或者<code>Object.keys()</code>、 <code>Object.getOwnPropertyNames()</code>不会返回Symbol</p>
+<p>如果想获取对象的所有Symbols，使用函数<code>getOwnPropertySymbols</code></p>
+<p>有个新的API，<code>Reflect.ownKyes</code>，会返回所有的String属性和Symbol属性</p>
+<h1 id="Symbol-keyFor和Symbol-for"><a href="#Symbol-keyFor和Symbol-for" class="headerlink" title="Symbol.keyFor和Symbol.for"></a>Symbol.keyFor和Symbol.for</h1><h3 id="Symbol-for"><a href="#Symbol-for" class="headerlink" title="Symbol.for"></a>Symbol.for</h3><p>Symbol会返回一个新的实例，无论参数是什么，上面已经将到了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let a = Symbol(&apos;foo&apos;);</div><div class="line">let b = Symbol(&apos;foo&apos;);</div><div class="line"></div><div class="line">let same = a === b; //false</div></pre></td></tr></table></figure>
+<p>而Symbol.for则会先搜索是否有以这个参数初始化的Symbol，如果有则放回这个Symbol，否则初始化一个新的,实现逻辑如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Symbol.for(params) = &#123;</div><div class="line">	if (searchSymbolInitWithParams)&#123;</div><div class="line">		return found_symbol;</div><div class="line">	&#125; else &#123;</div><div class="line">		return Symbol(params);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>和第一个例子对比看下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let a = Symbol.for(&apos;foo&apos;);</div><div class="line">let b = Symbol.for(&apos;foo&apos;);</div><div class="line"></div><div class="line">let same = a === b; //true</div></pre></td></tr></table></figure>
+<p>如果Symbol和Symbol.for混用呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let a = Symbol(&apos;foo&apos;);</div><div class="line">let b = Symbol.for(&apos;foo&apos;);</div><div class="line"></div><div class="line">console.log(a===b); //false</div></pre></td></tr></table></figure>
+<p>这说明两者是没有打通的，即Symbol初始化的实例无法被Symbol.for找到</p>
+<h3 id="Symbol-keyFor"><a href="#Symbol-keyFor" class="headerlink" title="Symbol.keyFor"></a>Symbol.keyFor</h3><p>用Symbol.for来初始化的Symbol，如何知道它的初始化参数呢，这里提供了一个方法： Symbol.keyFor</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let a = Symbol.for(&apos;foo&apos;);</div><div class="line">let b = Symbol.Keyfor(a);// &apos;foo&apos;</div></pre></td></tr></table></figure>
+<p>注意，Symbol初始化不能用这个函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let a = Symbol(&apos;foo&apos;);</div><div class="line">let b = Symbol.Keyfor(a);// undefined</div></pre></td></tr></table></figure>
+<p>注意：Symbol.for 为Symbol值登记的是全局的，这意味着在不同的iframe都可以取到同一个值。</p>
 
-      <h2 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="../../2017/05/05/图片清晰度探究/" itemprop="url">
-              
-                <span itemprop="name">图片的展示清晰度问题研究</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-05T15:38:08+08:00"
-              content="2017-05-05" >
-          05-05
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../../../2017/10/25/RNpreformance/" rel="next" title="React Native性能优化">
+                <i class="fa fa-chevron-left"></i> React Native性能优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -339,6 +535,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -358,11 +558,20 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="../../images/avatar.png"
+               src="../../../../images/avatar.png"
                alt="njafei" />
           <p class="site-author-name" itemprop="name">njafei</p>
            
@@ -384,7 +593,7 @@
             
             
             <div class="site-state-item site-state-categories">
-              <a href="../../categories/index.html">
+              <a href="../../../../categories/index.html">
                 <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
@@ -395,7 +604,7 @@
             
             
             <div class="site-state-item site-state-tags">
-              <a href="../index.html">
+              <a href="../../../../tags/index.html">
                 <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
@@ -406,7 +615,7 @@
 
         
           <div class="feed-link motion-element">
-            <a href="../../atom.xml" rel="alternate">
+            <a href="../../../../atom.xml" rel="alternate">
               <i class="fa fa-rss"></i>
               RSS
             </a>
@@ -428,6 +637,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#赋值"><span class="nav-number">2.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项（和string属性不同的地方）"><span class="nav-number"></span> <span class="nav-text">注意事项（和string属性不同的地方）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Symbol-keyFor和Symbol-for"><span class="nav-number"></span> <span class="nav-text">Symbol.keyFor和Symbol.for</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbol-for"><span class="nav-number">1.</span> <span class="nav-text">Symbol.for</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbol-keyFor"><span class="nav-number">2.</span> <span class="nav-text">Symbol.keyFor</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -510,42 +735,46 @@
 
 
   
-  <script type="text/javascript" src="../../lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
-
-  
-
-
-  <script type="text/javascript" src="../../js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="../../js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
 
   
 
 
-  <script type="text/javascript" src="../../js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
