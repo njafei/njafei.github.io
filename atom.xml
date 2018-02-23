@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2018-02-22T06:00:11.628Z</updated>
+  <updated>2018-02-23T09:37:34.039Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ES6-Proxy</title>
+    <link href="https://github.com/njafei/njafei.github.io/2018/02/23/ES6-Proxy/"/>
+    <id>https://github.com/njafei/njafei.github.io/2018/02/23/ES6-Proxy/</id>
+    <published>2018-02-23T09:37:04.000Z</published>
+    <updated>2018-02-23T09:37:34.039Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>proxy的作用是代理对象的某些行为，其 实质 是重载对象的方法。</p>
+<p>举个例子,我们想要读取一个对象的某个属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let obj = &#123;a: &apos;a&apos; , b: &apos;b&apos;&#125;;</div><div class="line">console.log(obj.a); // &apos;a&apos;</div></pre></td></tr></table></figure>
+<p>而使用了proxy之后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let obj = &#123;a: &apos;a&apos;, b: &apos;b&apos;&#125;;</div><div class="line">let handler = &#123;</div><div class="line">	get: fucntion(target, propoty)&#123;</div><div class="line">		return 35;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var proxy = new Proxy(obj, handler);</div><div class="line">console.log(proxy.a);// 35</div></pre></td></tr></table></figure>
+<p>相当于 proxy通过handler里面的指令，代理了obj的行为。</p>
+<p>proxy能代理的，并不仅仅是get函数，还有如下列表，具体的可以网上查阅下文档。</p>
+<ul>
+<li>get</li>
+<li>set</li>
+<li>has</li>
+<li>deleteProperty</li>
+<li>enumerate</li>
+<li>hasOwn</li>
+<li>ownKeys</li>
+<li>getOwnPropertyDescritor</li>
+<li>defineProperty</li>
+<li>preventExtensions</li>
+<li>getPrototypeOf</li>
+<li>isExtensible</li>
+<li>setPrototypeOf</li>
+<li>apply</li>
+<li>construct</li>
+</ul>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>看完了proxy的文档，感觉模模糊糊有了印象，但是还是对它的使用场景没有概念，网上搜索了下，发下一篇非常好的介绍使用场景的文章，地址如下： <a href="https://segmentfault.com/a/1190000006035363" target="_blank" rel="noopener">[译] 实例解析 ES6 Proxy 使用场景</a>，下面我也会使用这篇文章的例子，来介绍proxy到底怎么用。</p>
+<h4 id="校验模块"><a href="#校验模块" class="headerlink" title="校验模块"></a>校验模块</h4><p>这里是重写set函数，实现校验功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">let numericDataStore = &#123;  </div><div class="line">    count: 0,</div><div class="line">    amount: 1234,</div><div class="line">    total: 14</div><div class="line">&#125;;</div><div class="line"></div><div class="line">numericDataStore = new Proxy(numericDataStore, &#123;  </div><div class="line">    set(target, key, value, proxy) &#123;</div><div class="line">        if (typeof value !== &apos;number&apos;) &#123;</div><div class="line">            throw Error(&quot;Properties in numericDataStore can only be numbers&quot;);</div><div class="line">        &#125;</div><div class="line">        return Reflect.set(target, key, value, proxy);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// 抛出错误，因为 &quot;foo&quot; 不是数值</div><div class="line">numericDataStore.count = &quot;foo&quot;;</div><div class="line"></div><div class="line">// 赋值成功</div><div class="line">numericDataStore.count = 333;</div></pre></td></tr></table></figure>
+<h4 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h4><p>js中的私有属性，约定俗成是通过前面加下划线的方式来实现，这里可以用proxy来实现，并且做到了强制私有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var api = &#123;  </div><div class="line">    _apiKey: &apos;123abc456def&apos;,</div><div class="line">    /* mock methods that use this._apiKey */</div><div class="line">    getUsers: function()&#123;&#125;, </div><div class="line">    getUser: function(userId)&#123;&#125;, </div><div class="line">    setUser: function(userId, config)&#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// logs &apos;123abc456def&apos;;</div><div class="line">console.log(&quot;An apiKey we want to keep private&quot;, api._apiKey);</div><div class="line"></div><div class="line">// get and mutate _apiKeys as desired</div><div class="line">var apiKey = api._apiKey;  </div><div class="line">api._apiKey = &apos;987654321&apos;;</div></pre></td></tr></table></figure>
+<h4 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">let api = &#123;  </div><div class="line">    _apiKey: &apos;123abc456def&apos;,</div><div class="line">    getUsers: function() &#123; /* ... */ &#125;,</div><div class="line">    getUser: function(userId) &#123; /* ... */ &#125;,</div><div class="line">    setUser: function(userId, config) &#123; /* ... */ &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">function logMethodAsync(timestamp, method) &#123;  </div><div class="line">    setTimeout(function() &#123;</div><div class="line">        console.log(`$&#123;timestamp&#125; - Logging $&#123;method&#125; request asynchronously.`);</div><div class="line">    &#125;, 0)</div><div class="line">&#125;</div><div class="line"></div><div class="line">api = new Proxy(api, &#123;  </div><div class="line">    get: function(target, key, proxy) &#123;</div><div class="line">        var value = target[key];</div><div class="line">        return function(...arguments) &#123;</div><div class="line">            logMethodAsync(new Date(), key);</div><div class="line">            return Reflect.apply(value, target, arguments);</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">api.getUsers();</div></pre></td></tr></table></figure>
+<h4 id="预警和拦截"><a href="#预警和拦截" class="headerlink" title="预警和拦截"></a>预警和拦截</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">let dataStore = &#123;  </div><div class="line">    noDelete: 1235,</div><div class="line">    oldMethod: function() &#123;/*...*/ &#125;,</div><div class="line">    doNotChange: &quot;tried and true&quot;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">const NODELETE = [&apos;noDelete&apos;];  </div><div class="line">const NOCHANGE = [&apos;doNotChange&apos;];</div><div class="line">const DEPRECATED = [&apos;oldMethod&apos;];  </div><div class="line"></div><div class="line">dataStore = new Proxy(dataStore, &#123;  </div><div class="line">    set(target, key, value, proxy) &#123;</div><div class="line">        if (NOCHANGE.includes(key)) &#123;</div><div class="line">            throw Error(`Error! $&#123;key&#125; is immutable.`);</div><div class="line">        &#125;</div><div class="line">        return Reflect.set(target, key, value, proxy);</div><div class="line">    &#125;,</div><div class="line">    deleteProperty(target, key) &#123;</div><div class="line">        if (NODELETE.includes(key)) &#123;</div><div class="line">            throw Error(`Error! $&#123;key&#125; cannot be deleted.`);</div><div class="line">        &#125;</div><div class="line">        return Reflect.deleteProperty(target, key);</div><div class="line"></div><div class="line">    &#125;,</div><div class="line">    get(target, key, proxy) &#123;</div><div class="line">        if (DEPRECATED.includes(key)) &#123;</div><div class="line">            console.warn(`Warning! $&#123;key&#125; is deprecated.`);</div><div class="line">        &#125;</div><div class="line">        var val = target[key];</div><div class="line"></div><div class="line">        return typeof val === &apos;function&apos; ?</div><div class="line">            function(...args) &#123;</div><div class="line">                Reflect.apply(target[key], target, args);</div><div class="line">            &#125; :</div><div class="line">            val;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// these will throw errors or log warnings, respectively</div><div class="line">dataStore.doNotChange = &quot;foo&quot;;  </div><div class="line">delete dataStore.noDelete;  </div><div class="line">dataStore.oldMethod();</div></pre></td></tr></table></figure>
+<h4 id="过滤操作"><a href="#过滤操作" class="headerlink" title="过滤操作"></a>过滤操作</h4><p>通过特征来过滤不必要的操作，例如下载中，解析中等中间过程，减少响应的压力</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">let obj = &#123;  </div><div class="line">    getGiantFile: function(fileId) &#123;/*...*/ &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">obj = new Proxy(obj, &#123;  </div><div class="line">    get(target, key, proxy) &#123;</div><div class="line">        return function(...args) &#123;</div><div class="line">            const id = args[0];</div><div class="line">            let isEnroute = checkEnroute(id);</div><div class="line">            let isDownloading = checkStatus(id);      </div><div class="line">            let cached = getCached(id);</div><div class="line"></div><div class="line">            if (isEnroute || isDownloading) &#123;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">            if (cached) &#123;</div><div class="line">                return cached;</div><div class="line">            &#125;</div><div class="line">            return Reflect.apply(target[key], target, args);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;语法&quot;&gt;&lt;a href=&quot;#语法&quot; class=&quot;headerlink&quot; title=&quot;语法&quot;&gt;&lt;/a&gt;语法&lt;/h2&gt;&lt;p&gt;proxy的作用是代理对象的某些行为，其 实质 是重载对象的方法。&lt;/p&gt;
+&lt;p&gt;举个例子,我们想要读取一个对象的某个属性&lt;/p&gt;
+&lt;fig
+    
+    </summary>
+    
+      <category term="ES6" scheme="https://github.com/njafei/njafei.github.io/categories/ES6/"/>
+    
+    
+      <category term="ES6" scheme="https://github.com/njafei/njafei.github.io/tags/ES6/"/>
+    
+  </entry>
   
   <entry>
     <title>ES6-Symbols</title>
@@ -147,7 +203,7 @@
 <ul>
 <li><p>关于导航</p>
 <ol>
-<li>iOS上使用<code>NavigatorIOS</code>替换<code>Navigator</code>，同时，react也推出了新的<a href="https://reactnavigation.org/" target="_blank" rel="external">Navigation库</a>希望解决导航卡顿的问题</li>
+<li>iOS上使用<code>NavigatorIOS</code>替换<code>Navigator</code>，同时，react也推出了新的<a href="https://reactnavigation.org/" target="_blank" rel="noopener">Navigation库</a>希望解决导航卡顿的问题</li>
 <li>push的新界面的动画，使用<code>InteractionManager</code>，就是在导航动画结束后执行新的动画，而不是同时执行</li>
 </ol>
 </li>
@@ -172,7 +228,7 @@
 <p>一个好的UI设计方案，是可以抵过上面所有的建议加起来的效果的，所以一定要仔细考虑再动手。</p>
 <p>参考：</p>
 <ul>
-<li><a href="http://reactnative.cn/docs/0.49/performance.html#content" target="_blank" rel="external">官方文档：性能</a></li>
+<li><a href="http://reactnative.cn/docs/0.49/performance.html#content" target="_blank" rel="noopener">官方文档：性能</a></li>
 </ul>
 ]]></content>
     
@@ -205,18 +261,18 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">search:</div><div class="line">  path: search.xml</div><div class="line">  field: post</div><div class="line">  format: html</div><div class="line">  limit: 10000</div></pre></td></tr></table></figure>
 <p>编辑 主题配置文件，启用本地搜索功能：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># Local search</div><div class="line">local_search:</div><div class="line">  enable: true</div></pre></td></tr></table></figure>
-<h2 id="遇到问题，一直loading"><a href="#遇到问题，一直loading" class="headerlink" title="遇到问题，一直loading"></a>遇到问题，一直loading</h2><p>发布了之后，点击搜索一直在loading，查了其他人的文章<a href="https://www.v2ex.com/amp/t/298727" target="_blank" rel="external">Hexo next 主题的 local search 功能失效，点击搜索链接无法弹出叠加层
+<h2 id="遇到问题，一直loading"><a href="#遇到问题，一直loading" class="headerlink" title="遇到问题，一直loading"></a>遇到问题，一直loading</h2><p>发布了之后，点击搜索一直在loading，查了其他人的文章<a href="https://www.v2ex.com/amp/t/298727" target="_blank" rel="noopener">Hexo next 主题的 local search 功能失效，点击搜索链接无法弹出叠加层
 </a>，发现是<code>search.xml</code>出现了问题。</p>
 <p>排查问题步骤：</p>
 <ol>
 <li>command + option + J 打开调试器</li>
 <li>点击NetWork，发现卡在了<code>search.xml</code>上面</li>
-<li>尝试debug <code>serach.xml</code>文件，打开 <a href="https://njafei.github.io/search.xml" target="_blank" rel="external">https://njafei.github.io/search.xml</a></li>
+<li>尝试debug <code>serach.xml</code>文件，打开 <a href="https://njafei.github.io/search.xml" target="_blank" rel="noopener">https://njafei.github.io/search.xml</a></li>
 <li>看到警告： <code>error on line 92 at column 35: Input is not proper UTF-8, indicate encoding ! 0x10 0xE6 0x88 0x96</code></li>
 <li>编码问题，找到对应的文章，先对其进行<code>utf-8</code>编码，然后放到sublimeText中，我发现中间多了一个类似于<code>DEL</code>的乱码，删除即可</li>
 <li>重新发布，搜索可用</li>
 </ol>
-<h2 id="缓存问题"><a href="#缓存问题" class="headerlink" title="缓存问题"></a>缓存问题</h2><p>search有时候会有缓存，这时候，可以打开对应的<code>search.xml</code>文件<a href="https://njafei.github.io/search.xml" target="_blank" rel="external">https://njafei.github.io/search.xml</a>，刷新几下即可</p>
+<h2 id="缓存问题"><a href="#缓存问题" class="headerlink" title="缓存问题"></a>缓存问题</h2><p>search有时候会有缓存，这时候，可以打开对应的<code>search.xml</code>文件<a href="https://njafei.github.io/search.xml" target="_blank" rel="noopener">https://njafei.github.io/search.xml</a>，刷新几下即可</p>
 <blockquote>
 <p>PS： 如果你想刷新你的文件，把前面的链接替换即可。</p>
 </blockquote>
@@ -243,7 +299,7 @@
     
     <content type="html"><![CDATA[<p>iOS控制包的大小对于公司来说，是个非常重要的事情。因为苹果公司对于包的大小超过100M的，不会允许用户使用移动网络来下载，这很可能造成商业上的损失。</p>
 <p>而在控制包的大小中，一个很重要的原则就是禁止大图片。之前研究其他公司的ipa包的时候，就出现过一个icon高达1M的事故。而平时，虽然程序员们百般小心，难免被设计师暗算给张大图（玩笑），所以靠人终究不是一个可持续的保证质量的方法。</p>
-<p>平时用的无损压缩最多的工具是<code>ImageOptm</code>，它可以无损压缩图片（即用户看起来感官无变化，而图片尽可能小），而且它是提供命令行的，<a href="https://imageoptim.com/command-line.html" target="_blank" rel="external">ImageOptm command line</a>.</p>
+<p>平时用的无损压缩最多的工具是<code>ImageOptm</code>，它可以无损压缩图片（即用户看起来感官无变化，而图片尽可能小），而且它是提供命令行的，<a href="https://imageoptim.com/command-line.html" target="_blank" rel="noopener">ImageOptm command line</a>.</p>
 <p>我们就可以通过Jenkins的定时任务，每天凌晨去优化所有的图片，然后再自动commit上传。</p>
 <p>具体任务就很简单了，大概几个步骤：</p>
 <p>1、Jenkins开个定时任务，更新代码</p>
@@ -278,7 +334,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1+1</div></pre></td></tr></table></figure>
 <p>可是在其他的浏览器等decode之后的结果是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1 1</div></pre></td></tr></table></figure>
-<p>发现java的encode有个坑，在java中，encode遵循的标准是<a href="http://www.faqs.org/rfcs/rfc1738.html" target="_blank" rel="external">rfc1738</a>，而在iOS中，encode遵循的标准是<a href="http://www.faqs.org/rfcs/rfc2396.html" target="_blank" rel="external">rfc2396</a>，两者对于空格的encode不同</p>
+<p>发现java的encode有个坑，在java中，encode遵循的标准是<a href="http://www.faqs.org/rfcs/rfc1738.html" target="_blank" rel="noopener">rfc1738</a>，而在iOS中，encode遵循的标准是<a href="http://www.faqs.org/rfcs/rfc2396.html" target="_blank" rel="noopener">rfc2396</a>，两者对于空格的encode不同</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rfc1738 =&gt; +</div><div class="line">rfc2396 =&gt; %20</div></pre></td></tr></table></figure>
 <p>所以今后和Java服务端合作的时候，如果encode之后的文案出现了+号这种莫名奇妙的bug，记得让他们检查下encode的代码，可以通过替换来解决这个问题。</p>
 ]]></content>
@@ -353,7 +409,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">componentDidMount() &#123;</div><div class="line">    this.timer = setTimeout(</div><div class="line">      () =&gt; &#123; console.log(&apos;把一个定时器的引用挂在this上&apos;); &#125;,</div><div class="line">      500</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">componentWillUnmount() &#123;</div><div class="line">    // 请注意Un&quot;m&quot;ount的m是小写</div><div class="line">    // 如果存在this.timer，则使用clearTimeout清空。</div><div class="line">    // 如果你使用多个timer，那么用多个变量，或者用个数组来保存引用，然后逐个clear</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
 <p>这里的timer是在<code>DidMount</code>中赋值的，如果是多次赋值呢？比如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">export default class test extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click5000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,5000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click2000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,2000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;clean timer&apos;&#125; onPress=&#123;this.cleanTimer.bind(this)&#125; /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  alertInfo(time)&#123;</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  cleanTimer()&#123;</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">    console.log(&apos;timer cleared&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;test&apos;, () =&gt; test);</div></pre></td></tr></table></figure>
-<p>这里要介绍下<code>setTimeout</code>的返回值，我们打断点可以看到，<code>this.timer</code>是一个number。根据stack上面的其他网友的回答<a href="https://stackoverflow.com/questions/10068981/what-does-settimeout-return" target="_blank" rel="external">what-does-settimeout-return</a>，setTimer会返回一个id，代表你已经向js的runtime系统中成功注册了一个定时器任务，这个id就是系统返回的id。</p>
+<p>这里要介绍下<code>setTimeout</code>的返回值，我们打断点可以看到，<code>this.timer</code>是一个number。根据stack上面的其他网友的回答<a href="https://stackoverflow.com/questions/10068981/what-does-settimeout-return" target="_blank" rel="noopener">what-does-settimeout-return</a>，setTimer会返回一个id，代表你已经向js的runtime系统中成功注册了一个定时器任务，这个id就是系统返回的id。</p>
 <p>那如果是需要多次赋值，就一定要先将time clear掉，然后再赋值，或者使用多个参数来标志，否则之后就找不到上次的id，也就没办法clear了，同样可能造成内存泄露的情况。</p>
 <p>例子如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Sample React Native App</div><div class="line"> * https://github.com/facebook/react-native</div><div class="line"> * @flow</div><div class="line"> */</div><div class="line"></div><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">  AppRegistry,</div><div class="line">  StyleSheet,</div><div class="line">  Text,</div><div class="line">  View,</div><div class="line">  Button</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class test extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click5000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,5000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click2000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,2000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;clean timer&apos;&#125; onPress=&#123;this.cleanTimer.bind(this)&#125; /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  alertInfo(time)&#123;</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  cleanTimer()&#123;</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">    console.log(&apos;timer cleared&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">  container: &#123;</div><div class="line">    flex: 1,</div><div class="line">    justifyContent: &apos;center&apos;,</div><div class="line">    alignItems: &apos;center&apos;,</div><div class="line">    backgroundColor: &apos;#F5FCFF&apos;,</div><div class="line">  &#125;,</div><div class="line">  welcome: &#123;</div><div class="line">    fontSize: 20,</div><div class="line">    textAlign: &apos;center&apos;,</div><div class="line">    margin: 10,</div><div class="line">  &#125;,</div><div class="line">  instructions: &#123;</div><div class="line">    textAlign: &apos;center&apos;,</div><div class="line">    color: &apos;#333333&apos;,</div><div class="line">    marginBottom: 5,</div><div class="line">  &#125;,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;test&apos;, () =&gt; test);</div></pre></td></tr></table></figure>
@@ -435,10 +491,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@interface Person : NSObject</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line"></div><div class="line">@interface Person()</div><div class="line"></div><div class="line">@property (nonatomic, copy) NSString *name;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation Person</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
 <h1 id="KVC"><a href="#KVC" class="headerlink" title="KVC"></a>KVC</h1><p>KVC是我比较推荐的，代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Person *person = [Person new];</div><div class="line">    </div><div class="line">[person setValue:@&quot;new name&quot; forKey:@&quot;name&quot;];</div><div class="line"></div><div class="line">NSString *name = [person valueForKey:@&quot;name&quot;];</div></pre></td></tr></table></figure>
-<p>KVC是苹果推荐用来做类似事情的方法，所以这种需求，KVC解决是最好的，代码简洁，效率也比较高。<br>关于KVC的相关内容可以看下<a href="https://njafei.github.io/2017/04/18/KVC/" target="_blank" rel="external">KVC详解</a></p>
+<p>KVC是苹果推荐用来做类似事情的方法，所以这种需求，KVC解决是最好的，代码简洁，效率也比较高。<br>关于KVC的相关内容可以看下<a href="https://njafei.github.io/2017/04/18/KVC/" target="_blank" rel="noopener">KVC详解</a></p>
 <h1 id="runtime"><a href="#runtime" class="headerlink" title="runtime"></a>runtime</h1><p>runtime的思路就是先读取对象的所有属性，然后找到对象的属性，赋值。代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Person *person = [Person new];</div><div class="line"></div><div class="line">unsigned int count = 0; //count记录变量的数量</div><div class="line"></div><div class="line">Ivar *members = class_copyIvarList([person class], &amp;count);</div><div class="line">for (int i = 0; i &lt; count; i++) &#123;</div><div class="line">    Ivar ivar = members[i];</div><div class="line">    const char *memberName = ivar_getName(ivar);</div><div class="line">    NSString *memberNameString = [NSString stringWithFormat:@&quot;%s&quot;,memberName];</div><div class="line">    </div><div class="line">    if ([memberNameString isEqualToString: @&quot;_name&quot;]) &#123;</div><div class="line">        object_setIvar(person, ivar, @&quot;newName&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>runtime的做法相对来讲代码比较多，也不够简洁，但是还是可以实现这个需求的。runtime的详细内容可以参考<a href="https://njafei.github.io/2017/05/04/runtime/" target="_blank" rel="external">iOS Runtime 详解</a></p>
+<p>runtime的做法相对来讲代码比较多，也不够简洁，但是还是可以实现这个需求的。runtime的详细内容可以参考<a href="https://njafei.github.io/2017/05/04/runtime/" target="_blank" rel="noopener">iOS Runtime 详解</a></p>
 ]]></content>
     
     <summary type="html">
@@ -532,7 +588,7 @@
 </blockquote>
 <p><code>__block</code>会把变量放到<code>block</code>等的存在的内存中，这样在<code>block</code>存在期间，可以直接修改变量，不同的<code>block</code>都使用这个共享的变量。</p>
 <p><code>block</code>默认是存在栈中的，但是如果<code>block</code>被拷贝，则会放到堆中</p>
-<p><code>__block</code>有两个注意点，不能是可变化长度的数据，也不能是<a href="https://en.wikipedia.org/wiki/Variable-length_array" target="_blank" rel="external">C99标准可变长度的数组</a></p>
+<p><code>__block</code>有两个注意点，不能是可变化长度的数据，也不能是<a href="https://en.wikipedia.org/wiki/Variable-length_array" target="_blank" rel="noopener">C99标准可变长度的数组</a></p>
 <h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><ol>
 <li>为什么要用copy</li>
 <li>为什么要避免循环引用，如何避免</li>
@@ -613,7 +669,7 @@
 <p><code>Unicode</code>的第一个版本是打算使用两个字节来表示所有的字符，比如1-200给英文，200-5000给中文等等，这样总共就有2^16次方个，基本足够了。（后来发现还是不够，<code>Unicode的第二个版本就使用4个字节，共2^32个</code>）</p>
 <p>所有的字符都有一个数字对应的了，怎么保存呢？这里很多人容易搞错，因为<code>Unicode</code>提出了使用2个字节来表示所有字符，所以大家把<code>UTF16</code>和<code>Unicode</code>弄混淆了。应该说，<code>UTF16</code>来存储和<code>Unicode</code>真的是天作之合，因为两者都是使用两个字节。但是这样也出现了一个问题，比如如果一篇英文文章，他使用的字符段，都是一个字节就能表示出来了，使用2个字节表示，简直是浪费空间，所以又提出了<code>UTF8</code>，即使用1个字节存储，如果出现了需要两个字节的情况，想办法做兼容。</p>
 <p>综上，我们说的<code>Unicode</code>是为了表示所有的字符的一种定义方法，而<code>UTF8</code>和<code>UTF16</code>是为了存储<code>Unicode</code>的一种方案。</p>
-<p>这里如果比较有兴趣，可以看下博客<a href="http://www.cnblogs.com/kingcat/archive/2012/10/16/2726334.html" target="_blank" rel="external">Unicode(UTF-8, UTF-16)令人混淆的概念</a></p>
+<p>这里如果比较有兴趣，可以看下博客<a href="http://www.cnblogs.com/kingcat/archive/2012/10/16/2726334.html" target="_blank" rel="noopener">Unicode(UTF-8, UTF-16)令人混淆的概念</a></p>
 <h4 id="ES6做的拓展"><a href="#ES6做的拓展" class="headerlink" title="ES6做的拓展"></a>ES6做的拓展</h4><p>JS是支持直接展示<code>Unicode</code>的，比如:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">console.log(&quot;\u0061&quot;);//&quot;a&quot;;</div></pre></td></tr></table></figure>
 <p>但是只限 \u0000 - \FFFF之间的，如果是 \u00001这样的，就不支持了。</p>
@@ -767,7 +823,7 @@
 <p>OpenGLRenderer: Bitmap too large to be uploaded into a texture (750x4520, max=4096x4096</p>
 </blockquote>
 <p>这个因为图片的尺寸过大（注意，不是大小哦），导致<code>Android</code>手机不能渲染，那么怎么解决这个问题呢？</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>这里推荐使用<code>webView</code>，RN提供的<code>webView</code>功能还算强大，可以把它作为一个容易来装图片，最重要的是，大部分的<code>Android</code>手机对<code>webView</code>的优化还是非常不错的。而且<code>webView</code>还支持多种格式，你甚至可以把<code>html</code>代码写入一个字符串中传给<code>webView</code>。具体请参考wiki:<a href="http://reactnative.cn/docs/0.43/webview.html#content" target="_blank" rel="external">http://reactnative.cn/docs/0.43/webview.html#content</a></p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>这里推荐使用<code>webView</code>，RN提供的<code>webView</code>功能还算强大，可以把它作为一个容易来装图片，最重要的是，大部分的<code>Android</code>手机对<code>webView</code>的优化还是非常不错的。而且<code>webView</code>还支持多种格式，你甚至可以把<code>html</code>代码写入一个字符串中传给<code>webView</code>。具体请参考wiki:<a href="http://reactnative.cn/docs/0.43/webview.html#content" target="_blank" rel="noopener">http://reactnative.cn/docs/0.43/webview.html#content</a></p>
 <p>实现代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">let leftNum = this.getLeftNumberText();</div><div class="line">        const HTML = `</div><div class="line">            &lt;!DOCTYPE html&gt;\n</div><div class="line">            &lt;html&gt;</div><div class="line">              &lt;head&gt;</div><div class="line">                &lt;title&gt;Hello Static World&lt;/title&gt;</div><div class="line">                &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;</div><div class="line">                &lt;meta name=&quot;viewport&quot; content=&quot;width=320, user-scalable=no&quot;&gt;</div><div class="line">                &lt;style type=&quot;text/css&quot;&gt;</div><div class="line">                    body&#123;</div><div class="line">                        margin:0;</div><div class="line">                        padding:0;</div><div class="line">                        </div><div class="line">                    &#125;</div><div class="line">                    img&#123;</div><div class="line">                        width:100%;</div><div class="line">                    &#125;</div><div class="line">                &lt;/style&gt;</div><div class="line">              &lt;/head&gt;</div><div class="line">              &lt;body&gt;</div><div class="line">                &lt;img src=&quot;https://m.tuniucdn.com/fb2/t1/G1/M00/F1/51/Cii9EFkAaZ-IRgGNAATB18ldk0UAAJzuQN-p1cABMHv15.jpeg&quot;/&gt;</div><div class="line">              &lt;/body&gt;</div><div class="line">            &lt;/html&gt;</div><div class="line">            `;</div><div class="line"></div><div class="line">        let image =  (</div><div class="line">            &lt;Image style=&#123;styles.image&#125;</div><div class="line">                   source=&#123;&#123;uri: &apos;https://m.tuniucdn.com/fb2/t1/G1/M00/F1/51/Cii9EFkAaZ-IRgGNAATB18ldk0UAAJzuQN-p1cABMHv15.jpeg&apos;&#125;&#125;/&gt;);</div><div class="line"></div><div class="line">        let webView = (</div><div class="line">            &lt;WebView</div><div class="line">                style=&#123;styles.image&#125;</div><div class="line">                automaticallyAdjustContentInsets=&#123;false&#125;</div><div class="line">                source=&#123;&#123;html:HTML&#125;&#125;</div><div class="line">                javaScriptEnabled=&#123;true&#125;</div><div class="line">                domStorageEnabled=&#123;true&#125;</div><div class="line">                decelerationRate=&quot;normal&quot;</div><div class="line">                startInLoadingState=&#123;true&#125;</div><div class="line">                scalesPageToFit=&#123;false&#125;</div><div class="line">                onLoadEnd = &#123;()=&gt;&#123;console.log(&apos;loading end&apos;)&#125;&#125;</div><div class="line">                onError = &#123;()=&gt;&#123;console.log(&apos;loading error&apos;)&#125;&#125;</div><div class="line">            /&gt;</div><div class="line">            )</div><div class="line"></div><div class="line">        let ImageShow = Platform.OS===&apos;android&apos; ? webView: image;</div><div class="line">        return (</div><div class="line">            &lt;View style=&#123;styles.bgView&#125;&gt;</div><div class="line">                &lt;Header title = &apos;牛大头&apos;&gt;&lt;/Header&gt;</div><div class="line">                &lt;ScrollView style=&#123;styles.scrollView&#125;&gt;</div><div class="line">                    &lt;View style=&#123;styles.tipBgView&#125;&gt;</div><div class="line">                        &lt;Image source = &#123;require(&apos;./images/icon-ask-home-tip.png&apos;)&#125;</div><div class="line">                        style=&#123;styles.tipIcon&#125;/&gt;</div><div class="line">                        &lt;Text style=&#123;styles.tipText&#125;&gt;&#123;leftNum&#125;&lt;/Text&gt;</div><div class="line">                    &lt;/View&gt;</div><div class="line">                    &#123;ImageShow&#125;</div><div class="line">                &lt;/ScrollView&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div></pre></td></tr></table></figure>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>其实我觉得， 如果是营销界面，最好是公司提供一整套可以配置的H5界面，这样可以直接使用后台的<code>CMS</code>后台去配置出来一个界面，节省人力，效率高。</p>
@@ -853,7 +909,7 @@
 <li>null表示”没有对象”，即该处不应该有值。</li>
 <li>undefined表示”缺少值”，就是此处应该有一个值，但是还没有定义</li>
 </ul>
-<p>具体的可以看下阮一峰的文章：<a href="http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html" target="_blank" rel="external">undefined与null的区别</a>。下面的文章会用到这点。</p>
+<p>具体的可以看下阮一峰的文章：<a href="http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html" target="_blank" rel="noopener">undefined与null的区别</a>。下面的文章会用到这点。</p>
 <h1 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h1><p>数组的结构赋值比较简单，我们下面通过一些不同的例子来看下：</p>
 <h4 id="正常结构"><a href="#正常结构" class="headerlink" title="正常结构"></a>正常结构</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let [a,b,c] = [1,2,3];</div><div class="line">a // 1</div><div class="line">b // 2</div><div class="line">c // 3</div></pre></td></tr></table></figure>
 <h4 id="嵌套结构"><a href="#嵌套结构" class="headerlink" title="嵌套结构"></a>嵌套结构</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let [a,[b,c],d] = [1,[2,3],4];</div><div class="line">a // 1</div><div class="line">b // 2</div><div class="line">c // 3</div><div class="line">d // 4</div></pre></td></tr></table></figure>
@@ -1043,7 +1099,7 @@
 <li>NSObject 方法</li>
 <li>Runtime 方法</li>
 </ul>
-<h4 id="Objective-C-源代码"><a href="#Objective-C-源代码" class="headerlink" title="Objective-C 源代码"></a>Objective-C 源代码</h4><p>一般来说，runtime都是默默地在后台运行工作，我们只是写Objective-C源代码，就使用了runtime。当我们编译包含Objective-C的类和方法时，编译器就会生成包含runtime特性的数据结构和方法。数据结构中包含了从类、category、协议中定义的的信息，如：selector、变量等等。主要的runtime方法是发送信息的方法<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtHowMessagingWorks.html#//apple_ref/doc/uid/TP40008048-CH104-SW1" target="_blank" rel="external">Message</a>,在下一章节会讲到。</p>
+<h4 id="Objective-C-源代码"><a href="#Objective-C-源代码" class="headerlink" title="Objective-C 源代码"></a>Objective-C 源代码</h4><p>一般来说，runtime都是默默地在后台运行工作，我们只是写Objective-C源代码，就使用了runtime。当我们编译包含Objective-C的类和方法时，编译器就会生成包含runtime特性的数据结构和方法。数据结构中包含了从类、category、协议中定义的的信息，如：selector、变量等等。主要的runtime方法是发送信息的方法<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtHowMessagingWorks.html#//apple_ref/doc/uid/TP40008048-CH104-SW1" target="_blank" rel="noopener">Message</a>,在下一章节会讲到。</p>
 <h4 id="NSObject方法"><a href="#NSObject方法" class="headerlink" title="NSObject方法"></a>NSObject方法</h4><p>Cocoa中大部分的类都是继承自<code>NSObejct</code>，所以他们都会集成了<code>NSObject</code>定义的方法。（值得注意的例外是<code>NSProxy</code>类）因此<code>NSObject</code>的方法就决定了其他类的行为。（当然，在少数情况下，这样说并不正确，在这些情况下，<code>NSObject</code>会仅仅定义了方法，没有实现必须的代码。比如<code>description</code>，如果子类没有重写，那么会返回类名和地址，这是因为<code>NSObject</code>没法获得更多的信息。）</p>
 <p>一些<code>NSObject</code>类的方法可以直接查询<code>runtime</code>系统的信息，从而获得自身的信息。比如<code>class</code>，<code>isKindeOfClass</code>，<code>respondsToSelector</code>等方法。</p>
 <h4 id="Runtime方法"><a href="#Runtime方法" class="headerlink" title="Runtime方法"></a>Runtime方法</h4><p>Runtime系统是一个共享的library，包含了许多方法和数据结构，地址在<code>/usr/include/objc</code>。其中的很多方法，允许你使用C来重写编译行为，其他的方法是通过<code>NSObject</code>类使用。有了这些方法，我们就可以为<code>runtime</code>系统增加接口，或者工具。</p>
@@ -1065,7 +1121,7 @@
 <li>找到对应的<code>method</code>，执行它的<code>IMP</code></li>
 <li>转发IMP的return值</li>
 </ol>
-<p>selector和IMP、method等的区别，可以参考我的另一篇博客<a href="https://njafei.github.io/2017/05/03/Method-SEL-IMP/" target="_blank" rel="external">Method,SEL,IMP</a></p>
+<p>selector和IMP、method等的区别，可以参考我的另一篇博客<a href="https://njafei.github.io/2017/05/03/Method-SEL-IMP/" target="_blank" rel="noopener">Method,SEL,IMP</a></p>
 <blockquote>
 <p> 注意：编译器会生成messaging方法，所以你永远都不应该手动调用这个方法。</p>
 </blockquote>
@@ -1130,12 +1186,12 @@
 <p>因为主要是使用<code>method swizzling</code>来做，我将会在之后的博客中专门介绍。</p>
 <p>参考文章：</p>
 <ul>
-<li>关于编译和链接，可以看下 <a href="http://www.cprogramming.com/compilingandlinking.html" target="_blank" rel="external">http://www.cprogramming.com/compilingandlinking.html</a> 这篇文章。</li>
-<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048-CH1-SW1" target="_blank" rel="external">ObjCRuntimeGuide</a></li>
-<li><a href="http://stackoverflow.com/questions/3900549/what-is-runtime" target="_blank" rel="external">http://stackoverflow.com/questions/3900549/what-is-runtime</a></li>
-<li><a href="http://tech.glowing.com/cn/objective-c-runtime/" target="_blank" rel="external">http://tech.glowing.com/cn/objective-c-runtime/</a></li>
-<li><a href="http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/" target="_blank" rel="external">http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/</a></li>
-<li><a href="http://tech.glowing.com/cn/objective-c-runtime/" target="_blank" rel="external">http://tech.glowing.com/cn/objective-c-runtime/</a></li>
+<li>关于编译和链接，可以看下 <a href="http://www.cprogramming.com/compilingandlinking.html" target="_blank" rel="noopener">http://www.cprogramming.com/compilingandlinking.html</a> 这篇文章。</li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048-CH1-SW1" target="_blank" rel="noopener">ObjCRuntimeGuide</a></li>
+<li><a href="http://stackoverflow.com/questions/3900549/what-is-runtime" target="_blank" rel="noopener">http://stackoverflow.com/questions/3900549/what-is-runtime</a></li>
+<li><a href="http://tech.glowing.com/cn/objective-c-runtime/" target="_blank" rel="noopener">http://tech.glowing.com/cn/objective-c-runtime/</a></li>
+<li><a href="http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/" target="_blank" rel="noopener">http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/</a></li>
+<li><a href="http://tech.glowing.com/cn/objective-c-runtime/" target="_blank" rel="noopener">http://tech.glowing.com/cn/objective-c-runtime/</a></li>
 </ul>
 ]]></content>
     
@@ -1143,70 +1199,6 @@
     
       &lt;h1 id=&quot;什么是runtime&quot;&gt;&lt;a href=&quot;#什么是runtime&quot; class=&quot;headerlink&quot; title=&quot;什么是runtime&quot;&gt;&lt;/a&gt;什么是runtime&lt;/h1&gt;&lt;p&gt;依照苹果文档的说法，&lt;code&gt;runtime&lt;/code&gt;是：&lt;/p&gt;
 &lt;
-    
-    </summary>
-    
-      <category term="iOS基础" scheme="https://github.com/njafei/njafei.github.io/categories/iOS%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
-    
-      <category term="基础知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Method,SEL,Imp</title>
-    <link href="https://github.com/njafei/njafei.github.io/2017/05/03/Method-SEL-IMP/"/>
-    <id>https://github.com/njafei/njafei.github.io/2017/05/03/Method-SEL-IMP/</id>
-    <published>2017-05-03T08:11:23.000Z</published>
-    <updated>2017-10-19T03:37:16.722Z</updated>
-    
-    <content type="html"><![CDATA[<p>这三个概念，虽然在平时的时候总是在用，但是最近写<code>runtime</code>的时候，又感觉有点糊涂，今天就把他们的关系搞清楚。</p>
-<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><p>先看下定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">runtime.h</div><div class="line">/// An opaque type that represents a method in a class definition.代表类定义中一个方法的不透明类型</div><div class="line">typedef struct objc_method *Method;</div><div class="line"></div><div class="line">struct objc_method &#123;</div><div class="line">    SEL method_name                                          OBJC2_UNAVAILABLE;</div><div class="line">    char *method_types                                       OBJC2_UNAVAILABLE;</div><div class="line">    IMP method_imp                                           OBJC2_UNAVAILABLE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Method和我们平时理解的函数是一致的，就是表示能够独立完成一个功能的一段代码，比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)logName</div><div class="line">&#123;</div><div class="line">	NSLog(@&quot;name&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这段代码，就是一个函数。</p>
-<p>我们来看下<code>objc_method</code>这个结构体的内容：</p>
-<ul>
-<li>SEL method_name 方法名</li>
-<li>char *method_types 方法类型</li>
-<li>IMP method_imp 方法实现</li>
-</ul>
-<p>在这个结构体重，我们已经看到了<code>SEL</code>和<code>IMP</code>，说明<code>SEL</code>和<code>IMP</code>其实都是<code>Method</code>的属性。</p>
-<p>我们接着来看<code>SEL</code>。</p>
-<h1 id="SEL"><a href="#SEL" class="headerlink" title="SEL"></a>SEL</h1><p>还是先看定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Objc.h</div><div class="line">/// An opaque type that represents a method selector.代表一个方法的不透明类型</div><div class="line">typedef struct objc_selector *SEL;</div></pre></td></tr></table></figure></p>
-<p>这里要先说明下<code>selector</code>和<code>SEL</code>的关系，我在写本文的时候，其实搜索的是<code>selector</code>，直到我看到了<code>selector</code>的定义，才发现我理解一直不对。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property SEL selector;</div></pre></td></tr></table></figure>
-<p>在文档中，<code>selector</code>的定义都是这样声明，也就是说：<code>selector</code>是<code>SEL</code>的一个实例，只是在iOS中，<code>selector</code>的使用是如此的频繁，我们才会把他当成一个概念。</p>
-<p><code>selector</code>怎么理解呢？我们可以想想股票，比如市场上有如此多公司在纳斯达克上市，而且他们的名字又非常的长，或者有些公司的名称也是相似的，都是**有限公司。那当市场去指定一个股票的时候，效率会非常低，当你着急想买股票的时候，你会跟你的经纪人说：“hi，peter，给我买一百股Tuniu limited liability company的股票吗？”，也许等你说完，经纪人输入完，市场就变化了，所以纳斯达克通常用代码，比如“TOUR”.这里的<code>selector</code>有类似的作用，就是让我们能够快速找到对应的函数。</p>
-<p>文档中是这样讲的：</p>
-<blockquote>
-<p> A method selector is a C string that has been registered (or “mapped“) with the Objective-C runtime. Selectors generated by the compiler are automatically mapped by the runtime when the class is loaded.</p>
-</blockquote>
-<p>在iOS中，<code>runtime</code>会在运行的时候，通过<code>load</code>函数，将所有的<code>method</code>hash然后map到<code>set</code>中。这样在运行的时候，寻找<code>selector</code>的速度就会非常快，不会因为<code>runtime</code>特性牺牲太多的性能。</p>
-<p><code>selector</code>既然是一个string，我觉得应该是类似<code>className+method</code>的组合，命名规则有两条：</p>
-<ul>
-<li>同一个类，selector不能重复</li>
-<li>不同的类，selector可以重复</li>
-</ul>
-<p>这也带来了一个弊端，我们在写C代码的时候，经常会用到函数重载，就是函数名相同，参数不同，但是这在<code>Objective-C</code>中是行不通的，因为<code>selector</code>只记了<code>method</code>的name，没有参数，所以没法区分不同的method。</p>
-<p>比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)caculate(NSInteger)num;</div><div class="line"></div><div class="line">- (void)caculate(CGFloat)num;</div></pre></td></tr></table></figure>
-<p>是会报错的。</p>
-<p>我们只能通过命名来区别：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)caculateWithInt(NSInteger)num;</div><div class="line"></div><div class="line">- (void)caculateWithFloat(CGFloat)num;</div></pre></td></tr></table></figure>
-<h1 id="IMP"><a href="#IMP" class="headerlink" title="IMP"></a>IMP</h1><p>看下<code>IMP</code>的定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/// A pointer to the function of a method implementation.  指向一个方法实现的指针</div><div class="line">typedef id (*IMP)(id, SEL, ...); </div><div class="line">#endif</div></pre></td></tr></table></figure>
-<p>这个就比较好理解了，就是指向最终实现程序的内存地址的指针。</p>
-<p>综上，在iOS的<code>runtime</code>中，<code>Method</code>通过<code>selector</code>和<code>IMP</code>两个属性，实现了快速查询方法及实现，相对提高了性能，又保持了灵活性。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这三个概念，虽然在平时的时候总是在用，但是最近写&lt;code&gt;runtime&lt;/code&gt;的时候，又感觉有点糊涂，今天就把他们的关系搞清楚。&lt;/p&gt;
-&lt;h1 id=&quot;Method&quot;&gt;&lt;a href=&quot;#Method&quot; class=&quot;headerlink&quot; title=&quot;Met
     
     </summary>
     

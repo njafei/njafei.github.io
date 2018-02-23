@@ -92,20 +92,19 @@
 
 
 
-<meta name="description" content="关于帧在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？
-这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS">
+<meta name="description" content="关于帧在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？ 这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS">
+<meta name="keywords" content="React-Native,performance">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native性能优化">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/10/25/RNpreformance/index.html">
-<meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="关于帧在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？
-这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS">
+<meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="关于帧在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？ 这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d1160924ab18972be457999ee2cd7b899e510a70.jpg">
 <meta property="og:updated_time" content="2017-10-25T03:03:48.201Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native性能优化">
-<meta name="twitter:description" content="关于帧在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？
-这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS">
+<meta name="twitter:description" content="关于帧在讲述如何优化性能之前，我们要先了解一下性能的概念。对一个从未接触过相关概念的人来说，所谓的性能就是当你去使用App的时候很流畅，点击、跳转等交互效果反应很快，而且很顺滑。这是感性的角度，那么理性的角度或者数据的角度看待呢？ 这里要介绍一个概念： 帧率。我们知道，所谓的动画或者电影，其实归根结底就是在一秒内快速闪过多张不同的图片，如果快到一定的程度，肉眼会误以为里面的动画都是连贯的。在iOS">
 <meta name="twitter:image" content="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d1160924ab18972be457999ee2cd7b899e510a70.jpg">
 
 
@@ -459,7 +458,7 @@
 <ul>
 <li><p>关于导航</p>
 <ol>
-<li>iOS上使用<code>NavigatorIOS</code>替换<code>Navigator</code>，同时，react也推出了新的<a href="https://reactnavigation.org/" target="_blank" rel="external">Navigation库</a>希望解决导航卡顿的问题</li>
+<li>iOS上使用<code>NavigatorIOS</code>替换<code>Navigator</code>，同时，react也推出了新的<a href="https://reactnavigation.org/" target="_blank" rel="noopener">Navigation库</a>希望解决导航卡顿的问题</li>
 <li>push的新界面的动画，使用<code>InteractionManager</code>，就是在导航动画结束后执行新的动画，而不是同时执行</li>
 </ol>
 </li>
@@ -484,7 +483,7 @@
 <p>一个好的UI设计方案，是可以抵过上面所有的建议加起来的效果的，所以一定要仔细考虑再动手。</p>
 <p>参考：</p>
 <ul>
-<li><a href="http://reactnative.cn/docs/0.49/performance.html#content" target="_blank" rel="external">官方文档：性能</a></li>
+<li><a href="http://reactnative.cn/docs/0.49/performance.html#content" target="_blank" rel="noopener">官方文档：性能</a></li>
 </ul>
 
       
@@ -614,7 +613,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

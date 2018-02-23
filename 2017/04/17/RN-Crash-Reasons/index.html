@@ -92,31 +92,18 @@
 
 
 
-<meta name="description" content="变量保护出现最多的就是在使用redux来做数据层，使用this.props的属性没有去查询时候为undefined，这种情况，基本是必crash
-比如下例：
-12//show user name&amp;lt;Text&amp;gt;&amp;#123;this.props.userInfo.name&amp;#125;&amp;lt;/Text&amp;gt;
-如果userInfo为undefined的话，就会崩溃，错误如下：
-
-TypeEr">
+<meta name="description" content="变量保护出现最多的就是在使用redux来做数据层，使用this.props的属性没有去查询时候为undefined，这种情况，基本是必crash 比如下例： 12//show user name&amp;lt;Text&amp;gt;&amp;#123;this.props.userInfo.name&amp;#125;&amp;lt;/Text&amp;gt; 如果userInfo为undefined的话，就会崩溃，错误如下：  TypeEr">
+<meta name="keywords" content="React-Native">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RN 最容易crash的代码用法及应对措施（持续更新）">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/04/17/RN-Crash-Reasons/index.html">
-<meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="变量保护出现最多的就是在使用redux来做数据层，使用this.props的属性没有去查询时候为undefined，这种情况，基本是必crash
-比如下例：
-12//show user name&amp;lt;Text&amp;gt;&amp;#123;this.props.userInfo.name&amp;#125;&amp;lt;/Text&amp;gt;
-如果userInfo为undefined的话，就会崩溃，错误如下：
-
-TypeEr">
+<meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="变量保护出现最多的就是在使用redux来做数据层，使用this.props的属性没有去查询时候为undefined，这种情况，基本是必crash 比如下例： 12//show user name&amp;lt;Text&amp;gt;&amp;#123;this.props.userInfo.name&amp;#125;&amp;lt;/Text&amp;gt; 如果userInfo为undefined的话，就会崩溃，错误如下：  TypeEr">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-10-19T03:37:16.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RN 最容易crash的代码用法及应对措施（持续更新）">
-<meta name="twitter:description" content="变量保护出现最多的就是在使用redux来做数据层，使用this.props的属性没有去查询时候为undefined，这种情况，基本是必crash
-比如下例：
-12//show user name&amp;lt;Text&amp;gt;&amp;#123;this.props.userInfo.name&amp;#125;&amp;lt;/Text&amp;gt;
-如果userInfo为undefined的话，就会崩溃，错误如下：
-
-TypeEr">
+<meta name="twitter:description" content="变量保护出现最多的就是在使用redux来做数据层，使用this.props的属性没有去查询时候为undefined，这种情况，基本是必crash 比如下例： 12//show user name&amp;lt;Text&amp;gt;&amp;#123;this.props.userInfo.name&amp;#125;&amp;lt;/Text&amp;gt; 如果userInfo为undefined的话，就会崩溃，错误如下：  TypeEr">
 
 
 
@@ -441,7 +428,7 @@ TypeEr">
 <p>let test = {string: ‘’};<br>return (<br>    <view><br>        {test &amp;&amp; test.string &amp;&amp;<br>        <text>{test.string}</text><br>        }<br>    </view><br>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">报错：</div></pre></td></tr></table></figure></p>
 <p>Error: RawText “” must be wrapped in an explicit <text> component.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">原因未知，但是会崩溃</div><div class="line"></div><div class="line">保护措施：</div></pre></td></tr></table></figure></text></p>
 <p>let test = {string: ‘’};<br>return (<br>    <view><br>        {test &amp;&amp; !!test.string &amp;&amp;<br>        <text>{test.string}</text><br>        }<br>    </view><br>)<br>```</p>
-<p>具体的可以看下这篇文章：<a href="https://njafei.github.io/2017/06/14/stringToBoolError/" target="_blank" rel="external">Error RawText ** must be wrapped in an explicit component 问题解决</a></p>
+<p>具体的可以看下这篇文章：<a href="https://njafei.github.io/2017/06/14/stringToBoolError/" target="_blank" rel="noopener">Error RawText ** must be wrapped in an explicit component 问题解决</a></p>
 
       
     </div>
@@ -568,7 +555,7 @@ TypeEr">
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

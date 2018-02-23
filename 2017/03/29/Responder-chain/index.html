@@ -92,14 +92,14 @@
 
 
 
-<meta name="description" content="EventiOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是Event。
-Responder有了Event之后，系统需要找到能够处理这个event的对象，而能够处理event的对象，就是UIResponder.我们常用的UIApplicatio">
+<meta name="description" content="EventiOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是Event。 Responder有了Event之后，系统需要找到能够处理这个event的对象，而能够处理event的对象，就是UIResponder.我们常用的UIApplicatio">
+<meta name="keywords" content="基础知识">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 响应链 Responder Chain">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/index.html">
-<meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="EventiOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是Event。
-Responder有了Event之后，系统需要找到能够处理这个event的对象，而能够处理event的对象，就是UIResponder.我们常用的UIApplicatio">
+<meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="EventiOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是Event。 Responder有了Event之后，系统需要找到能够处理这个event的对象，而能够处理event的对象，就是UIResponder.我们常用的UIApplicatio">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/UIEvent_Type.png">
 <meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/UIResponder.png">
 <meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/ResponderChain.png">
@@ -107,8 +107,7 @@ Responder有了Event之后，系统需要找到能够处理这个event的对象�
 <meta property="og:updated_time" content="2017-10-19T03:37:16.724Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 响应链 Responder Chain">
-<meta name="twitter:description" content="EventiOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是Event。
-Responder有了Event之后，系统需要找到能够处理这个event的对象，而能够处理event的对象，就是UIResponder.我们常用的UIApplicatio">
+<meta name="twitter:description" content="EventiOS设备和用户的交互其实有很多种方式，包括触摸屏幕，摇晃设备，多媒体控制（音量等）等。当设备检测到这三种事件中的一种的时候，iOS就会捕获当前事件的时间和内容，然后发出消息，通知App发生了事件，这个就是Event。 Responder有了Event之后，系统需要找到能够处理这个event的对象，而能够处理event的对象，就是UIResponder.我们常用的UIApplicatio">
 <meta name="twitter:image" content="http://on0hv7n2x.bkt.clouddn.com/UIEvent_Type.png">
 
 
@@ -417,10 +416,10 @@ Responder有了Event之后，系统需要找到能够处理这个event的对象�
 </ol>
 <p>D就是所谓的<code>Hit-Test View</code>，也是上述的响应链中的<code>first responder</code></p>
 <h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ul>
-<li><a href="https://developer.apple.com/library/content/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/event_delivery_responder_chain/event_delivery_responder_chain.html" target="_blank" rel="external">EventHandlingiPhoneOS 官方文档忽然实效了</a></li>
-<li><a href="https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Responder.html#//apple_ref/doc/uid/TP40009071-CH1-SW2" target="_blank" rel="external">Responder object</a></li>
-<li><a href="https://www.zybuluo.com/MicroCai/note/66142" target="_blank" rel="external">iOS Events and Responder Chain</a></li>
-<li><a href="http://www.jianshu.com/p/05cbcd774f45" target="_blank" rel="external">iOS中的响应链（The Responder Chain）</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/event_delivery_responder_chain/event_delivery_responder_chain.html" target="_blank" rel="noopener">EventHandlingiPhoneOS 官方文档忽然实效了</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Responder.html#//apple_ref/doc/uid/TP40009071-CH1-SW2" target="_blank" rel="noopener">Responder object</a></li>
+<li><a href="https://www.zybuluo.com/MicroCai/note/66142" target="_blank" rel="noopener">iOS Events and Responder Chain</a></li>
+<li><a href="http://www.jianshu.com/p/05cbcd774f45" target="_blank" rel="noopener">iOS中的响应链（The Responder Chain）</a></li>
 </ul>
 
       
@@ -548,7 +547,7 @@ Responder有了Event之后，系统需要找到能够处理这个event的对象�
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

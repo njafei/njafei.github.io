@@ -92,31 +92,18 @@
 
 
 
-<meta name="description" content="什么是解构赋值以前，如果我们想给一个变量赋值，通常是这样（在Objective-C等语言中，现在仍然是如此）：
-123let a = 1;let b = 2;let c = 3;
-而ES6现在支持了类似这样的用法：
-1let [a,b,c] = [1,2,3];
-从而大大简化了变量赋值的语法，而且为诸如：Json解析、函数默认值用法提供了支持，文章最后会介绍。
-JS的变量解构赋值，实际上的一种模式">
+<meta name="description" content="什么是解构赋值以前，如果我们想给一个变量赋值，通常是这样（在Objective-C等语言中，现在仍然是如此）： 123let a = 1;let b = 2;let c = 3; 而ES6现在支持了类似这样的用法： 1let [a,b,c] = [1,2,3]; 从而大大简化了变量赋值的语法，而且为诸如：Json解析、函数默认值用法提供了支持，文章最后会介绍。 JS的变量解构赋值，实际上的一种模式">
+<meta name="keywords" content="ES6,React-Native">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6之变量的解构赋值">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/05/11/ES6之变量的解构赋值/index.html">
-<meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="什么是解构赋值以前，如果我们想给一个变量赋值，通常是这样（在Objective-C等语言中，现在仍然是如此）：
-123let a = 1;let b = 2;let c = 3;
-而ES6现在支持了类似这样的用法：
-1let [a,b,c] = [1,2,3];
-从而大大简化了变量赋值的语法，而且为诸如：Json解析、函数默认值用法提供了支持，文章最后会介绍。
-JS的变量解构赋值，实际上的一种模式">
+<meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="什么是解构赋值以前，如果我们想给一个变量赋值，通常是这样（在Objective-C等语言中，现在仍然是如此）： 123let a = 1;let b = 2;let c = 3; 而ES6现在支持了类似这样的用法： 1let [a,b,c] = [1,2,3]; 从而大大简化了变量赋值的语法，而且为诸如：Json解析、函数默认值用法提供了支持，文章最后会介绍。 JS的变量解构赋值，实际上的一种模式">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-10-19T03:37:16.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6之变量的解构赋值">
-<meta name="twitter:description" content="什么是解构赋值以前，如果我们想给一个变量赋值，通常是这样（在Objective-C等语言中，现在仍然是如此）：
-123let a = 1;let b = 2;let c = 3;
-而ES6现在支持了类似这样的用法：
-1let [a,b,c] = [1,2,3];
-从而大大简化了变量赋值的语法，而且为诸如：Json解析、函数默认值用法提供了支持，文章最后会介绍。
-JS的变量解构赋值，实际上的一种模式">
+<meta name="twitter:description" content="什么是解构赋值以前，如果我们想给一个变量赋值，通常是这样（在Objective-C等语言中，现在仍然是如此）： 123let a = 1;let b = 2;let c = 3; 而ES6现在支持了类似这样的用法： 1let [a,b,c] = [1,2,3]; 从而大大简化了变量赋值的语法，而且为诸如：Json解析、函数默认值用法提供了支持，文章最后会介绍。 JS的变量解构赋值，实际上的一种模式">
 
 
 
@@ -430,7 +417,7 @@ JS的变量解构赋值，实际上的一种模式">
 <li>null表示”没有对象”，即该处不应该有值。</li>
 <li>undefined表示”缺少值”，就是此处应该有一个值，但是还没有定义</li>
 </ul>
-<p>具体的可以看下阮一峰的文章：<a href="http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html" target="_blank" rel="external">undefined与null的区别</a>。下面的文章会用到这点。</p>
+<p>具体的可以看下阮一峰的文章：<a href="http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html" target="_blank" rel="noopener">undefined与null的区别</a>。下面的文章会用到这点。</p>
 <h1 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h1><p>数组的结构赋值比较简单，我们下面通过一些不同的例子来看下：</p>
 <h4 id="正常结构"><a href="#正常结构" class="headerlink" title="正常结构"></a>正常结构</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let [a,b,c] = [1,2,3];</div><div class="line">a // 1</div><div class="line">b // 2</div><div class="line">c // 3</div></pre></td></tr></table></figure>
 <h4 id="嵌套结构"><a href="#嵌套结构" class="headerlink" title="嵌套结构"></a>嵌套结构</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let [a,[b,c],d] = [1,[2,3],4];</div><div class="line">a // 1</div><div class="line">b // 2</div><div class="line">c // 3</div><div class="line">d // 4</div></pre></td></tr></table></figure>
@@ -626,7 +613,7 @@ JS的变量解构赋值，实际上的一种模式">
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

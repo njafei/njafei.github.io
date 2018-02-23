@@ -74,7 +74,7 @@
 <link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="react-native,注意事项," />
+  <meta name="keywords" content="ES6," />
 
 
 
@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="time是react-native提供的一个定时器，在实际使用中，经常会有使用不对，造成内存泄露的情况。很多React Native应用发生致命错误（闪退）是与计时器有关。具体来说，是在某个组件被卸载（unmount）之后，计时器却仍然在运行。 防止出问题的办法也很简单，在unmount的时候，增加卸载定时器的操作： 12345678910111213componentDidMount() &amp;#1">
-<meta name="keywords" content="react-native,注意事项">
+<meta name="description" content="语法proxy的作用是代理对象的某些行为，其 实质 是重载对象的方法。 举个例子,我们想要读取一个对象的某个属性 12let obj = &amp;#123;a: &amp;apos;a&amp;apos; , b: &amp;apos;b&amp;apos;&amp;#125;;console.log(obj.a); // &amp;apos;a&amp;apos; 而使用了proxy之后： 123456789let obj = &amp;#123;a: &amp;apos">
+<meta name="keywords" content="ES6">
 <meta property="og:type" content="article">
-<meta property="og:title" content="react-native time定时器 防止内存泄露的注意点">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/07/27/react-native-time-attations/index.html">
+<meta property="og:title" content="ES6-Proxy">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2018/02/23/ES6-Proxy/index.html">
 <meta property="og:site_name" content="njafei&#39;s blog">
-<meta property="og:description" content="time是react-native提供的一个定时器，在实际使用中，经常会有使用不对，造成内存泄露的情况。很多React Native应用发生致命错误（闪退）是与计时器有关。具体来说，是在某个组件被卸载（unmount）之后，计时器却仍然在运行。 防止出问题的办法也很简单，在unmount的时候，增加卸载定时器的操作： 12345678910111213componentDidMount() &amp;#1">
+<meta property="og:description" content="语法proxy的作用是代理对象的某些行为，其 实质 是重载对象的方法。 举个例子,我们想要读取一个对象的某个属性 12let obj = &amp;#123;a: &amp;apos;a&amp;apos; , b: &amp;apos;b&amp;apos;&amp;#125;;console.log(obj.a); // &amp;apos;a&amp;apos; 而使用了proxy之后： 123456789let obj = &amp;#123;a: &amp;apos">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-19T03:37:16.730Z">
+<meta property="og:updated_time" content="2018-02-23T09:37:34.039Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="react-native time定时器 防止内存泄露的注意点">
-<meta name="twitter:description" content="time是react-native提供的一个定时器，在实际使用中，经常会有使用不对，造成内存泄露的情况。很多React Native应用发生致命错误（闪退）是与计时器有关。具体来说，是在某个组件被卸载（unmount）之后，计时器却仍然在运行。 防止出问题的办法也很简单，在unmount的时候，增加卸载定时器的操作： 12345678910111213componentDidMount() &amp;#1">
+<meta name="twitter:title" content="ES6-Proxy">
+<meta name="twitter:description" content="语法proxy的作用是代理对象的某些行为，其 实质 是重载对象的方法。 举个例子,我们想要读取一个对象的某个属性 12let obj = &amp;#123;a: &amp;apos;a&amp;apos; , b: &amp;apos;b&amp;apos;&amp;#125;;console.log(obj.a); // &amp;apos;a&amp;apos; 而使用了proxy之后： 123456789let obj = &amp;#123;a: &amp;apos">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/07/27/react-native-time-attations/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2018/02/23/ES6-Proxy/"/>
 
 
 
 
 
-  <title>react-native time定时器 防止内存泄露的注意点 | njafei's blog</title>
+  <title>ES6-Proxy | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -327,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">react-native time定时器 防止内存泄露的注意点</h1>
+          <h1 class="post-title" itemprop="name headline">ES6-Proxy</h1>
         
 
         <div class="post-meta">
@@ -339,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-27T15:50:21+08:00">
-                2017-07-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-23T17:37:04+08:00">
+                2018-02-23
               </time>
             
 
@@ -362,8 +362,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="../../../../categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react-native</span>
+                  <a href="../../../../categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
                   </a>
                 </span>
 
@@ -396,25 +396,39 @@
       
 
       
-        <p><code>time</code>是<code>react-native</code>提供的一个定时器，在实际使用中，经常会有使用不对，造成内存泄露的情况。很多<code>React Native</code>应用发生致命错误（闪退）是与计时器有关。具体来说，是在某个组件被卸载<code>（unmount）</code>之后，计时器却仍然在运行。</p>
-<p>防止出问题的办法也很简单，在<code>unmount</code>的时候，增加卸载定时器的操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">componentDidMount() &#123;</div><div class="line">    this.timer = setTimeout(</div><div class="line">      () =&gt; &#123; console.log(&apos;把一个定时器的引用挂在this上&apos;); &#125;,</div><div class="line">      500</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">componentWillUnmount() &#123;</div><div class="line">    // 请注意Un&quot;m&quot;ount的m是小写</div><div class="line">    // 如果存在this.timer，则使用clearTimeout清空。</div><div class="line">    // 如果你使用多个timer，那么用多个变量，或者用个数组来保存引用，然后逐个clear</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>这里的timer是在<code>DidMount</code>中赋值的，如果是多次赋值呢？比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">export default class test extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click5000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,5000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click2000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,2000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;clean timer&apos;&#125; onPress=&#123;this.cleanTimer.bind(this)&#125; /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  alertInfo(time)&#123;</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  cleanTimer()&#123;</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">    console.log(&apos;timer cleared&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;test&apos;, () =&gt; test);</div></pre></td></tr></table></figure>
-<p>这里要介绍下<code>setTimeout</code>的返回值，我们打断点可以看到，<code>this.timer</code>是一个number。根据stack上面的其他网友的回答<a href="https://stackoverflow.com/questions/10068981/what-does-settimeout-return" target="_blank" rel="noopener">what-does-settimeout-return</a>，setTimer会返回一个id，代表你已经向js的runtime系统中成功注册了一个定时器任务，这个id就是系统返回的id。</p>
-<p>那如果是需要多次赋值，就一定要先将time clear掉，然后再赋值，或者使用多个参数来标志，否则之后就找不到上次的id，也就没办法clear了，同样可能造成内存泄露的情况。</p>
-<p>例子如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Sample React Native App</div><div class="line"> * https://github.com/facebook/react-native</div><div class="line"> * @flow</div><div class="line"> */</div><div class="line"></div><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">  AppRegistry,</div><div class="line">  StyleSheet,</div><div class="line">  Text,</div><div class="line">  View,</div><div class="line">  Button</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class test extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click5000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,5000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click2000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,2000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;clean timer&apos;&#125; onPress=&#123;this.cleanTimer.bind(this)&#125; /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  alertInfo(time)&#123;</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  cleanTimer()&#123;</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">    console.log(&apos;timer cleared&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">  container: &#123;</div><div class="line">    flex: 1,</div><div class="line">    justifyContent: &apos;center&apos;,</div><div class="line">    alignItems: &apos;center&apos;,</div><div class="line">    backgroundColor: &apos;#F5FCFF&apos;,</div><div class="line">  &#125;,</div><div class="line">  welcome: &#123;</div><div class="line">    fontSize: 20,</div><div class="line">    textAlign: &apos;center&apos;,</div><div class="line">    margin: 10,</div><div class="line">  &#125;,</div><div class="line">  instructions: &#123;</div><div class="line">    textAlign: &apos;center&apos;,</div><div class="line">    color: &apos;#333333&apos;,</div><div class="line">    marginBottom: 5,</div><div class="line">  &#125;,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;test&apos;, () =&gt; test);</div></pre></td></tr></table></figure>
-<p>这里的timer多次赋值，虽然前面的值被后面的覆盖，但是前面的time仍然会起效果，如果不想前面的time work，需要clear掉，然后再赋值。</p>
-<p>代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">alertInfo(time)&#123;</div><div class="line">		this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>综上，使用time的注意点：</p>
-<ol>
-<li>记得unmount的时候，clear</li>
-<li>多个timer要使用多个变量或者数组</li>
-<li>多次赋值，记得把之前的值clear掉</li>
-</ol>
-
+        <h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>proxy的作用是代理对象的某些行为，其 实质 是重载对象的方法。</p>
+<p>举个例子,我们想要读取一个对象的某个属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let obj = &#123;a: &apos;a&apos; , b: &apos;b&apos;&#125;;</div><div class="line">console.log(obj.a); // &apos;a&apos;</div></pre></td></tr></table></figure>
+<p>而使用了proxy之后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let obj = &#123;a: &apos;a&apos;, b: &apos;b&apos;&#125;;</div><div class="line">let handler = &#123;</div><div class="line">	get: fucntion(target, propoty)&#123;</div><div class="line">		return 35;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var proxy = new Proxy(obj, handler);</div><div class="line">console.log(proxy.a);// 35</div></pre></td></tr></table></figure>
+<p>相当于 proxy通过handler里面的指令，代理了obj的行为。</p>
+<p>proxy能代理的，并不仅仅是get函数，还有如下列表，具体的可以网上查阅下文档。</p>
+<ul>
+<li>get</li>
+<li>set</li>
+<li>has</li>
+<li>deleteProperty</li>
+<li>enumerate</li>
+<li>hasOwn</li>
+<li>ownKeys</li>
+<li>getOwnPropertyDescritor</li>
+<li>defineProperty</li>
+<li>preventExtensions</li>
+<li>getPrototypeOf</li>
+<li>isExtensible</li>
+<li>setPrototypeOf</li>
+<li>apply</li>
+<li>construct</li>
+</ul>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>看完了proxy的文档，感觉模模糊糊有了印象，但是还是对它的使用场景没有概念，网上搜索了下，发下一篇非常好的介绍使用场景的文章，地址如下： <a href="https://segmentfault.com/a/1190000006035363" target="_blank" rel="noopener">[译] 实例解析 ES6 Proxy 使用场景</a>，下面我也会使用这篇文章的例子，来介绍proxy到底怎么用。</p>
+<h4 id="校验模块"><a href="#校验模块" class="headerlink" title="校验模块"></a>校验模块</h4><p>这里是重写set函数，实现校验功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">let numericDataStore = &#123;  </div><div class="line">    count: 0,</div><div class="line">    amount: 1234,</div><div class="line">    total: 14</div><div class="line">&#125;;</div><div class="line"></div><div class="line">numericDataStore = new Proxy(numericDataStore, &#123;  </div><div class="line">    set(target, key, value, proxy) &#123;</div><div class="line">        if (typeof value !== &apos;number&apos;) &#123;</div><div class="line">            throw Error(&quot;Properties in numericDataStore can only be numbers&quot;);</div><div class="line">        &#125;</div><div class="line">        return Reflect.set(target, key, value, proxy);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// 抛出错误，因为 &quot;foo&quot; 不是数值</div><div class="line">numericDataStore.count = &quot;foo&quot;;</div><div class="line"></div><div class="line">// 赋值成功</div><div class="line">numericDataStore.count = 333;</div></pre></td></tr></table></figure>
+<h4 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h4><p>js中的私有属性，约定俗成是通过前面加下划线的方式来实现，这里可以用proxy来实现，并且做到了强制私有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var api = &#123;  </div><div class="line">    _apiKey: &apos;123abc456def&apos;,</div><div class="line">    /* mock methods that use this._apiKey */</div><div class="line">    getUsers: function()&#123;&#125;, </div><div class="line">    getUser: function(userId)&#123;&#125;, </div><div class="line">    setUser: function(userId, config)&#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// logs &apos;123abc456def&apos;;</div><div class="line">console.log(&quot;An apiKey we want to keep private&quot;, api._apiKey);</div><div class="line"></div><div class="line">// get and mutate _apiKeys as desired</div><div class="line">var apiKey = api._apiKey;  </div><div class="line">api._apiKey = &apos;987654321&apos;;</div></pre></td></tr></table></figure>
+<h4 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">let api = &#123;  </div><div class="line">    _apiKey: &apos;123abc456def&apos;,</div><div class="line">    getUsers: function() &#123; /* ... */ &#125;,</div><div class="line">    getUser: function(userId) &#123; /* ... */ &#125;,</div><div class="line">    setUser: function(userId, config) &#123; /* ... */ &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">function logMethodAsync(timestamp, method) &#123;  </div><div class="line">    setTimeout(function() &#123;</div><div class="line">        console.log(`$&#123;timestamp&#125; - Logging $&#123;method&#125; request asynchronously.`);</div><div class="line">    &#125;, 0)</div><div class="line">&#125;</div><div class="line"></div><div class="line">api = new Proxy(api, &#123;  </div><div class="line">    get: function(target, key, proxy) &#123;</div><div class="line">        var value = target[key];</div><div class="line">        return function(...arguments) &#123;</div><div class="line">            logMethodAsync(new Date(), key);</div><div class="line">            return Reflect.apply(value, target, arguments);</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">api.getUsers();</div></pre></td></tr></table></figure>
+<h4 id="预警和拦截"><a href="#预警和拦截" class="headerlink" title="预警和拦截"></a>预警和拦截</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">let dataStore = &#123;  </div><div class="line">    noDelete: 1235,</div><div class="line">    oldMethod: function() &#123;/*...*/ &#125;,</div><div class="line">    doNotChange: &quot;tried and true&quot;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">const NODELETE = [&apos;noDelete&apos;];  </div><div class="line">const NOCHANGE = [&apos;doNotChange&apos;];</div><div class="line">const DEPRECATED = [&apos;oldMethod&apos;];  </div><div class="line"></div><div class="line">dataStore = new Proxy(dataStore, &#123;  </div><div class="line">    set(target, key, value, proxy) &#123;</div><div class="line">        if (NOCHANGE.includes(key)) &#123;</div><div class="line">            throw Error(`Error! $&#123;key&#125; is immutable.`);</div><div class="line">        &#125;</div><div class="line">        return Reflect.set(target, key, value, proxy);</div><div class="line">    &#125;,</div><div class="line">    deleteProperty(target, key) &#123;</div><div class="line">        if (NODELETE.includes(key)) &#123;</div><div class="line">            throw Error(`Error! $&#123;key&#125; cannot be deleted.`);</div><div class="line">        &#125;</div><div class="line">        return Reflect.deleteProperty(target, key);</div><div class="line"></div><div class="line">    &#125;,</div><div class="line">    get(target, key, proxy) &#123;</div><div class="line">        if (DEPRECATED.includes(key)) &#123;</div><div class="line">            console.warn(`Warning! $&#123;key&#125; is deprecated.`);</div><div class="line">        &#125;</div><div class="line">        var val = target[key];</div><div class="line"></div><div class="line">        return typeof val === &apos;function&apos; ?</div><div class="line">            function(...args) &#123;</div><div class="line">                Reflect.apply(target[key], target, args);</div><div class="line">            &#125; :</div><div class="line">            val;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// these will throw errors or log warnings, respectively</div><div class="line">dataStore.doNotChange = &quot;foo&quot;;  </div><div class="line">delete dataStore.noDelete;  </div><div class="line">dataStore.oldMethod();</div></pre></td></tr></table></figure>
+<h4 id="过滤操作"><a href="#过滤操作" class="headerlink" title="过滤操作"></a>过滤操作</h4><p>通过特征来过滤不必要的操作，例如下载中，解析中等中间过程，减少响应的压力</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">let obj = &#123;  </div><div class="line">    getGiantFile: function(fileId) &#123;/*...*/ &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">obj = new Proxy(obj, &#123;  </div><div class="line">    get(target, key, proxy) &#123;</div><div class="line">        return function(...args) &#123;</div><div class="line">            const id = args[0];</div><div class="line">            let isEnroute = checkEnroute(id);</div><div class="line">            let isDownloading = checkStatus(id);      </div><div class="line">            let cached = getCached(id);</div><div class="line"></div><div class="line">            if (isEnroute || isDownloading) &#123;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">            if (cached) &#123;</div><div class="line">                return cached;</div><div class="line">            &#125;</div><div class="line">            return Reflect.apply(target[key], target, args);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -443,9 +457,7 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/react-native/" rel="tag"># react-native</a>
-          
-            <a href="../../../../tags/注意事项/" rel="tag"># 注意事项</a>
+            <a href="../../../../tags/ES6/" rel="tag"># ES6</a>
           
         </div>
       
@@ -458,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../26/listViewFlexGrowDefaultValue/" rel="next" title="listView和FlatList的flexGrow默认值为1">
-                <i class="fa fa-chevron-left"></i> listView和FlatList的flexGrow默认值为1
+              <a href="../../22/ES6-Symbols/" rel="next" title="ES6-Symbols">
+                <i class="fa fa-chevron-left"></i> ES6-Symbols
               </a>
             
           </div>
@@ -467,10 +479,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../pureComponent/" rel="prev" title="React-Native优化之PureComponent">
-                React-Native优化之PureComponent <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -517,8 +525,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="../../../../images/avatar.png"
@@ -587,6 +604,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用场景"><span class="nav-number">2.</span> <span class="nav-text">使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#校验模块"><span class="nav-number">2.0.1.</span> <span class="nav-text">校验模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#私有属性"><span class="nav-number">2.0.2.</span> <span class="nav-text">私有属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问日志"><span class="nav-number">2.0.3.</span> <span class="nav-text">访问日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预警和拦截"><span class="nav-number">2.0.4.</span> <span class="nav-text">预警和拦截</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过滤操作"><span class="nav-number">2.0.5.</span> <span class="nav-text">过滤操作</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

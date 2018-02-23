@@ -92,19 +92,18 @@
 
 
 
-<meta name="description" content="UIResponder是回应和处理事件的抽象接口,UIResponder的实例，包括：UIApplication、UIViewController、UIView（包含UIWindow），组成了UIKit处理事件的核心。当事件发生时，UIKit会把事件派发给UIResponder去处理。
-有许多种事件，包括触摸、手势、遥控和点击事件。为了处理特定的事件，一个responder（响应）必须重写corr">
+<meta name="description" content="UIResponder是回应和处理事件的抽象接口,UIResponder的实例，包括：UIApplication、UIViewController、UIView（包含UIWindow），组成了UIKit处理事件的核心。当事件发生时，UIKit会把事件派发给UIResponder去处理。 有许多种事件，包括触摸、手势、遥控和点击事件。为了处理特定的事件，一个responder（响应）必须重写corr">
+<meta name="keywords" content="Apple文档,基础知识">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Apple文档翻译之UIResponder">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/03/21/UIResponder/index.html">
-<meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="UIResponder是回应和处理事件的抽象接口,UIResponder的实例，包括：UIApplication、UIViewController、UIView（包含UIWindow），组成了UIKit处理事件的核心。当事件发生时，UIKit会把事件派发给UIResponder去处理。
-有许多种事件，包括触摸、手势、遥控和点击事件。为了处理特定的事件，一个responder（响应）必须重写corr">
+<meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="UIResponder是回应和处理事件的抽象接口,UIResponder的实例，包括：UIApplication、UIViewController、UIView（包含UIWindow），组成了UIKit处理事件的核心。当事件发生时，UIKit会把事件派发给UIResponder去处理。 有许多种事件，包括触摸、手势、遥控和点击事件。为了处理特定的事件，一个responder（响应）必须重写corr">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-10-19T03:37:16.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Apple文档翻译之UIResponder">
-<meta name="twitter:description" content="UIResponder是回应和处理事件的抽象接口,UIResponder的实例，包括：UIApplication、UIViewController、UIView（包含UIWindow），组成了UIKit处理事件的核心。当事件发生时，UIKit会把事件派发给UIResponder去处理。
-有许多种事件，包括触摸、手势、遥控和点击事件。为了处理特定的事件，一个responder（响应）必须重写corr">
+<meta name="twitter:description" content="UIResponder是回应和处理事件的抽象接口,UIResponder的实例，包括：UIApplication、UIViewController、UIView（包含UIWindow），组成了UIKit处理事件的核心。当事件发生时，UIKit会把事件派发给UIResponder去处理。 有许多种事件，包括触摸、手势、遥控和点击事件。为了处理特定的事件，一个responder（响应）必须重写corr">
 
 
 
@@ -401,7 +400,7 @@
 <p>有许多种事件，包括触摸、手势、遥控和点击事件。为了处理特定的事件，一个<code>responder</code>（响应）必须重写<code>corresponding</code>方法。比如，要想处理<code>touch</code>事件，一个<code>responder</code>要实现<code>touchesBegan：withEvent</code>,<code>touchedMoved:withEvent:</code>等方法。在触摸事件的列子中，<code>responder</code>使用UIKit提供的事件信息来追踪触摸的改变，然后适时地更新界面。</p>
 <p>除了处理事件，<code>UIKit responder</code>还负责转发那边没有被处理的事件给app的其他部分。如果一个指定的<code>responder</code>没有处理事件，它就会转发这个事件到响应链的下一个<code>responder</code>。UIKit动态地管理响应链，使用预定的规则来决定下一个收到事件的对象。比如：一个<code>view</code>转发事件到它的<code>superView</code>，或者<code>Rootview</code>转发事件给它的v<code>iew controller</code>。</p>
 <p><code>Responder</code>处理<code>UIEvent</code>和其他通过输入界面的自定义输入，最典型的就是系统的键盘。当用户点击<code>UITextField</code>和<code>UITextView</code>，这个view变成了第一个<code>responder</code>，然后展示它的输入界面：键盘。同样的，你可以创造一个自定义的输入界面，然后在其他<code>responders</code>活跃的时候展示它。为了把输入界面和<code>responder</code>联系在一起，要把<code>view</code>赋值给<code>responder</code>的属性。</p>
-<p>原文链接  <a href="https://developer.apple.com/reference/uikit/uiresponder#//apple_ref/occ/cl/UIResponder" target="_blank" rel="external">UIResponder</a></p>
+<p>原文链接  <a href="https://developer.apple.com/reference/uikit/uiresponder#//apple_ref/occ/cl/UIResponder" target="_blank" rel="noopener">UIResponder</a></p>
 <p>如果有任何建议和优化的地方，欢迎给我留言。</p>
 
       
@@ -522,7 +521,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

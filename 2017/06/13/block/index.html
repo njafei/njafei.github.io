@@ -92,26 +92,19 @@
 
 
 
-<meta name="description" content="其实使用block的时间也蛮久了，比如使用__block,weak防止循环引用，copy修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。
-使用场景苹果在介绍block的使用场景时，是这么说的：
-
-You use a block when you want to create units of work (that is, code segm">
+<meta name="description" content="其实使用block的时间也蛮久了，比如使用__block,weak防止循环引用，copy修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。 使用场景苹果在介绍block的使用场景时，是这么说的：  You use a block when you want to create units of work (that is, code segm">
+<meta name="keywords" content="Apple文档">
 <meta property="og:type" content="article">
 <meta property="og:title" content="block">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/06/13/block/index.html">
-<meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="其实使用block的时间也蛮久了，比如使用__block,weak防止循环引用，copy修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。
-使用场景苹果在介绍block的使用场景时，是这么说的：
-
-You use a block when you want to create units of work (that is, code segm">
+<meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="其实使用block的时间也蛮久了，比如使用__block,weak防止循环引用，copy修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。 使用场景苹果在介绍block的使用场景时，是这么说的：  You use a block when you want to create units of work (that is, code segm">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Art/blocks.jpg">
 <meta property="og:updated_time" content="2017-10-19T03:37:16.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="block">
-<meta name="twitter:description" content="其实使用block的时间也蛮久了，比如使用__block,weak防止循环引用，copy修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。
-使用场景苹果在介绍block的使用场景时，是这么说的：
-
-You use a block when you want to create units of work (that is, code segm">
+<meta name="twitter:description" content="其实使用block的时间也蛮久了，比如使用__block,weak防止循环引用，copy修饰等注意点也都知道，但是一直没有去看过官方的文档，仔细看下所有的点。今天就把官方文档撸一遍，深入了解下。 使用场景苹果在介绍block的使用场景时，是这么说的：  You use a block when you want to create units of work (that is, code segm">
 <meta name="twitter:image" content="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Art/blocks.jpg">
 
 
@@ -432,7 +425,7 @@ You use a block when you want to create units of work (that is, code segm">
 </blockquote>
 <p><code>__block</code>会把变量放到<code>block</code>等的存在的内存中，这样在<code>block</code>存在期间，可以直接修改变量，不同的<code>block</code>都使用这个共享的变量。</p>
 <p><code>block</code>默认是存在栈中的，但是如果<code>block</code>被拷贝，则会放到堆中</p>
-<p><code>__block</code>有两个注意点，不能是可变化长度的数据，也不能是<a href="https://en.wikipedia.org/wiki/Variable-length_array" target="_blank" rel="external">C99标准可变长度的数组</a></p>
+<p><code>__block</code>有两个注意点，不能是可变化长度的数据，也不能是<a href="https://en.wikipedia.org/wiki/Variable-length_array" target="_blank" rel="noopener">C99标准可变长度的数组</a></p>
 <h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><ol>
 <li>为什么要用copy</li>
 <li>为什么要避免循环引用，如何避免</li>
@@ -574,7 +567,7 @@ You use a block when you want to create units of work (that is, code segm">
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

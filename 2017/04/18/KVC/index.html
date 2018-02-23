@@ -92,35 +92,19 @@
 
 
 
-<meta name="description" content="综述关于正常访问或者修改一个对象的属性，都是通过getter和setter方法，但是Cocoa仍然提供了一个间接访问属性的方法：KVC（Key-Value Coding）。 只要对象支持NSKeyValueCoding协议，我们就可以通过KVC来间接访问或者修改属性和属性中的更深层的属性。
-KVC也是许多Cocoa技术的基础，比如：
-
-KVO
-Cocoa bingdings
-Core Data
-A">
+<meta name="description" content="综述关于正常访问或者修改一个对象的属性，都是通过getter和setter方法，但是Cocoa仍然提供了一个间接访问属性的方法：KVC（Key-Value Coding）。 只要对象支持NSKeyValueCoding协议，我们就可以通过KVC来间接访问或者修改属性和属性中的更深层的属性。 KVC也是许多Cocoa技术的基础，比如：  KVO Cocoa bingdings Core Data A">
+<meta name="keywords" content="Apple文档,基础知识">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KVC详解">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/04/18/KVC/index.html">
-<meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="综述关于正常访问或者修改一个对象的属性，都是通过getter和setter方法，但是Cocoa仍然提供了一个间接访问属性的方法：KVC（Key-Value Coding）。 只要对象支持NSKeyValueCoding协议，我们就可以通过KVC来间接访问或者修改属性和属性中的更深层的属性。
-KVC也是许多Cocoa技术的基础，比如：
-
-KVO
-Cocoa bingdings
-Core Data
-A">
+<meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="综述关于正常访问或者修改一个对象的属性，都是通过getter和setter方法，但是Cocoa仍然提供了一个间接访问属性的方法：KVC（Key-Value Coding）。 只要对象支持NSKeyValueCoding协议，我们就可以通过KVC来间接访问或者修改属性和属性中的更深层的属性。 KVC也是许多Cocoa技术的基础，比如：  KVO Cocoa bingdings Core Data A">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/art/keypath.jpg">
 <meta property="og:updated_time" content="2017-10-19T03:37:16.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KVC详解">
-<meta name="twitter:description" content="综述关于正常访问或者修改一个对象的属性，都是通过getter和setter方法，但是Cocoa仍然提供了一个间接访问属性的方法：KVC（Key-Value Coding）。 只要对象支持NSKeyValueCoding协议，我们就可以通过KVC来间接访问或者修改属性和属性中的更深层的属性。
-KVC也是许多Cocoa技术的基础，比如：
-
-KVO
-Cocoa bingdings
-Core Data
-A">
+<meta name="twitter:description" content="综述关于正常访问或者修改一个对象的属性，都是通过getter和setter方法，但是Cocoa仍然提供了一个间接访问属性的方法：KVC（Key-Value Coding）。 只要对象支持NSKeyValueCoding协议，我们就可以通过KVC来间接访问或者修改属性和属性中的更深层的属性。 KVC也是许多Cocoa技术的基础，比如：  KVO Cocoa bingdings Core Data A">
 <meta name="twitter:image" content="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/art/keypath.jpg">
 
 
@@ -417,10 +401,10 @@ A">
         <h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><h3 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h3><p>正常访问或者修改一个对象的属性，都是通过getter和setter方法，但是Cocoa仍然提供了一个间接访问属性的方法：KVC（Key-Value Coding）。 只要对象支持<code>NSKeyValueCoding</code>协议，我们就可以通过KVC来间接访问或者修改属性和属性中的更深层的属性。</p>
 <p>KVC也是许多Cocoa技术的基础，比如：</p>
 <ul>
-<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i" target="_blank" rel="external">KVO</a></li>
-<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CocoaBindings/Concepts/WhatAreBindings.html" target="_blank" rel="external">Cocoa bingdings</a></li>
-<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/index.html#//apple_ref/doc/uid/TP40001075" target="_blank" rel="external">Core Data</a></li>
-<li><a href="https://developer.apple.com/library/content/documentation/AppleScript/Conceptual/AppleScriptX/AppleScriptX.html#//apple_ref/doc/uid/10000156i" target="_blank" rel="external">AppleScript</a>。</li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i" target="_blank" rel="noopener">KVO</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CocoaBindings/Concepts/WhatAreBindings.html" target="_blank" rel="noopener">Cocoa bingdings</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/index.html#//apple_ref/doc/uid/TP40001075" target="_blank" rel="noopener">Core Data</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/AppleScript/Conceptual/AppleScriptX/AppleScriptX.html#//apple_ref/doc/uid/10000156i" target="_blank" rel="noopener">AppleScript</a>。</li>
 </ul>
 <h3 id="使用KVC的对象"><a href="#使用KVC的对象" class="headerlink" title="使用KVC的对象"></a>使用KVC的对象</h3><p>所有继承<code>NSObject</code>的类都支持KVC，<code>NSObject</code>实现了<code>NSKeyValueCoding</code>和必要的方法。通过KVC，可以做到以下功能：</p>
 <ul>
@@ -657,7 +641,7 @@ A">
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

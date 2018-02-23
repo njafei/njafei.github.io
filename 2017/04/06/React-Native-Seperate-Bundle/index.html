@@ -92,22 +92,21 @@
 
 
 
-<meta name="description" content="为什么要拆包背景介绍随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。
-另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也">
+<meta name="description" content="为什么要拆包背景介绍随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。 另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也">
+<meta name="keywords" content="React-Native">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React_Native拆分bundle之patch拆包">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/04/06/React-Native-Seperate-Bundle/index.html">
-<meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="为什么要拆包背景介绍随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。
-另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也">
+<meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="为什么要拆包背景介绍随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。 另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/React-Native%E6%8B%86%E5%8C%85%E6%96%B9%E6%A1%88%E7%BB%93%E6%9E%84%E5%9B%BE.jpeg">
 <meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/React-NativeJsBundle%E6%89%93%E5%8C%85%E6%B5%81%E7%A8%8B">
 <meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/React-Native%E7%94%9F%E6%88%90%E5%8C%85.png">
 <meta property="og:updated_time" content="2017-10-19T03:37:16.724Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React_Native拆分bundle之patch拆包">
-<meta name="twitter:description" content="为什么要拆包背景介绍随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。
-另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也">
+<meta name="twitter:description" content="为什么要拆包背景介绍随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。 另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也">
 <meta name="twitter:image" content="http://on0hv7n2x.bkt.clouddn.com/React-Native%E6%8B%86%E5%8C%85%E6%96%B9%E6%A1%88%E7%BB%93%E6%9E%84%E5%9B%BE.jpeg">
 
 
@@ -579,7 +578,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -92,40 +92,18 @@
 
 
 
-<meta name="description" content="今天发现了一个非常奇怪的问题，服务端给了一个encode的url，内容是位“1 1”：
-encode之后是
-11+1
-前端decode之后是
-11+1
-可是在其他的浏览器等decode之后的结果是：
-11 1
-发现java的encode有个坑，在java中，encode遵循的标准是rfc1738，而在iOS中，encode遵循的标准是rfc2396，两者对于空格的encode不同
-12rfc173">
+<meta name="description" content="今天发现了一个非常奇怪的问题，服务端给了一个encode的url，内容是位“1 1”： encode之后是 11+1 前端decode之后是 11+1 可是在其他的浏览器等decode之后的结果是： 11 1 发现java的encode有个坑，在java中，encode遵循的标准是rfc1738，而在iOS中，encode遵循的标准是rfc2396，两者对于空格的encode不同 12rfc173">
+<meta name="keywords" content="小知识">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java对空格的encode格式问题">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/09/22/Java-space-encode/index.html">
-<meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="今天发现了一个非常奇怪的问题，服务端给了一个encode的url，内容是位“1 1”：
-encode之后是
-11+1
-前端decode之后是
-11+1
-可是在其他的浏览器等decode之后的结果是：
-11 1
-发现java的encode有个坑，在java中，encode遵循的标准是rfc1738，而在iOS中，encode遵循的标准是rfc2396，两者对于空格的encode不同
-12rfc173">
+<meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="今天发现了一个非常奇怪的问题，服务端给了一个encode的url，内容是位“1 1”： encode之后是 11+1 前端decode之后是 11+1 可是在其他的浏览器等decode之后的结果是： 11 1 发现java的encode有个坑，在java中，encode遵循的标准是rfc1738，而在iOS中，encode遵循的标准是rfc2396，两者对于空格的encode不同 12rfc173">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-10-19T03:37:16.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java对空格的encode格式问题">
-<meta name="twitter:description" content="今天发现了一个非常奇怪的问题，服务端给了一个encode的url，内容是位“1 1”：
-encode之后是
-11+1
-前端decode之后是
-11+1
-可是在其他的浏览器等decode之后的结果是：
-11 1
-发现java的encode有个坑，在java中，encode遵循的标准是rfc1738，而在iOS中，encode遵循的标准是rfc2396，两者对于空格的encode不同
-12rfc173">
+<meta name="twitter:description" content="今天发现了一个非常奇怪的问题，服务端给了一个encode的url，内容是位“1 1”： encode之后是 11+1 前端decode之后是 11+1 可是在其他的浏览器等decode之后的结果是： 11 1 发现java的encode有个坑，在java中，encode遵循的标准是rfc1738，而在iOS中，encode遵循的标准是rfc2396，两者对于空格的encode不同 12rfc173">
 
 
 
@@ -403,7 +381,7 @@ encode之后是
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1+1</div></pre></td></tr></table></figure>
 <p>可是在其他的浏览器等decode之后的结果是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1 1</div></pre></td></tr></table></figure>
-<p>发现java的encode有个坑，在java中，encode遵循的标准是<a href="http://www.faqs.org/rfcs/rfc1738.html" target="_blank" rel="external">rfc1738</a>，而在iOS中，encode遵循的标准是<a href="http://www.faqs.org/rfcs/rfc2396.html" target="_blank" rel="external">rfc2396</a>，两者对于空格的encode不同</p>
+<p>发现java的encode有个坑，在java中，encode遵循的标准是<a href="http://www.faqs.org/rfcs/rfc1738.html" target="_blank" rel="noopener">rfc1738</a>，而在iOS中，encode遵循的标准是<a href="http://www.faqs.org/rfcs/rfc2396.html" target="_blank" rel="noopener">rfc2396</a>，两者对于空格的encode不同</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rfc1738 =&gt; +</div><div class="line">rfc2396 =&gt; %20</div></pre></td></tr></table></figure>
 <p>所以今后和Java服务端合作的时候，如果encode之后的文案出现了+号这种莫名奇妙的bug，记得让他们检查下encode的代码，可以通过替换来解决这个问题。</p>
 
@@ -523,7 +501,7 @@ encode之后是
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

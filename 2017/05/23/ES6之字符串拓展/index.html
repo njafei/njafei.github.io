@@ -92,34 +92,18 @@
 
 
 
-<meta name="description" content="ES6中，还是对字符串做了很多的改进，尤其是函数方面，增加了很多个方法。但是核心的变动，其实只有两个：
-
-Unicode拓展
-字符模板
-
-Unicode拓展在讲ES6之间，我们先了解一些背景知识。
-为什么会出现Unicode我们知道，计算机最底层其实只能识别‘0’和‘1’，就是yes或者no。但是人脑是非常高级的，我们见面会打招呼“您吃了没？”，这句话如果是想告知计算机的话，它肯定是听不懂的，最后">
+<meta name="description" content="ES6中，还是对字符串做了很多的改进，尤其是函数方面，增加了很多个方法。但是核心的变动，其实只有两个：  Unicode拓展 字符模板  Unicode拓展在讲ES6之间，我们先了解一些背景知识。 为什么会出现Unicode我们知道，计算机最底层其实只能识别‘0’和‘1’，就是yes或者no。但是人脑是非常高级的，我们见面会打招呼“您吃了没？”，这句话如果是想告知计算机的话，它肯定是听不懂的，最后">
+<meta name="keywords" content="ES6,JavaScript,react-native">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6之字符串拓展">
 <meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/05/23/ES6之字符串拓展/index.html">
-<meta property="og:site_name" content="njafei's blog">
-<meta property="og:description" content="ES6中，还是对字符串做了很多的改进，尤其是函数方面，增加了很多个方法。但是核心的变动，其实只有两个：
-
-Unicode拓展
-字符模板
-
-Unicode拓展在讲ES6之间，我们先了解一些背景知识。
-为什么会出现Unicode我们知道，计算机最底层其实只能识别‘0’和‘1’，就是yes或者no。但是人脑是非常高级的，我们见面会打招呼“您吃了没？”，这句话如果是想告知计算机的话，它肯定是听不懂的，最后">
+<meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="ES6中，还是对字符串做了很多的改进，尤其是函数方面，增加了很多个方法。但是核心的变动，其实只有两个：  Unicode拓展 字符模板  Unicode拓展在讲ES6之间，我们先了解一些背景知识。 为什么会出现Unicode我们知道，计算机最底层其实只能识别‘0’和‘1’，就是yes或者no。但是人脑是非常高级的，我们见面会打招呼“您吃了没？”，这句话如果是想告知计算机的话，它肯定是听不懂的，最后">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-10-19T03:37:16.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6之字符串拓展">
-<meta name="twitter:description" content="ES6中，还是对字符串做了很多的改进，尤其是函数方面，增加了很多个方法。但是核心的变动，其实只有两个：
-
-Unicode拓展
-字符模板
-
-Unicode拓展在讲ES6之间，我们先了解一些背景知识。
-为什么会出现Unicode我们知道，计算机最底层其实只能识别‘0’和‘1’，就是yes或者no。但是人脑是非常高级的，我们见面会打招呼“您吃了没？”，这句话如果是想告知计算机的话，它肯定是听不懂的，最后">
+<meta name="twitter:description" content="ES6中，还是对字符串做了很多的改进，尤其是函数方面，增加了很多个方法。但是核心的变动，其实只有两个：  Unicode拓展 字符模板  Unicode拓展在讲ES6之间，我们先了解一些背景知识。 为什么会出现Unicode我们知道，计算机最底层其实只能识别‘0’和‘1’，就是yes或者no。但是人脑是非常高级的，我们见面会打招呼“您吃了没？”，这句话如果是想告知计算机的话，它肯定是听不懂的，最后">
 
 
 
@@ -423,7 +407,7 @@ Unicode拓展在讲ES6之间，我们先了解一些背景知识。
 <p><code>Unicode</code>的第一个版本是打算使用两个字节来表示所有的字符，比如1-200给英文，200-5000给中文等等，这样总共就有2^16次方个，基本足够了。（后来发现还是不够，<code>Unicode的第二个版本就使用4个字节，共2^32个</code>）</p>
 <p>所有的字符都有一个数字对应的了，怎么保存呢？这里很多人容易搞错，因为<code>Unicode</code>提出了使用2个字节来表示所有字符，所以大家把<code>UTF16</code>和<code>Unicode</code>弄混淆了。应该说，<code>UTF16</code>来存储和<code>Unicode</code>真的是天作之合，因为两者都是使用两个字节。但是这样也出现了一个问题，比如如果一篇英文文章，他使用的字符段，都是一个字节就能表示出来了，使用2个字节表示，简直是浪费空间，所以又提出了<code>UTF8</code>，即使用1个字节存储，如果出现了需要两个字节的情况，想办法做兼容。</p>
 <p>综上，我们说的<code>Unicode</code>是为了表示所有的字符的一种定义方法，而<code>UTF8</code>和<code>UTF16</code>是为了存储<code>Unicode</code>的一种方案。</p>
-<p>这里如果比较有兴趣，可以看下博客<a href="http://www.cnblogs.com/kingcat/archive/2012/10/16/2726334.html" target="_blank" rel="external">Unicode(UTF-8, UTF-16)令人混淆的概念</a></p>
+<p>这里如果比较有兴趣，可以看下博客<a href="http://www.cnblogs.com/kingcat/archive/2012/10/16/2726334.html" target="_blank" rel="noopener">Unicode(UTF-8, UTF-16)令人混淆的概念</a></p>
 <h4 id="ES6做的拓展"><a href="#ES6做的拓展" class="headerlink" title="ES6做的拓展"></a>ES6做的拓展</h4><p>JS是支持直接展示<code>Unicode</code>的，比如:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">console.log(&quot;\u0061&quot;);//&quot;a&quot;;</div></pre></td></tr></table></figure>
 <p>但是只限 \u0000 - \FFFF之间的，如果是 \u00001这样的，就不支持了。</p>
@@ -596,7 +580,7 @@ Unicode拓展在讲ES6之间，我们先了解一些背景知识。
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
