@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://github.com/njafei/njafei.github.io/2018/02/27/ipa-recodesign/</loc>
+    
+    <lastmod>2018-02-27T05:44:31.380Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/njafei/njafei.github.io/2018/02/23/ES6-Proxy/</loc>
     
     <lastmod>2018-02-23T09:37:34.039Z</lastmod>
@@ -121,6 +128,13 @@
   </url>
   
   <url>
+    <loc>https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/</loc>
+    
+    <lastmod>2017-10-19T03:37:16.727Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/</loc>
     
     <lastmod>2017-10-19T03:37:16.727Z</lastmod>
@@ -128,9 +142,9 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/05/18/android-RN-bigImage/</loc>
     
-    <lastmod>2017-10-19T03:37:16.727Z</lastmod>
+    <lastmod>2017-10-19T03:37:16.726Z</lastmod>
     
   </url>
   
@@ -143,13 +157,6 @@
   
   <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/05/17/fastlane%E4%B8%8A%E4%BC%A0APPStore%E8%B0%83%E7%A0%94/</loc>
-    
-    <lastmod>2017-10-19T03:37:16.726Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/05/18/android-RN-bigImage/</loc>
     
     <lastmod>2017-10-19T03:37:16.726Z</lastmod>
     
@@ -191,13 +198,6 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/04/18/KVC/</loc>
-    
-    <lastmod>2017-10-19T03:37:16.721Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/09/22/Java-space-encode/</loc>
     
     <lastmod>2017-10-19T03:37:16.721Z</lastmod>
@@ -205,14 +205,21 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/09/26/ImageOptm/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/04/18/KVC/</loc>
+    
+    <lastmod>2017-10-19T03:37:16.721Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://github.com/njafei/njafei.github.io/2017/03/27/Event-Handing-Guide-for-iOS/</loc>
     
     <lastmod>2017-10-19T03:37:16.720Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/03/27/Event-Handing-Guide-for-iOS/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/09/26/ImageOptm/</loc>
     
     <lastmod>2017-10-19T03:37:16.720Z</lastmod>
     

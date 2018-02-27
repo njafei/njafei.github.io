@@ -74,7 +74,7 @@
 <link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="React-Native," />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -92,22 +92,18 @@
 
 
 
-<meta name="description" content="为什么要拆包背景介绍随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。 另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也">
-<meta name="keywords" content="React-Native">
+<meta name="description" content="在使用了rn之后，我们很少会修改原生代码，但是如果想要打包，还是重新打包原生代码，挺花时间的，那么，只修改rn的代码情况下，有没有快速出包的方法？ 答案就是今天这篇文章的主题，ipa逆向，然后替换资源，重新打包，这样只需要替换掉js的bundle包，省去了重新archive的时间了。 过程如下：  test.ipa 改名为  test.zip 解开zip，打开Payload，显示test资源包，右">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React_Native拆分bundle之patch拆包">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/04/06/React-Native-Seperate-Bundle/index.html">
+<meta property="og:title" content="ipa包逆向重新签名打包">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2018/02/27/ipa-recodesign/index.html">
 <meta property="og:site_name" content="njafei&#39;s blog">
-<meta property="og:description" content="为什么要拆包背景介绍随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。 另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也">
+<meta property="og:description" content="在使用了rn之后，我们很少会修改原生代码，但是如果想要打包，还是重新打包原生代码，挺花时间的，那么，只修改rn的代码情况下，有没有快速出包的方法？ 答案就是今天这篇文章的主题，ipa逆向，然后替换资源，重新打包，这样只需要替换掉js的bundle包，省去了重新archive的时间了。 过程如下：  test.ipa 改名为  test.zip 解开zip，打开Payload，显示test资源包，右">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/React-Native%E6%8B%86%E5%8C%85%E6%96%B9%E6%A1%88%E7%BB%93%E6%9E%84%E5%9B%BE.jpeg">
-<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/React-NativeJsBundle%E6%89%93%E5%8C%85%E6%B5%81%E7%A8%8B">
-<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/React-Native%E7%94%9F%E6%88%90%E5%8C%85.png">
-<meta property="og:updated_time" content="2017-10-19T03:37:16.724Z">
+<meta property="og:updated_time" content="2018-02-27T05:44:31.380Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React_Native拆分bundle之patch拆包">
-<meta name="twitter:description" content="为什么要拆包背景介绍随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。 另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也">
-<meta name="twitter:image" content="http://on0hv7n2x.bkt.clouddn.com/React-Native%E6%8B%86%E5%8C%85%E6%96%B9%E6%A1%88%E7%BB%93%E6%9E%84%E5%9B%BE.jpeg">
+<meta name="twitter:title" content="ipa包逆向重新签名打包">
+<meta name="twitter:description" content="在使用了rn之后，我们很少会修改原生代码，但是如果想要打包，还是重新打包原生代码，挺花时间的，那么，只修改rn的代码情况下，有没有快速出包的方法？ 答案就是今天这篇文章的主题，ipa逆向，然后替换资源，重新打包，这样只需要替换掉js的bundle包，省去了重新archive的时间了。 过程如下：  test.ipa 改名为  test.zip 解开zip，打开Payload，显示test资源包，右">
 
 
 
@@ -135,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/04/06/React-Native-Seperate-Bundle/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2018/02/27/ipa-recodesign/"/>
 
 
 
 
 
-  <title>React_Native拆分bundle之patch拆包 | njafei's blog</title>
+  <title>ipa包逆向重新签名打包 | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -331,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">React_Native拆分bundle之patch拆包</h1>
+          <h1 class="post-title" itemprop="name headline">ipa包逆向重新签名打包</h1>
         
 
         <div class="post-meta">
@@ -343,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-06T10:26:41+08:00">
-                2017-04-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-27T13:43:28+08:00">
+                2018-02-27
               </time>
             
 
@@ -366,8 +362,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="../../../../categories/React-Native/" itemprop="url" rel="index">
-                    <span itemprop="name">React-Native</span>
+                  <a href="../../../../categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -400,58 +396,20 @@
       
 
       
-        <h1 id="为什么要拆包"><a href="#为什么要拆包" class="headerlink" title="为什么要拆包"></a>为什么要拆包</h1><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>随着RN的包越来越大，第一次载入RN包的时长越来越长，用户需要等待的时间也就越长，体验较差。另外多个团队开发的话，互相之间的依赖也是个大问题，出现编译不过的话，就会出现水桶效应，所有的团队都要等待这个有问题的团队，从而拉低了整体的效率。</p>
-<p>另外我一直希望，能够将React-Native的业务功能，做成类似小程序一样：即用即载入，随时可以更新。想想我们的app里面包含了多少个用户也许永远用不到的功能，还有当我们希望上一个新功能的时候，一定要等待新的版本的审核，这给运营等带来了巨大的麻烦和风险。如果用户点击某个功能，然后马上载入线上的webBundle，用户之后就可以直接使用我们的最新功能了，以后再次进入的时候，也无需等待，那该多好。</p>
-<h2 id="拆包目标"><a href="#拆包目标" class="headerlink" title="拆包目标"></a>拆包目标</h2><p>所以我们拆包的目标就很明确了：</p>
-<pre><code>1. 优化载入时间，提高用户体验
-2. 解开依赖关系，提高开发效率
-3. 实现webBundle，即用即载入
-</code></pre><p>示意图如下：<br><img src="http://on0hv7n2x.bkt.clouddn.com/React-Native%E6%8B%86%E5%8C%85%E6%96%B9%E6%A1%88%E7%BB%93%E6%9E%84%E5%9B%BE.jpeg" alt=""></p>
-<h2 id="国外国内app拆包情况"><a href="#国外国内app拆包情况" class="headerlink" title="国外国内app拆包情况"></a>国外国内app拆包情况</h2><p>上面啰嗦了为什么想要去拆包，好像是蛮有必要的O_o。但是当我去看国内外著名的app使用React-Native的情况时，发现真的是泾渭分明：国内基本都拆包了，包括携程、QQ音乐等，而国外没有拆包的，比如React-Native的创造者FaceBook，虽然他们的包大小已经到了10M。</p>
-<p>不禁让我很疑惑，难道国外没有这个需求么？为什么拆包和热更新等几乎国内的硬需求，他们却好像完全没有这方面的需求。希望有读者知道的话可以告知我~</p>
-<h1 id="拆包的几种方案"><a href="#拆包的几种方案" class="headerlink" title="拆包的几种方案"></a>拆包的几种方案</h1><p>在讲具体的方案之前，我们先看下，React-Native的包，究竟是如何打出来，然后是怎么载入到native中的。</p>
-<h2 id="如何打包"><a href="#如何打包" class="headerlink" title="如何打包"></a>如何打包</h2><p>这里我直接使用QQ技术团队的一张图：<br><img src="http://on0hv7n2x.bkt.clouddn.com/React-NativeJsBundle%E6%89%93%E5%8C%85%E6%B5%81%E7%A8%8B" alt=""></p>
-<h2 id="如何载入"><a href="#如何载入" class="headerlink" title="如何载入"></a>如何载入</h2><p>这里主要讲下iOS React-Native0.39版本的情况。<br>RN提供了两种形式来载入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1. - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge</div><div class="line">2. - (void)loadSourceForBridge:(RCTBridge *)bridge</div><div class="line">                 onProgress:(RCTSourceLoadProgressBlock)onProgress</div><div class="line">                 onComplete:(RCTSourceLoadBlock)loadCallback;</div></pre></td></tr></table></figure>
-<p>第一种数据是默认模式，第二种是可以控制载入中的各个步骤。这块可以看下RCTBridgeDelegate。</p>
-<h2 id="主流方案"><a href="#主流方案" class="headerlink" title="主流方案"></a>主流方案</h2><p>在网上查了相关的资料，主流的方案基本都是把Main.jsbundl拆分成基础包common.jsbundle+业务包bundle，和上面拆包目标基本一样，不赘述。</p>
-<p>具体的拆分思路就很不一样了：</p>
-<pre><code>1. 侵入RN代码，修改打包流程，使得打出来的包就是基础+业务包，如QQ音乐
-2. 在RN打包的基础上，实现新的打包方案，如携程 moles-Packer
-3. Patch方案，打包流程不变，生成基础包后，根据diff来生成每个业务不同的patch包
-</code></pre><h1 id="patch方案"><a href="#patch方案" class="headerlink" title="patch方案"></a>patch方案</h1><p>因为方案1和方案要随着RN的升级，不断调整，成本比较高，而且要投入较多的人力，所以我们先看下方案3。</p>
-<p>先说下patch，patch就是根据特定算法，讲两个不同的事物diff比较，然后生成的包含两个事物差别的包。我们这里使用的是google的<code>diffAndPatch</code>算法。</p>
-<p><img src="http://on0hv7n2x.bkt.clouddn.com/React-Native%E7%94%9F%E6%88%90%E5%8C%85.png" alt=""></p>
-<h2 id="基础包common-jsbundle"><a href="#基础包common-jsbundle" class="headerlink" title="基础包common.jsbundle"></a>基础包common.jsbundle</h2><p>首先我们先生成基础包common.jsbundle.这里我们写一个空的js文件，只包含react-native头文件common.ios.js：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import React from &apos;react&apos;; </div><div class="line">import &#123;&#125; from &apos;react-native&apos;;</div></pre></td></tr></table></figure>
-<p>然后我们基于这单个文件打包，打出来的包就是只包含react-native基础框架的bundle，我们成为common.jsbundle.</p>
-<p>注：</p>
-<p>RN打包过程中会做混淆，所有的类最终都变成了代号为数字的function，所以这里顺序就非常重要，而对基础包的引用顺序就要严格和common.ios.js一样了，这里建议所有的业务代码直接引用common.ios.js文件。另外如果有公共组件等，也都可以放到common.ios.js文件中，这样就会被包含在基础包中了。</p>
-<h2 id="业务包-business-patch"><a href="#业务包-business-patch" class="headerlink" title="业务包 business.patch"></a>业务包 business.patch</h2><p>每条业务线的代码，都需要单独维护自己的indexBisiness.js,打包的时候，入口文件就是这个index，这样就打出来了一个业务business.bundle。<br>然后使用diff，计算出业务patch。这样就算出了patch，我们叫做business.patch</p>
-<h2 id="native方案"><a href="#native方案" class="headerlink" title="native方案"></a>native方案</h2><p>现在我们已经有了common.jsbundle + bisiness1.patch + business2.patch + …<br>如果打开了bisiness1中的home.js，我们首先要将common.jsbundle和bisiness1.patch使用算法合并，计算出最终bisiness1.jsbundle.然后通过上面讲到的native载入方案载入具体的bundle。</p>
-<p>根据当前的bridgeName生成bisiness bundle</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">- (NSString *)getNewBundle</div><div class="line">&#123;</div><div class="line">  </div><div class="line">  NSString *commonBundlePath = [[NSBundle mainBundle] pathForResource:@&quot;common&quot; ofType:@&quot;jsbundle&quot;];</div><div class="line">  NSString *commonBundleJSCode = [[NSString alloc] initWithContentsOfFile:commonBundlePath encoding:NSUTF8StringEncoding error:nil];</div><div class="line">  </div><div class="line">  NSString *patch1Path = [[NSBundle mainBundle] pathForResource:self.bridgeName ofType:@&quot;patch&quot;];</div><div class="line">  NSString *patch1JSCode = [[NSString alloc] initWithContentsOfFile:patch1Path encoding:NSUTF8StringEncoding error:nil];</div><div class="line">  </div><div class="line">  </div><div class="line">  DiffMatchPatch *diffMatchPatch = [[DiffMatchPatch alloc] init];</div><div class="line">  NSArray *convertedPatches = [diffMatchPatch patch_fromText:patch1JSCode error:nil];</div><div class="line">  </div><div class="line">  NSArray *resultsArray = [diffMatchPatch patch_apply:convertedPatches toString:commonBundleJSCode];</div><div class="line">  NSString *resultJSCode = resultsArray[0]; //patch合并后的js</div><div class="line">  </div><div class="line">  </div><div class="line">  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);</div><div class="line">  NSString *docDir = [paths objectAtIndex:0];</div><div class="line">  NSString *newPath = [NSString stringWithFormat:@&quot;%@/%@.jsbundle&quot;,docDir,self.bridgeName];</div><div class="line">  </div><div class="line">  if (resultsArray.count &gt; 1) &#123;</div><div class="line">    [resultJSCode writeToFile:newPath atomically:NO encoding:NSUTF8StringEncoding error:nil];</div><div class="line">    return newPath;</div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">    return @&quot;&quot;;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>加载bisiness bundle：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge</div><div class="line">&#123;</div><div class="line">    NSString *path = [[NSBundle mainBundle] pathForResource:self.bridgeName ofType:@&quot;jsbundle&quot;];</div><div class="line">    NSURL *jsBundleURL = [NSURL URLWithString:path];</div><div class="line">  </div><div class="line">  return jsBundleURL;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样，code就基本完成了。如果想看所有的代码，请看底部的githubDemo</p>
-<h2 id="方案优缺点"><a href="#方案优缺点" class="headerlink" title="方案优缺点"></a>方案优缺点</h2><p>优点：</p>
-<pre><code>1. 技术方案简单，实现快
-2. 稳定、不用担心RN升级问题
-3. 业务互相独立
-4. 方便后面做web bundle
-</code></pre><p>缺点：</p>
-<pre><code>1. 内存占用大
-2. 打包会变大
-3. 业务之间资源和代码没法互相引用
-</code></pre><h2 id="优化和拓展计划"><a href="#优化和拓展计划" class="headerlink" title="优化和拓展计划"></a>优化和拓展计划</h2><pre><code>1. 打包可以不用patch的方案，采用脚本逐行写入
-2.web bundle 可以直接基于这个方案做
-3.如果解决了函数命名和依赖的问题，就可以采用一个bundle策略
-</code></pre><h2 id="Demo-in-github"><a href="#Demo-in-github" class="headerlink" title="Demo in github"></a>Demo in github</h2><p><a href="https://github.com/njafei/ReactNativeSeperateBundle">ReactNativeSeperateBundle</a></p>
+        <p>在使用了rn之后，我们很少会修改原生代码，但是如果想要打包，还是重新打包原生代码，挺花时间的，那么，只修改rn的代码情况下，有没有快速出包的方法？ 答案就是今天这篇文章的主题，ipa逆向，然后替换资源，重新打包，这样只需要替换掉js的bundle包，省去了重新archive的时间了。</p>
+<p>过程如下：</p>
 <ol>
-<li>cd ReactNativeSeperateBundle</li>
-<li>npm install</li>
-<li>run project</li>
+<li>test.ipa 改名为  test.zip</li>
+<li>解开zip，打开Payload，显示test资源包，右键显示报内容，就会看到ipa中所有的资源等内容</li>
+<li>找到并复制entitlements.plist文件，这个文件是重新签名的时候要使用的，其中记录的是app需要申请的权限</li>
+<li>替换你想替换的资源，这里就是rn的bundle.js</li>
+<li>确定你想使用的签名证书的名称，通常是：‘iPhone Distribution: Test Company’</li>
+<li>重签名 <code>codesign -f -s &quot;iPhone Distribution: Test Company&quot; --entitlements entitlements.plist Payload/Test.app</code></li>
+<li>将签名之后的文件夹压缩 <code>zip -r Test.ipa Payload</code></li>
 </ol>
+<p>其他用法：</p>
+<p>这里讲的替换资源是重签名打包的一种用法，我在网上搜索的时候，发现其他人也生出了很多好的思路，比如： 为了防止提供AppStore的包出问题，直接使用最后的测试包，重新签名，然后上传，这里用到的就是重签名替换证书的功能。</p>
+<p>综上，重签名打包，可以替换资源和证书，从而达到在不需要重新编译的情况下，替换资源的功能。</p>
 
       
     </div>
@@ -481,7 +439,7 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/React-Native/" rel="tag"># React-Native</a>
+            <a href="../../../../tags/iOS/" rel="tag"># iOS</a>
           
         </div>
       
@@ -494,8 +452,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../../03/29/Responder-chain/" rel="next" title="iOS 响应链 Responder Chain">
-                <i class="fa fa-chevron-left"></i> iOS 响应链 Responder Chain
+              <a href="../../23/ES6-Proxy/" rel="next" title="ES6-Proxy">
+                <i class="fa fa-chevron-left"></i> ES6-Proxy
               </a>
             
           </div>
@@ -503,10 +461,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../../11/settingNameAndEmailForEachProject/" rel="prev" title="如何给同一个电脑上的不同git项目设置不同的name和email">
-                如何给同一个电脑上的不同git项目设置不同的name和email <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -553,17 +507,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="../../../../images/avatar.png"
@@ -632,22 +577,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要拆包"><span class="nav-number">1.</span> <span class="nav-text">为什么要拆包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拆包目标"><span class="nav-number">1.2.</span> <span class="nav-text">拆包目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#国外国内app拆包情况"><span class="nav-number">1.3.</span> <span class="nav-text">国外国内app拆包情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拆包的几种方案"><span class="nav-number">2.</span> <span class="nav-text">拆包的几种方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何打包"><span class="nav-number">2.1.</span> <span class="nav-text">如何打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何载入"><span class="nav-number">2.2.</span> <span class="nav-text">如何载入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主流方案"><span class="nav-number">2.3.</span> <span class="nav-text">主流方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#patch方案"><span class="nav-number">3.</span> <span class="nav-text">patch方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础包common-jsbundle"><span class="nav-number">3.1.</span> <span class="nav-text">基础包common.jsbundle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#业务包-business-patch"><span class="nav-number">3.2.</span> <span class="nav-text">业务包 business.patch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#native方案"><span class="nav-number">3.3.</span> <span class="nav-text">native方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案优缺点"><span class="nav-number">3.4.</span> <span class="nav-text">方案优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化和拓展计划"><span class="nav-number">3.5.</span> <span class="nav-text">优化和拓展计划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-in-github"><span class="nav-number">3.6.</span> <span class="nav-text">Demo in github</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
