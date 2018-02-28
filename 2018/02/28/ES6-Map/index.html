@@ -35,7 +35,7 @@
 
   
   
-  <link href="../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -69,36 +69,41 @@
 
 
 
-<link href="../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
+<link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-
-
-
-  <link rel="alternate" href="../../atom.xml" title="njafei's blog" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico?v=5.1.0" />
+  <meta name="keywords" content="ES6,Map," />
 
 
 
 
 
+  <link rel="alternate" href="../../../../atom.xml" title="njafei's blog" type="application/atom+xml" />
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="njafei&#39;s blog">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/tags/Set/index.html">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="基本用法在js中，对象(Object)的本质是键值对，但是它的键只能是字符串，这带来了很多不便。为了解决这个问题，ES6中提供了新的数据结构，Map。 Map和Object最大的区别就是它的key可以是对象。 看下初始化： 1234let map = new Map();let obj = [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;];map.set(obj, &amp;quot;cont">
+<meta name="keywords" content="ES6,Map">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6之Map">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2018/02/28/ES6-Map/index.html">
 <meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="基本用法在js中，对象(Object)的本质是键值对，但是它的键只能是字符串，这带来了很多不便。为了解决这个问题，ES6中提供了新的数据结构，Map。 Map和Object最大的区别就是它的key可以是对象。 看下初始化： 1234let map = new Map();let obj = [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;];map.set(obj, &amp;quot;cont">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-28T06:09:58.003Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="njafei&#39;s blog">
+<meta name="twitter:title" content="ES6之Map">
+<meta name="twitter:description" content="基本用法在js中，对象(Object)的本质是键值对，但是它的键只能是字符串，这带来了很多不便。为了解决这个问题，ES6中提供了新的数据结构，Map。 Map和Object最大的区别就是它的key可以是对象。 看下初始化： 1234let map = new Map();let obj = [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;];map.set(obj, &amp;quot;cont">
 
 
 
@@ -126,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/tags/Set/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2018/02/28/ES6-Map/"/>
 
 
 
 
 
-  <title>标签: Set | njafei's blog</title>
+  <title>ES6之Map | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -167,7 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -295,44 +300,179 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>Set<small>标签</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="njafei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="njafei's blog">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6之Map</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-28T14:09:25+08:00">
+                2018-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>在js中，对象(Object)的本质是键值对，但是它的键只能是字符串，这带来了很多不便。为了解决这个问题，ES6中提供了新的数据结构，Map。 Map和Object最大的区别就是它的key可以是对象。</p>
+<p>看下初始化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let map = new Map();</div><div class="line">let obj = [&quot;a&quot;, &quot;b&quot;];</div><div class="line">map.set(obj, &quot;content&quot;);</div><div class="line">map.get(obj);// &quot;content&quot;</div></pre></td></tr></table></figure>
+<p>map还可以用数组为参数直接初始化，要求数组中的元素都是标志键值对的数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let map = new Map([[&quot;key1&quot;, &quot;value1&quot;],[[&quot;key2&quot;], &quot;value2&quot;]]);</div></pre></td></tr></table></figure>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>因为map和object是如此的相似，本文不再介绍，set、get、has、遍历等方法，需要的话直接看下官网API即可。这里提下注意事项，因为key可是是对象了，所以如果key是对象，map寻找key和value就是依据key的内存地址，如果是简单类型，还是根据值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">let map = new Map();</div><div class="line">let key3 = [&quot;a&quot;];</div><div class="line"></div><div class="line">map.set(&quot;a&quot;,1);</div><div class="line">map.set([&quot;a&quot;],1);</div><div class="line">map.set(key3,1);</div><div class="line"></div><div class="line">console.log(map.get(&quot;a&quot;)); // 1 </div><div class="line">console.log(map.get([&quot;a&quot;])); // undefined</div><div class="line">console.log(map.get(key3)); // 1</div></pre></td></tr></table></figure>
+<h2 id="weakMap"><a href="#weakMap" class="headerlink" title="weakMap"></a>weakMap</h2><p>weakMap和weakSet有相似之处，都是为了防止内存泄露而设计，key必须是对象，也只对元素弱引用。</p>
 
-      <h2 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="../../2018/02/28/ES6-Set/" itemprop="url">
-              
-                <span itemprop="name">ES6之Set</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-28T13:44:04+08:00"
-              content="2018-02-28" >
-          02-28
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/ES6/" rel="tag"># ES6</a>
+          
+            <a href="../../../../tags/Map/" rel="tag"># Map</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../ES6-Set/" rel="next" title="ES6之Set">
+                <i class="fa fa-chevron-left"></i> ES6之Set
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -340,6 +480,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -359,11 +503,20 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="../../images/avatar.png"
+               src="../../../../images/avatar.png"
                alt="njafei" />
           <p class="site-author-name" itemprop="name">njafei</p>
            
@@ -385,7 +538,7 @@
             
             
             <div class="site-state-item site-state-categories">
-              <a href="../../categories/index.html">
+              <a href="../../../../categories/index.html">
                 <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
@@ -396,7 +549,7 @@
             
             
             <div class="site-state-item site-state-tags">
-              <a href="../index.html">
+              <a href="../../../../tags/index.html">
                 <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
@@ -407,7 +560,7 @@
 
         
           <div class="feed-link motion-element">
-            <a href="../../atom.xml" rel="alternate">
+            <a href="../../../../atom.xml" rel="alternate">
               <i class="fa fa-rss"></i>
               RSS
             </a>
@@ -429,6 +582,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本用法"><span class="nav-number">1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">2.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weakMap"><span class="nav-number">3.</span> <span class="nav-text">weakMap</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -511,42 +680,46 @@
 
 
   
-  <script type="text/javascript" src="../../lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
-
-  
-
-
-  <script type="text/javascript" src="../../js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="../../js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
 
   
 
 
-  <script type="text/javascript" src="../../js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.1.0"></script>
 
 
 

@@ -307,6 +307,148 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io../../2017/07/27/react-native-time-attations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="njafei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="njafei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="../../2017/07/27/react-native-time-attations/" itemprop="url">react-native time定时器 防止内存泄露的注意点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-27T15:50:21+08:00">
+                2017-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react-native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          time是react-native提供的一个定时器，在实际使用中，经常会有使用不对，造成内存泄露的情况。很多React Native应用发生致命错误（闪退）是与计时器有关。具体来说，是在某个组件被卸载（unmount）之后，计时器却仍然在运行。
+防止出问题的办法也很简单，在unmount的时候，增加卸载定时器的操作：
+12345678910111213componentDidMount() &#1
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="../../2017/07/27/react-native-time-attations/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io../../2017/07/26/listViewFlexGrowDefaultValue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1591,151 +1733,6 @@ OpenGLRenderer: Bitmap too large to be uploaded into a texture (750x452
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io../../2017/05/11/ES6之变量的解构赋值/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="njafei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="../../images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="njafei's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="../../2017/05/11/ES6之变量的解构赋值/" itemprop="url">ES6之变量的解构赋值</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-11T13:22:57+08:00">
-                2017-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="../../categories/React-Native/" itemprop="url" rel="index">
-                    <span itemprop="name">React-Native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          什么是解构赋值以前，如果我们想给一个变量赋值，通常是这样（在Objective-C等语言中，现在仍然是如此）：
-123let a = 1;let b = 2;let c = 3;
-而ES6现在支持了类似这样的用法：
-1let [a,b,c] = [1,2,3];
-从而大大简化了变量赋值的语法，而且为诸如：Json解析、函数默认值用法提供了支持，文章最后会介绍。
-JS的变量解构赋值，实际上的一种模式
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="../../2017/05/11/ES6之变量的解构赋值/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1785,7 +1782,7 @@ JS的变量解构赋值，实际上的一种模式
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1807,7 +1804,7 @@ JS的变量解构赋值，实际上的一种模式
             
             <div class="site-state-item site-state-tags">
               <a href="../../tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

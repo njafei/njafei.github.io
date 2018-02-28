@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[ES6之Map]]></title>
+    <url>%2F2018%2F02%2F28%2FES6-Map%2F</url>
+    <content type="text"><![CDATA[基本用法在js中，对象(Object)的本质是键值对，但是它的键只能是字符串，这带来了很多不便。为了解决这个问题，ES6中提供了新的数据结构，Map。 Map和Object最大的区别就是它的key可以是对象。 看下初始化： 1234let map = new Map();let obj = [&quot;a&quot;, &quot;b&quot;];map.set(obj, &quot;content&quot;);map.get(obj);// &quot;content&quot; map还可以用数组为参数直接初始化，要求数组中的元素都是标志键值对的数组 1let map = new Map([[&quot;key1&quot;, &quot;value1&quot;],[[&quot;key2&quot;], &quot;value2&quot;]]); 注意事项因为map和object是如此的相似，本文不再介绍，set、get、has、遍历等方法，需要的话直接看下官网API即可。这里提下注意事项，因为key可是是对象了，所以如果key是对象，map寻找key和value就是依据key的内存地址，如果是简单类型，还是根据值。 12345678910let map = new Map();let key3 = [&quot;a&quot;];map.set(&quot;a&quot;,1);map.set([&quot;a&quot;],1);map.set(key3,1);console.log(map.get(&quot;a&quot;)); // 1 console.log(map.get([&quot;a&quot;])); // undefinedconsole.log(map.get(key3)); // 1 weakMapweakMap和weakSet有相似之处，都是为了防止内存泄露而设计，key必须是对象，也只对元素弱引用。]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+        <tag>Map</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ES6之Set]]></title>
     <url>%2F2018%2F02%2F28%2FES6-Set%2F</url>
     <content type="text"><![CDATA[在ES6中，提供了新的数据结构set，set类似于数组，但是其中的元素是不能重复的。我们先来看个例子： 初始化12345let set = new Set();[1,2,2,3,4,5,5,5].map(x =&gt; set.add(x));console.log(set.size); //5 初始化也可以接受数组为入参 1let set = new Set([1,2,3,4]); 刚才讲到，set中所有的元素是不能重复的，那么，怎么定义重复呢？set使用的方法类似于 ===，只有一个特例，NaN, 精确相等任务NaN不等于自身，而set中认为是相等的。 看几个例子，就一目了然了： 12345678910111213let set = new Set([&quot;a&quot;, &quot;a&quot;]);console.log(set.size); //1let set = new Set([&#123;&#125;,&#123;&#125;]);console.log(set.size); //2let a = &#123;key: &apos;a&apos;&#125;;let b = &#123;key: &apos;b&apos;&#125;;let set = new Set([a,a]);console.log(set.size); //1let set = new Set([a,&#123;a&#125;]);console.log(set.size); //2 属性属性有两个： construct 默认是Set函数 size, 即set中元素的数量 方法set有四个操作方法： add() 返回set本身 delete() 返回删除是否成功的布尔值 has() 返回set中是否某个元素 clear() 情况set，没有返回值 这里要注意的是，delete和has中判断两个元素是否相同的方法和初始化中的方法一致，所以尤其要注意对象的判断，基本类型基本不会有问题。 set有四个遍历方法： keys(): 返回所有的key values(): 返回所有的value entries(): 返回所有的键值对 forEach(): 回调函数遍历， 和数组用法一致 因为set中本身没有key，value之分，所key和value都是set中元素本身，我们来看下例子： 123456let set = new Set([&quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;]);console.log(set.keys());//[&quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;]console.log(set.values());//[&quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;]console.log(set.entries());//[&#123;&quot;key1&quot;: &quot;key1&quot;&#125;,&#123;&quot;key2&quot;: &quot;key2&quot;&#125;,&#123;&quot;key3&quot;: &quot;key3&quot;&#125;] weakSetweakSet和set类似，只有两个区别： 元素只能是对象 对象都是弱引用，即js的垃圾回收机制不会考虑weakSet中的引用 因为第一个特点，所以weakSet不能使用遍历、size等方法和属性(因为遍历的时候可能对象已经被释放了) 用法set可以用来实现去重等功能，比如： 12345let array = [1,2,2,3];let set = Set(array);let newArray = Array.from(set);console.log(newArray); //[1,2,3] weakSet在互联网上找到的内容不多，阮一峰的《ES6标准入门》中提到，可以用来保存DOM节点，而不用担心节点移除时引起内存泄露。]]></content>

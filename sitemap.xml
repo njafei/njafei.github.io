@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://github.com/njafei/njafei.github.io/2018/02/28/ES6-Map/</loc>
+    
+    <lastmod>2018-02-28T06:09:58.003Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/njafei/njafei.github.io/2018/02/28/ES6-Set/</loc>
     
     <lastmod>2018-02-28T05:44:56.416Z</lastmod>
@@ -135,13 +142,6 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/</loc>
-    
-    <lastmod>2017-10-19T03:37:16.727Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/</loc>
     
     <lastmod>2017-10-19T03:37:16.727Z</lastmod>
@@ -149,9 +149,9 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/06/13/block/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/</loc>
     
-    <lastmod>2017-10-19T03:37:16.726Z</lastmod>
+    <lastmod>2017-10-19T03:37:16.727Z</lastmod>
     
   </url>
   
@@ -170,6 +170,13 @@
   </url>
   
   <url>
+    <loc>https://github.com/njafei/njafei.github.io/2017/06/13/block/</loc>
+    
+    <lastmod>2017-10-19T03:37:16.726Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/03/21/UIResponder/</loc>
     
     <lastmod>2017-10-19T03:37:16.725Z</lastmod>
@@ -177,14 +184,14 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/04/06/React-Native-Seperate-Bundle/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/</loc>
     
     <lastmod>2017-10-19T03:37:16.724Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/04/06/React-Native-Seperate-Bundle/</loc>
     
     <lastmod>2017-10-19T03:37:16.724Z</lastmod>
     
