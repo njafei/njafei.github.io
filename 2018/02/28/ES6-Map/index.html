@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="njafei&#39;s blog">
 <meta property="og:description" content="基本用法在js中，对象(Object)的本质是键值对，但是它的键只能是字符串，这带来了很多不便。为了解决这个问题，ES6中提供了新的数据结构，Map。 Map和Object最大的区别就是它的key可以是对象。 看下初始化： 1234let map = new Map();let obj = [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;];map.set(obj, &amp;quot;cont">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-28T06:09:58.003Z">
+<meta property="og:updated_time" content="2018-02-28T06:12:15.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6之Map">
 <meta name="twitter:description" content="基本用法在js中，对象(Object)的本质是键值对，但是它的键只能是字符串，这带来了很多不便。为了解决这个问题，ES6中提供了新的数据结构，Map。 Map和Object最大的区别就是它的key可以是对象。 看下初始化： 1234let map = new Map();let obj = [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;];map.set(obj, &amp;quot;cont">
@@ -401,7 +401,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let map = new Map();</div><div class="line">let obj = [&quot;a&quot;, &quot;b&quot;];</div><div class="line">map.set(obj, &quot;content&quot;);</div><div class="line">map.get(obj);// &quot;content&quot;</div></pre></td></tr></table></figure>
 <p>map还可以用数组为参数直接初始化，要求数组中的元素都是标志键值对的数组</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let map = new Map([[&quot;key1&quot;, &quot;value1&quot;],[[&quot;key2&quot;], &quot;value2&quot;]]);</div></pre></td></tr></table></figure>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>因为map和object是如此的相似，本文不再介绍，set、get、has、遍历等方法，需要的话直接看下官网API即可。这里提下注意事项，因为key可是是对象了，所以如果key是对象，map寻找key和value就是依据key的内存地址，如果是简单类型，还是根据值。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>因为map和object是如此的相似，本文不再介绍set、get、has、遍历等方法，需要的话直接看下官网API即可。这里提下注意事项，因为key可以是对象了，所以如果key是对象，map寻找key依据key的内存地址，如果是简单类型，还是根据值。</p>
+<p>看下例子： </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">let map = new Map();</div><div class="line">let key3 = [&quot;a&quot;];</div><div class="line"></div><div class="line">map.set(&quot;a&quot;,1);</div><div class="line">map.set([&quot;a&quot;],1);</div><div class="line">map.set(key3,1);</div><div class="line"></div><div class="line">console.log(map.get(&quot;a&quot;)); // 1 </div><div class="line">console.log(map.get([&quot;a&quot;])); // undefined</div><div class="line">console.log(map.get(key3)); // 1</div></pre></td></tr></table></figure>
 <h2 id="weakMap"><a href="#weakMap" class="headerlink" title="weakMap"></a>weakMap</h2><p>weakMap和weakSet有相似之处，都是为了防止内存泄露而设计，key必须是对象，也只对元素弱引用。</p>
 
@@ -457,6 +458,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../../03/19/JS-EventLoop/" rel="prev" title="JS Event-Loop">
+                JS Event-Loop <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -528,7 +533,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

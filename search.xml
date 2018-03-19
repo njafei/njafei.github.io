@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[JS Event-Loop]]></title>
+    <url>%2F2018%2F03%2F19%2FJS-EventLoop%2F</url>
+    <content type="text"><![CDATA[最近在看JavaScript的Generator、Promise等实现异步的方法。对于一直用Objective-C编程的我来说，是有些云里雾里。故查了些资料，了解相关的内容，遂有此文。 为什么JavaScript是单线程的语言首先，我们要解释下，JS是单线程的，并不是说JS中只有一个线程，而是在JS引擎中负责解释和执行JS语句的线程只有一个，我们称之为主线程。 在JS中，还是有很多其他线程存在的，比如：处理DOM事件的线程，定时器线程，IO线程等。 为什么JS中只有一个线程呢？ 这里要说下JS诞生的背景，它是浏览器中执行脚本的语言，主要用途是和用户交互，为了提升体验，避免多线程带来的同步等问题，简化整个模型，采用了单线程。（Objective-C也是为了交互而生，但是并没有采用单线程，而是支持多线程，我个人觉得这个更多是设计思想的选择，而JS这样设计确实带来了更简单的模式） 在HTML5中，提出了Web Worker标准，允许JS创建多个线程,但是规定子线程受主线程控制，且不能操作DOM。 JS任务管理我们先看一张图，了解下JS中是如何管理和执行任务的： 这里分为三个区域： 执行栈（主线程） 任务队列（其他线程） 堆 （对象） 主线程任务执行栈 主线程的任务使用栈来实现任务执行和调用，这里用栈是因为栈的结构方便实现函数调用顺序的管理。 这里简单举个例子： 12345678910 let funcA = (x) =&gt; &#123; return x * 2;&#125;let funcB = (x) =&gt; &#123; return x + 2;&#125;console.log(funcB(funcA(2))); 栈中执行顺序就是 funcA funcB console.log 任务队列每当遇到需要异步执行的任务（请求网络、IO等），JS不会阻塞等待结果，而是往下面执行，当异步的任务执行了之后，系统发送通知出来，然后等待主线程任务栈执行完毕后，执行这些异步回调。 流程如图,这张图就是所谓的Event Loop 注意，这里即使异步的任务很快执行完毕，也会等到执行栈中的任务执行完毕后，才执行，这里用setTimeout来举个例子： 123console.log(1);setTimeout(()=&gt;&#123;console.log(2)&#125;,0)console.log(3); 这里虽然延迟是0ms，但是输出依然是： 123132 所以setTimeout等的延迟时间，其实是不准确的，如果主线程一直很忙，是不会执行到的。 堆这里堆就是用来管理系统中的对象，大部分的语言应该都是使用堆来管理对象（我知道的），这里就不多解释。 总结这篇文章主要是介绍了JS为什么采用了单线程的思想，然后介绍了JS中是如何任务管理是如何通过主线程+任务队列的方式来实现，从而实现了Event Loop。 参考内容： 并发模型与事件循环 JavaScript 运行机制详解：再谈Event Loop JavaScript：彻底理解同步、异步和事件循环(Event Loop)]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ES6之Map]]></title>
     <url>%2F2018%2F02%2F28%2FES6-Map%2F</url>
-    <content type="text"><![CDATA[基本用法在js中，对象(Object)的本质是键值对，但是它的键只能是字符串，这带来了很多不便。为了解决这个问题，ES6中提供了新的数据结构，Map。 Map和Object最大的区别就是它的key可以是对象。 看下初始化： 1234let map = new Map();let obj = [&quot;a&quot;, &quot;b&quot;];map.set(obj, &quot;content&quot;);map.get(obj);// &quot;content&quot; map还可以用数组为参数直接初始化，要求数组中的元素都是标志键值对的数组 1let map = new Map([[&quot;key1&quot;, &quot;value1&quot;],[[&quot;key2&quot;], &quot;value2&quot;]]); 注意事项因为map和object是如此的相似，本文不再介绍，set、get、has、遍历等方法，需要的话直接看下官网API即可。这里提下注意事项，因为key可是是对象了，所以如果key是对象，map寻找key和value就是依据key的内存地址，如果是简单类型，还是根据值。 12345678910let map = new Map();let key3 = [&quot;a&quot;];map.set(&quot;a&quot;,1);map.set([&quot;a&quot;],1);map.set(key3,1);console.log(map.get(&quot;a&quot;)); // 1 console.log(map.get([&quot;a&quot;])); // undefinedconsole.log(map.get(key3)); // 1 weakMapweakMap和weakSet有相似之处，都是为了防止内存泄露而设计，key必须是对象，也只对元素弱引用。]]></content>
+    <content type="text"><![CDATA[基本用法在js中，对象(Object)的本质是键值对，但是它的键只能是字符串，这带来了很多不便。为了解决这个问题，ES6中提供了新的数据结构，Map。 Map和Object最大的区别就是它的key可以是对象。 看下初始化： 1234let map = new Map();let obj = [&quot;a&quot;, &quot;b&quot;];map.set(obj, &quot;content&quot;);map.get(obj);// &quot;content&quot; map还可以用数组为参数直接初始化，要求数组中的元素都是标志键值对的数组 1let map = new Map([[&quot;key1&quot;, &quot;value1&quot;],[[&quot;key2&quot;], &quot;value2&quot;]]); 注意事项因为map和object是如此的相似，本文不再介绍set、get、has、遍历等方法，需要的话直接看下官网API即可。这里提下注意事项，因为key可以是对象了，所以如果key是对象，map寻找key依据key的内存地址，如果是简单类型，还是根据值。 看下例子： 12345678910let map = new Map();let key3 = [&quot;a&quot;];map.set(&quot;a&quot;,1);map.set([&quot;a&quot;],1);map.set(key3,1);console.log(map.get(&quot;a&quot;)); // 1 console.log(map.get([&quot;a&quot;])); // undefinedconsole.log(map.get(key3)); // 1 weakMapweakMap和weakSet有相似之处，都是为了防止内存泄露而设计，key必须是对象，也只对元素弱引用。]]></content>
       <categories>
         <category>ES6</category>
       </categories>

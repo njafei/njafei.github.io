@@ -35,7 +35,7 @@
 
   
   
-  <link href="../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -69,42 +69,44 @@
 
 
 
-<link href="../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
+<link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-
-
-
-  <link rel="alternate" href="../atom.xml" title="njafei's blog" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico?v=5.1.0" />
+  <meta name="keywords" content="ES6," />
 
 
 
 
 
+  <link rel="alternate" href="../../../../atom.xml" title="njafei's blog" type="application/atom+xml" />
 
-<meta name="description" content="微信阅读信息读取 需求领导提了一个需求，希望把我们自己破解的微信聊天记录，每天自动地读取放到电脑上面做备份。 然后android的同事给了我两个文件，是从Root的android手机里面拿到的  msg.db password  然后说可以用SQLiteManager软件来读取。 因为之前负责jenkins等自动化的相关工作，也经常做脚本等的自动化工作，领导就把事情交给我来做。 不过我一直做的iO">
-<meta property="og:type" content="website">
-<meta property="og:title" content="njafei&#39;s blog">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/草稿/微信聊天记录.html">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最近在看JavaScript的Generator、Promise等实现异步的方法。对于一直用Objective-C编程的我来说，是有些云里雾里。故查了些资料，了解相关的内容，遂有此文。 为什么JavaScript是单线程的语言首先，我们要解释下，JS是单线程的，并不是说JS中只有一个线程，而是在JS引擎中负责解释和执行JS语句的线程只有一个，我们称之为主线程。 在JS中，还是有很多其他线程存在的，">
+<meta name="keywords" content="ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS Event-Loop">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2018/03/19/JS-EventLoop/index.html">
 <meta property="og:site_name" content="njafei&#39;s blog">
-<meta property="og:description" content="微信阅读信息读取 需求领导提了一个需求，希望把我们自己破解的微信聊天记录，每天自动地读取放到电脑上面做备份。 然后android的同事给了我两个文件，是从Root的android手机里面拿到的  msg.db password  然后说可以用SQLiteManager软件来读取。 因为之前负责jenkins等自动化的相关工作，也经常做脚本等的自动化工作，领导就把事情交给我来做。 不过我一直做的iO">
+<meta property="og:description" content="最近在看JavaScript的Generator、Promise等实现异步的方法。对于一直用Objective-C编程的我来说，是有些云里雾里。故查了些资料，了解相关的内容，遂有此文。 为什么JavaScript是单线程的语言首先，我们要解释下，JS是单线程的，并不是说JS中只有一个线程，而是在JS引擎中负责解释和执行JS语句的线程只有一个，我们称之为主线程。 在JS中，还是有很多其他线程存在的，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/%E8%AF%BB%E5%8F%96%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E6%B5%81%E7%A8%8B.png">
-<meta property="og:updated_time" content="2017-10-19T03:37:16.736Z">
+<meta property="og:image" content="https://developer.mozilla.org/files/4617/default.svg">
+<meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/JS%20eventLoop%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
+<meta property="og:updated_time" content="2018-03-19T09:45:24.631Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="njafei&#39;s blog">
-<meta name="twitter:description" content="微信阅读信息读取 需求领导提了一个需求，希望把我们自己破解的微信聊天记录，每天自动地读取放到电脑上面做备份。 然后android的同事给了我两个文件，是从Root的android手机里面拿到的  msg.db password  然后说可以用SQLiteManager软件来读取。 因为之前负责jenkins等自动化的相关工作，也经常做脚本等的自动化工作，领导就把事情交给我来做。 不过我一直做的iO">
-<meta name="twitter:image" content="http://on0hv7n2x.bkt.clouddn.com/%E8%AF%BB%E5%8F%96%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E6%B5%81%E7%A8%8B.png">
+<meta name="twitter:title" content="JS Event-Loop">
+<meta name="twitter:description" content="最近在看JavaScript的Generator、Promise等实现异步的方法。对于一直用Objective-C编程的我来说，是有些云里雾里。故查了些资料，了解相关的内容，遂有此文。 为什么JavaScript是单线程的语言首先，我们要解释下，JS是单线程的，并不是说JS中只有一个线程，而是在JS引擎中负责解释和执行JS语句的线程只有一个，我们称之为主线程。 在JS中，还是有很多其他线程存在的，">
+<meta name="twitter:image" content="https://developer.mozilla.org/files/4617/default.svg">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/草稿/微信聊天记录.html"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2018/03/19/JS-EventLoop/"/>
 
 
 
 
 
-  <title> | njafei's blog</title>
+  <title>JS Event-Loop | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -173,7 +175,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -302,84 +304,206 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline"></h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="njafei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="njafei's blog">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS Event-Loop</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-19T17:44:39+08:00">
+                2018-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
-      <p>微信阅读信息读取</p>
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>领导提了一个需求，希望把我们自己破解的微信聊天记录，每天自动地读取放到电脑上面做备份。</p>
-<p>然后android的同事给了我两个文件，是从Root的android手机里面拿到的</p>
-<ul>
-<li>msg.db</li>
-<li>password</li>
-</ul>
-<p>然后说可以用<code>SQLiteManager</code>软件来读取。</p>
-<p>因为之前负责<code>jenkins</code>等自动化的相关工作，也经常做脚本等的自动化工作，领导就把事情交给我来做。</p>
-<p>不过我一直做的iOS的前端开发，对后台、数据库等确实不熟悉，所以用这篇文章记录下中间的过程，希望能通过这次实践和blog的记录，增加对数据库的理解。</p>
-<p>先说说这个需求，我的理解是这样子的：</p>
-<p><img src="http://on0hv7n2x.bkt.clouddn.com/%E8%AF%BB%E5%8F%96%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E6%B5%81%E7%A8%8B.png" alt=""></p>
-<p>所以我们要做的大概是两件事情：</p>
-<ol>
-<li>如何读取<code>db</code>文件</li>
-<li>如何写入到<code>mysql</code></li>
-</ol>
-<h1 id="调研"><a href="#调研" class="headerlink" title="调研"></a>调研</h1><p>我们要从读<code>SQLite</code>和写<code>mysql</code>两个方面来调研下：</p>
-<h4 id="SQLite"><a href="#SQLite" class="headerlink" title="SQLite"></a><code>SQLite</code></h4><p>首先从读取软件看，获取的db文件是一个<code>SQLite</code>的数据库文件。什么是<code>SQLite</code>呢？</p>
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在看<code>JavaScript</code>的<code>Generator</code>、<code>Promise</code>等实现异步的方法。对于一直用<code>Objective-C</code>编程的我来说，是有些云里雾里。故查了些资料，了解相关的内容，遂有此文。</p>
+<h2 id="为什么JavaScript是单线程的语言"><a href="#为什么JavaScript是单线程的语言" class="headerlink" title="为什么JavaScript是单线程的语言"></a>为什么<code>JavaScript</code>是单线程的语言</h2><p>首先，我们要解释下，<code>JS</code>是单线程的，并不是说<code>JS</code>中只有一个线程，而是在<code>JS</code>引擎中负责解释和执行<code>JS</code>语句的线程只有一个，我们称之为主线程。</p>
+<p>在<code>JS</code>中，还是有很多其他线程存在的，比如：处理DOM事件的线程，定时器线程，IO线程等。</p>
+<p>为什么<code>JS</code>中只有一个线程呢？ 这里要说下<code>JS</code>诞生的背景，它是浏览器中执行脚本的语言，主要用途是和用户交互，为了提升体验，避免多线程带来的同步等问题，简化整个模型，采用了单线程。（<code>Objective-C</code>也是为了交互而生，但是并没有采用单线程，而是支持多线程，我个人觉得这个更多是设计思想的选择，而<code>JS</code>这样设计确实带来了更简单的模式）</p>
 <blockquote>
-<p><code>SQLite</code> 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的<code>SQL</code>数据库引擎。</p>
+<p>在HTML5中，提出了Web Worker标准，允许JS创建多个线程,但是规定子线程受主线程控制，且不能操作DOM。</p>
 </blockquote>
-<p>简单说，<code>SQLite</code>就是一个数据库的标准，各种组织和公司都可以依照这个标准来创建自己的数据库。而我们从微信获取的<code>SQLite</code>比较特殊，是一个带加密的<code>SQLite</code>。而<code>mac</code>自带的<code>SQLite</code>是不能支持加密功能的，所以我们要本地成一个<code>SQLite</code>读取工具。这里我选择的是<code>SQLCipher</code>，<code>GitHub</code>地址：<a href="https://github.com/sqlcipher/sqlicipher"><code>SQLCipher</code></a>。</p>
-<p>关于<code>SQLite</code>加密等的具体信息可以看下这篇文章：<a href="http://blog.csdn.net/tuniumobile/article/details/50737598" target="_blank" rel="noopener">途牛原创|SQLite 加密解决方案</a></p>
-<h4 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a><code>mysql</code></h4><p>这个很多人应该都知道，我这里给出个引用，具体的内容可以去官网看下。</p>
-<blockquote>
-<p>Mysql是最流行的关系型数据库管理系统，在WEB应用方面MySQL是最好的RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一。 </p>
-</blockquote>
-<h1 id="安装带加密的SQLite：-sqlcipher"><a href="#安装带加密的SQLite：-sqlcipher" class="headerlink" title="安装带加密的SQLite： sqlcipher"></a>安装带加密的<code>SQLite</code>： <code>sqlcipher</code></h1><p>首先现在最新的包，地址<a href="https://github.com/sqlcipher/sqlcipher/releases">https://github.com/sqlcipher/sqlcipher/releases</a></p>
-<p>下载之后，解压，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./config</div></pre></td></tr></table></figure>
-<p>报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">configure: error: Library crypto not found. Install openssl!&quot;</div></pre></td></tr></table></figure>
-<p>原来是依赖<code>openssl</code>。</p>
-<p><code>openssl</code>官网地址：<a href="https://wiki.openssl.org/index.php/Compilation_and_Installation#Retrieve_source_code" target="_blank" rel="noopener">wiki.openssl.org</a></p>
-<p>下载soucecode</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone git://git.openssl.org/openssl.git</div></pre></td></tr></table></figure>
-<p>现在之后进入文件夹，打开INSTALL，按照上面写的步骤执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ ./config</div><div class="line">$ make</div><div class="line">$ make test</div><div class="line">$ make install</div></pre></td></tr></table></figure>
-<p>最后一部的时候报出错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cannot create directory /usr/local/ssl: No such file or directory</div></pre></td></tr></table></figure>
-<p>在网上搜索了下，有人人用sudo 解决了问题，尝试了下，果然可以</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo make install</div></pre></td></tr></table></figure>
-<p>时间比较长，要耐心等待下。安装结束，确认<code>/usr/local/bin</code>里面有<br><code>libcrypto.a</code>文件。</p>
-<p>但是执行仍然表示找不到<code>crypto</code>，github上面找到了类似的问题<a href=""></a>，找到了可以执行的命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure  --disable-tcl --disable-shared --enable-static=yes --enable-tempstore=yes --with-crypto-lib=none CFLAGS=&quot;-DSQLITE_HAS_CODEC -DSQLCIPHER_CRYPTO_OPENSSL&quot; LDFLAGS=&quot;/usr/local/lib/libcrypto.a&quot;</div></pre></td></tr></table></figure>
-<p>虽然没有报错，但是仍然失败了。</p>
-<p>在这时候，救星出现了，在一篇文章中找到了这个：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install sqlcipher</div></pre></td></tr></table></figure>
-<p>显示安装成功。</p>
-<p><a href="http://stormzhang.com/android/sqlite/2013/06/16/sqlite-encrypt/" target="_blank" rel="noopener">SQLITE加密–SQLCIPHER</a></p>
-<p>#安装<code>mysql</code></p>
-<h4 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h4><p>我安装的是mac版本，下载地址是：<a href="https://dev.mysql.com/downloads/file/?id=468289" target="_blank" rel="noopener">mysql-workbench-community-6.3.9-osx-x86_64.dmg</a></p>
-<p>安装步骤：</p>
+<h2 id="JS任务管理"><a href="#JS任务管理" class="headerlink" title="JS任务管理"></a><code>JS</code>任务管理</h2><p>我们先看一张图，了解下<code>JS</code>中是如何管理和执行任务的：</p>
+<p><img src="https://developer.mozilla.org/files/4617/default.svg" alt=""></p>
+<p>这里分为三个区域：</p>
 <ul>
-<li>双击安装</li>
-<li>将mysql拖到Applications</li>
-<li>安装成功</li>
+<li>执行栈（主线程）</li>
+<li>任务队列（其他线程）</li>
+<li>堆 （对象）</li>
 </ul>
-<p><a href="https://dev.mysql.com/doc/workbench/en/" target="_blank" rel="noopener">mysql workbench 文档</a></p>
-<h4 id="homebrew"><a href="#homebrew" class="headerlink" title="homebrew"></a>homebrew</h4><p>网上找的命令，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install mysql</div></pre></td></tr></table></figure>
-<p>但是我执行的时候，一直卡在一个地方：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">==&gt; ./b2 --prefix=/usr/local/Cellar/boost/1.59.0 --libdir=/usr/local/Cellar/boos</div></pre></td></tr></table></figure>
-<p>不知道是不是网络问题，所以我最终没有始终命令行的形式。</p>
-<p>具体的安装可以参考<a href="http://www.jianshu.com/p/fd3aae701db9" target="_blank" rel="noopener">mac安装mysql的两种方法（含配置）</a></p>
-<h1 id="使用SQLCipher"><a href="#使用SQLCipher" class="headerlink" title="使用SQLCipher"></a>使用<code>SQLCipher</code></h1>
-    
+<h4 id="主线程任务执行栈"><a href="#主线程任务执行栈" class="headerlink" title="主线程任务执行栈"></a>主线程任务执行栈</h4><p>  主线程的任务使用栈来实现任务执行和调用，这里用栈是因为栈的结构方便实现函数调用顺序的管理。<br>  这里简单举个例子：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> 	let funcA = (x) =&gt; &#123;</div><div class="line">	return x * 2;</div><div class="line">&#125;</div><div class="line"></div><div class="line">let funcB = (x) =&gt; &#123;</div><div class="line">	return x + 2;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">console.log(funcB(funcA(2)));</div></pre></td></tr></table></figure>
+<p>  栈中执行顺序就是</p>
+<ul>
+<li>funcA</li>
+<li>funcB</li>
+<li>console.log</li>
+</ul>
+<h4 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h4><p>每当遇到需要异步执行的任务（请求网络、IO等），JS不会阻塞等待结果，而是往下面执行，当异步的任务执行了之后，系统发送通知出来，然后等待主线程任务栈执行完毕后，执行这些异步回调。</p>
+<p>流程如图,这张图就是所谓的<code>Event Loop</code></p>
+<p><img src="http://on0hv7n2x.bkt.clouddn.com/JS%20eventLoop%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt=""></p>
+<p>注意，这里即使异步的任务很快执行完毕，也会等到执行栈中的任务执行完毕后，才执行，这里用<code>setTimeout</code>来举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">console.log(1);</div><div class="line">setTimeout(()=&gt;&#123;console.log(2)&#125;,0)</div><div class="line">console.log(3);</div></pre></td></tr></table></figure>
+<p>这里虽然延迟是0ms，但是输出依然是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line">3</div><div class="line">2</div></pre></td></tr></table></figure>
+<p>所以setTimeout等的延迟时间，其实是不准确的，如果主线程一直很忙，是不会执行到的。</p>
+<h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>这里堆就是用来管理系统中的对象，大部分的语言应该都是使用堆来管理对象（我知道的），这里就不多解释。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章主要是介绍了<code>JS</code>为什么采用了单线程的思想，然后介绍了<code>JS</code>中是如何任务管理是如何通过主线程+任务队列的方式来实现，从而实现了<code>Event Loop</code>。</p>
+<h2 id="参考内容："><a href="#参考内容：" class="headerlink" title="参考内容："></a>参考内容：</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop#%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF" target="_blank" rel="noopener">并发模型与事件循环</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="noopener">JavaScript 运行机制详解：再谈Event Loop
+</a></li>
+<li><a href="https://segmentfault.com/a/1190000004322358" target="_blank" rel="noopener">JavaScript：彻底理解同步、异步和事件循环(Event Loop)</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../../02/28/ES6-Map/" rel="next" title="ES6之Map">
+                <i class="fa fa-chevron-left"></i> ES6之Map
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -411,11 +535,20 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="../images/avatar.png"
+               src="../../../../images/avatar.png"
                alt="njafei" />
           <p class="site-author-name" itemprop="name">njafei</p>
            
@@ -437,7 +570,7 @@
             
             
             <div class="site-state-item site-state-categories">
-              <a href="../categories/index.html">
+              <a href="../../../../categories/index.html">
                 <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
@@ -448,7 +581,7 @@
             
             
             <div class="site-state-item site-state-tags">
-              <a href="../tags/index.html">
+              <a href="../../../../tags/index.html">
                 <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
@@ -459,7 +592,7 @@
 
         
           <div class="feed-link motion-element">
-            <a href="../atom.xml" rel="alternate">
+            <a href="../../../../atom.xml" rel="alternate">
               <i class="fa fa-rss"></i>
               RSS
             </a>
@@ -481,6 +614,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么JavaScript是单线程的语言"><span class="nav-number">1.</span> <span class="nav-text">为什么JavaScript是单线程的语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS任务管理"><span class="nav-number">2.</span> <span class="nav-text">JS任务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主线程任务执行栈"><span class="nav-number">2.0.1.</span> <span class="nav-text">主线程任务执行栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任务队列"><span class="nav-number">2.0.2.</span> <span class="nav-text">任务队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆"><span class="nav-number">2.0.3.</span> <span class="nav-text">堆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考内容："><span class="nav-number">4.</span> <span class="nav-text">参考内容：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -563,42 +712,46 @@
 
 
   
-  <script type="text/javascript" src="../lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="../lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
-
-  
-
-
-  <script type="text/javascript" src="../js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="../js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
 
   
 
 
-  <script type="text/javascript" src="../js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
