@@ -102,7 +102,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://developer.mozilla.org/files/4617/default.svg">
 <meta property="og:image" content="http://on0hv7n2x.bkt.clouddn.com/JS%20eventLoop%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
-<meta property="og:updated_time" content="2018-03-19T09:45:24.631Z">
+<meta property="og:updated_time" content="2018-03-19T09:51:16.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS Event-Loop">
 <meta name="twitter:description" content="最近在看JavaScript的Generator、Promise等实现异步的方法。对于一直用Objective-C编程的我来说，是有些云里雾里。故查了些资料，了解相关的内容，遂有此文。 为什么JavaScript是单线程的语言首先，我们要解释下，JS是单线程的，并不是说JS中只有一个线程，而是在JS引擎中负责解释和执行JS语句的线程只有一个，我们称之为主线程。 在JS中，还是有很多其他线程存在的，">
@@ -414,7 +414,7 @@
 <li>任务队列（其他线程）</li>
 <li>堆 （对象）</li>
 </ul>
-<h4 id="主线程任务执行栈"><a href="#主线程任务执行栈" class="headerlink" title="主线程任务执行栈"></a>主线程任务执行栈</h4><p>  主线程的任务使用栈来实现任务执行和调用，这里用栈是因为栈的结构方便实现函数调用顺序的管理。<br>  这里简单举个例子：</p>
+<h3 id="主线程任务执行栈"><a href="#主线程任务执行栈" class="headerlink" title="主线程任务执行栈"></a>主线程任务执行栈</h3><p>  主线程的任务使用栈来实现任务执行和调用，这里用栈是因为栈的结构方便实现函数调用顺序的管理。<br>  这里简单举个例子：</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> 	let funcA = (x) =&gt; &#123;</div><div class="line">	return x * 2;</div><div class="line">&#125;</div><div class="line"></div><div class="line">let funcB = (x) =&gt; &#123;</div><div class="line">	return x + 2;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">console.log(funcB(funcA(2)));</div></pre></td></tr></table></figure>
 <p>  栈中执行顺序就是</p>
 <ul>
@@ -422,15 +422,15 @@
 <li>funcB</li>
 <li>console.log</li>
 </ul>
-<h4 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h4><p>每当遇到需要异步执行的任务（请求网络、IO等），JS不会阻塞等待结果，而是往下面执行，当异步的任务执行了之后，系统发送通知出来，然后等待主线程任务栈执行完毕后，执行这些异步回调。</p>
-<p>流程如图,这张图就是所谓的<code>Event Loop</code></p>
+<h3 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h3><p>每当遇到需要异步执行的任务（请求网络、IO等），JS不会阻塞等待结果，而是往下面执行，当异步的任务执行了之后，系统发送通知出来，然后等待主线程任务栈执行完毕后，执行这些异步回调。</p>
+<p>流程如图,就是所谓的<code>Event Loop</code></p>
 <p><img src="http://on0hv7n2x.bkt.clouddn.com/JS%20eventLoop%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt=""></p>
 <p>注意，这里即使异步的任务很快执行完毕，也会等到执行栈中的任务执行完毕后，才执行，这里用<code>setTimeout</code>来举个例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">console.log(1);</div><div class="line">setTimeout(()=&gt;&#123;console.log(2)&#125;,0)</div><div class="line">console.log(3);</div></pre></td></tr></table></figure>
 <p>这里虽然延迟是0ms，但是输出依然是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line">3</div><div class="line">2</div></pre></td></tr></table></figure>
 <p>所以setTimeout等的延迟时间，其实是不准确的，如果主线程一直很忙，是不会执行到的。</p>
-<h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>这里堆就是用来管理系统中的对象，大部分的语言应该都是使用堆来管理对象（我知道的），这里就不多解释。</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>这里堆就是用来管理系统中的对象，大部分的语言应该都是使用堆来管理对象（我知道的），这里就不多解释。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章主要是介绍了<code>JS</code>为什么采用了单线程的思想，然后介绍了<code>JS</code>中是如何任务管理是如何通过主线程+任务队列的方式来实现，从而实现了<code>Event Loop</code>。</p>
 <h2 id="参考内容："><a href="#参考内容：" class="headerlink" title="参考内容："></a>参考内容：</h2><ul>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop#%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF" target="_blank" rel="noopener">并发模型与事件循环</a></li>
@@ -489,6 +489,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../20/JS-PropTypes/" rel="prev" title="JS 静态类型检查 PropTypes">
+                JS 静态类型检查 PropTypes <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -560,7 +564,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="https://njafei.github.io/archives">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -571,7 +575,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="../../../../categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -582,7 +586,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="../../../../tags/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -624,7 +628,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么JavaScript是单线程的语言"><span class="nav-number">1.</span> <span class="nav-text">为什么JavaScript是单线程的语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS任务管理"><span class="nav-number">2.</span> <span class="nav-text">JS任务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主线程任务执行栈"><span class="nav-number">2.0.1.</span> <span class="nav-text">主线程任务执行栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任务队列"><span class="nav-number">2.0.2.</span> <span class="nav-text">任务队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆"><span class="nav-number">2.0.3.</span> <span class="nav-text">堆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考内容："><span class="nav-number">4.</span> <span class="nav-text">参考内容：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么JavaScript是单线程的语言"><span class="nav-number">1.</span> <span class="nav-text">为什么JavaScript是单线程的语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS任务管理"><span class="nav-number">2.</span> <span class="nav-text">JS任务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主线程任务执行栈"><span class="nav-number">2.1.</span> <span class="nav-text">主线程任务执行栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务队列"><span class="nav-number">2.2.</span> <span class="nav-text">任务队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆"><span class="nav-number">2.3.</span> <span class="nav-text">堆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考内容："><span class="nav-number">4.</span> <span class="nav-text">参考内容：</span></a></li></ol></div>
             
 
           </div>

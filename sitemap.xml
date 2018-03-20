@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://github.com/njafei/njafei.github.io/2018/03/20/JS-PropTypes/</loc>
+    
+    <lastmod>2018-03-20T06:18:10.501Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/njafei/njafei.github.io/2018/03/19/JS-EventLoop/</loc>
     
-    <lastmod>2018-03-19T09:45:24.631Z</lastmod>
+    <lastmod>2018-03-19T09:51:16.670Z</lastmod>
     
   </url>
   
@@ -114,14 +121,14 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/05/20/react-native%E5%9F%BA%E7%B1%BB%E8%AE%BE%E8%AE%A1/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/05/04/runtime/</loc>
     
     <lastmod>2017-10-19T03:37:16.731Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/05/04/runtime/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/05/20/react-native%E5%9F%BA%E7%B1%BB%E8%AE%BE%E8%AE%A1/</loc>
     
     <lastmod>2017-10-19T03:37:16.731Z</lastmod>
     
@@ -149,6 +156,13 @@
   </url>
   
   <url>
+    <loc>https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/</loc>
+    
+    <lastmod>2017-10-19T03:37:16.727Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/</loc>
     
     <lastmod>2017-10-19T03:37:16.727Z</lastmod>
@@ -156,9 +170,9 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/05/17/fastlane%E4%B8%8A%E4%BC%A0APPStore%E8%B0%83%E7%A0%94/</loc>
     
-    <lastmod>2017-10-19T03:37:16.727Z</lastmod>
+    <lastmod>2017-10-19T03:37:16.726Z</lastmod>
     
   </url>
   
@@ -171,13 +185,6 @@
   
   <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/05/18/android-RN-bigImage/</loc>
-    
-    <lastmod>2017-10-19T03:37:16.726Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/05/17/fastlane%E4%B8%8A%E4%BC%A0APPStore%E8%B0%83%E7%A0%94/</loc>
     
     <lastmod>2017-10-19T03:37:16.726Z</lastmod>
     
@@ -219,14 +226,14 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/09/22/Java-space-encode/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/04/18/KVC/</loc>
     
     <lastmod>2017-10-19T03:37:16.721Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/04/18/KVC/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/09/22/Java-space-encode/</loc>
     
     <lastmod>2017-10-19T03:37:16.721Z</lastmod>
     

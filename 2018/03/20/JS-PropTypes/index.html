@@ -35,7 +35,7 @@
 
   
   
-  <link href="../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -69,36 +69,41 @@
 
 
 
-<link href="../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
+<link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-
-
-
-  <link rel="alternate" href="../../atom.xml" title="njafei's blog" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico?v=5.1.0" />
+  <meta name="keywords" content="JS,PropTypes," />
 
 
 
 
 
+  <link rel="alternate" href="../../../../atom.xml" title="njafei's blog" type="application/atom+xml" />
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="njafei&#39;s blog">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/categories/ES6/index.html">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="基本用法JS作为弱类型语言，有时候也会带来很多麻烦，比如需要的参数是Number，而使用方传了String，虽然我们可以通过参数的检查来return掉，但是这样也带来了很多繁琐的步骤。为了避免类似的问题，JS提供了类型检查工具PropTypes，在React V15.5之前，可以直接使用React.PropTypes助手函数，之后则提供了npm包prop-types。 注意，处于性能原因，prop">
+<meta name="keywords" content="JS,PropTypes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 静态类型检查 PropTypes">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2018/03/20/JS-PropTypes/index.html">
 <meta property="og:site_name" content="njafei&#39;s blog">
+<meta property="og:description" content="基本用法JS作为弱类型语言，有时候也会带来很多麻烦，比如需要的参数是Number，而使用方传了String，虽然我们可以通过参数的检查来return掉，但是这样也带来了很多繁琐的步骤。为了避免类似的问题，JS提供了类型检查工具PropTypes，在React V15.5之前，可以直接使用React.PropTypes助手函数，之后则提供了npm包prop-types。 注意，处于性能原因，prop">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-20T06:18:10.501Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="njafei&#39;s blog">
+<meta name="twitter:title" content="JS 静态类型检查 PropTypes">
+<meta name="twitter:description" content="基本用法JS作为弱类型语言，有时候也会带来很多麻烦，比如需要的参数是Number，而使用方传了String，虽然我们可以通过参数的检查来return掉，但是这样也带来了很多繁琐的步骤。为了避免类似的问题，JS提供了类型检查工具PropTypes，在React V15.5之前，可以直接使用React.PropTypes助手函数，之后则提供了npm包prop-types。 注意，处于性能原因，prop">
 
 
 
@@ -126,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/categories/ES6/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2018/03/20/JS-PropTypes/"/>
 
 
 
 
 
-  <title>分类: ES6 | njafei's blog</title>
+  <title>JS 静态类型检查 PropTypes | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -167,7 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -295,185 +300,189 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>ES6<small>分类</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="../../2018/03/19/JS-EventLoop/" itemprop="url">
-              
-                <span itemprop="name">JS Event-Loop</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-19T17:44:39+08:00"
-              content="2018-03-19" >
-          03-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="../../2018/02/28/ES6-Map/" itemprop="url">
-              
-                <span itemprop="name">ES6之Map</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-28T14:09:25+08:00"
-              content="2018-02-28" >
-          02-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="../../2018/02/28/ES6-Set/" itemprop="url">
-              
-                <span itemprop="name">ES6之Set</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-28T13:44:04+08:00"
-              content="2018-02-28" >
-          02-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="../../2018/02/23/ES6-Proxy/" itemprop="url">
-              
-                <span itemprop="name">ES6-Proxy</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-23T17:37:04+08:00"
-              content="2018-02-23" >
-          02-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="../../2018/02/22/ES6-Symbols/" itemprop="url">
-              
-                <span itemprop="name">ES6-Symbols</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-22T13:57:42+08:00"
-              content="2018-02-22" >
-          02-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="../../2017/05/23/ES6之字符串拓展/" itemprop="url">
-              
-                <span itemprop="name">ES6之字符串拓展</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-23T17:37:12+08:00"
-              content="2017-05-23" >
-          05-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/njafei/njafei.github.io">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="njafei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="njafei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS 静态类型检查 PropTypes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-20T14:17:26+08:00">
+                2018-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p><code>JS</code>作为弱类型语言，有时候也会带来很多麻烦，比如需要的参数是<code>Number</code>，而使用方传了<code>String</code>，虽然我们可以通过参数的检查来return掉，但是这样也带来了很多繁琐的步骤。为了避免类似的问题，<code>JS</code>提供了类型检查工具PropTypes，在<code>React V15.5</code>之前，可以直接使用<code>React.PropTypes</code>助手函数，之后则提供了npm包<code>prop-types</code>。</p>
+<p>注意，处于性能原因，<code>propTypes</code>仅会在dev模式中work，如果发现类型和定义的不一致，会通过warning来提示。</p>
+<p>以下是官网的例子，基本上够用了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line">import PropTypes from &apos;prop-types&apos;;</div><div class="line"></div><div class="line">MyComponent.propTypes = &#123;</div><div class="line">  // 你可以声明一个 prop 是一个特定的 JS 原始类型。 </div><div class="line">  // 默认情况下，这些都是可选的。</div><div class="line">  optionalArray: PropTypes.array,</div><div class="line">  optionalBool: PropTypes.bool,</div><div class="line">  optionalFunc: PropTypes.func,</div><div class="line">  optionalNumber: PropTypes.number,</div><div class="line">  optionalObject: PropTypes.object,</div><div class="line">  optionalString: PropTypes.string,</div><div class="line">  optionalSymbol: PropTypes.symbol,</div><div class="line"></div><div class="line">  // 任何东西都可以被渲染:numbers, strings, elements,或者是包含这些类型的数组(或者是片段)。</div><div class="line">  optionalNode: PropTypes.node,</div><div class="line"></div><div class="line">  // 一个 React 元素。</div><div class="line">  optionalElement: PropTypes.element,</div><div class="line"></div><div class="line">  // 你也可以声明一个 prop 是类的一个实例。 </div><div class="line">  // 使用 JS 的 instanceof 运算符。</div><div class="line">  optionalMessage: PropTypes.instanceOf(Message),</div><div class="line"></div><div class="line">  // 你可以声明 prop 是特定的值，类似于枚举</div><div class="line">  optionalEnum: PropTypes.oneOf([&apos;News&apos;, &apos;Photos&apos;]),</div><div class="line"></div><div class="line">  // 一个对象可以是多种类型其中之一</div><div class="line">  optionalUnion: PropTypes.oneOfType([</div><div class="line">    PropTypes.string,</div><div class="line">    PropTypes.number,</div><div class="line">    PropTypes.instanceOf(Message)</div><div class="line">  ]),</div><div class="line"></div><div class="line">  // 一个某种类型的数组</div><div class="line">  optionalArrayOf: PropTypes.arrayOf(PropTypes.number),</div><div class="line"></div><div class="line">  // 属性值为某种类型的对象</div><div class="line">  optionalObjectOf: PropTypes.objectOf(PropTypes.number),</div><div class="line"></div><div class="line">  // 一个特定形式的对象</div><div class="line">  optionalObjectWithShape: PropTypes.shape(&#123;</div><div class="line">    color: PropTypes.string,</div><div class="line">    fontSize: PropTypes.number</div><div class="line">  &#125;),</div><div class="line"></div><div class="line">  // 你可以使用 `isRequired&apos; 链接上述任何一个，以确保在没有提供 prop 的情况下显示警告。</div><div class="line">  requiredFunc: PropTypes.func.isRequired,</div><div class="line"></div><div class="line">  // 任何数据类型的值</div><div class="line">  requiredAny: PropTypes.any.isRequired,</div><div class="line"></div><div class="line">  // 你也可以声明自定义的验证器。如果验证失败返回 Error 对象。不要使用 `console.warn` 或者 throw ，</div><div class="line">  // 因为这不会在 `oneOfType` 类型的验证器中起作用。</div><div class="line">  customProp: function(props, propName, componentName) &#123;</div><div class="line">    if (!/matchme/.test(props[propName])) &#123;</div><div class="line">      return new Error(</div><div class="line">        &apos;Invalid prop `&apos; + propName + &apos;` supplied to&apos; +</div><div class="line">        &apos; `&apos; + componentName + &apos;`. Validation failed.&apos;</div><div class="line">      );</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  // 也可以声明`arrayOf`和`objectOf`类型的验证器，如果验证失败需要返回Error对象。</div><div class="line">  // 会在数组或者对象的每一个元素上调用验证器。验证器的前两个参数分别是数组或者对象本身，</div><div class="line">  // 以及当前元素的键值。</div><div class="line">  customArrayProp: PropTypes.arrayOf(function(propValue, key, componentName, location, propFullName) &#123;</div><div class="line">    if (!/matchme/.test(propValue[key])) &#123;</div><div class="line">      return new Error(</div><div class="line">        &apos;Invalid prop `&apos; + propFullName + &apos;` supplied to&apos; +</div><div class="line">        &apos; `&apos; + componentName + &apos;`. Validation failed.&apos;</div><div class="line">      );</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="默认值指定"><a href="#默认值指定" class="headerlink" title="默认值指定"></a>默认值指定</h2><p>除了能指定参数的类型，还可以指定参数的默认值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Greeting extends React.Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;h1&gt;Hello, &#123;this.props.name&#125;&lt;/h1&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 指定 props 的默认值：</div><div class="line">Greeting.defaultProps = &#123;</div><div class="line">  name: &apos;Stranger&apos;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// 渲染为 &quot;Hello, Stranger&quot;:</div><div class="line">ReactDOM.render(</div><div class="line">  &lt;Greeting /&gt;,</div><div class="line">  document.getElementById(&apos;example&apos;)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>只有当指定的props为undefined的时候，才会使用默认值，如果参数有，但是不符合类型检查，也会使用该参数，而不是使用默认值。</p>
+<p>propTypes 的类型检测是在defaultProps 解析之后发生的，因此也会对默认属性 defaultProps 进行类型检测。</p>
+<h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p>整体是这样的流程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//step1 check defaultProps</div><div class="line">if (参数为undefined)&#123;</div><div class="line">	if (有默认值)&#123;</div><div class="line">		使用默认参数</div><div class="line">	&#125; else &#123;</div><div class="line">		使用undefined</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//step2 check type</div><div class="line">if (不符合类型检查)&#123;</div><div class="line">		警告（）</div><div class="line">	&#125;</div><div class="line">	使用该参数值</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果需要更强大的拓展，可以使用<code>Flow</code> 或者 <code>TypeScript</code>。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.css88.com/react/docs/typechecking-with-proptypes.html" target="_blank" rel="noopener">使用 PropTypes 进行类型检查
+</a></li>
+<li><a href="https://www.npmjs.com/package/prop-types" target="_blank" rel="noopener">prop-types </a></li>
+<li><a href="https://flow.org/en/docs/types/" target="_blank" rel="noopener">Flow</a></li>
+<li><a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">TypeScript</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/JS/" rel="tag"># JS</a>
+          
+            <a href="../../../../tags/PropTypes/" rel="tag"># PropTypes</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../19/JS-EventLoop/" rel="next" title="JS Event-Loop">
+                <i class="fa fa-chevron-left"></i> JS Event-Loop
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -481,6 +490,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -500,11 +513,20 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="../../images/avatar.png"
+               src="../../../../images/avatar.png"
                alt="njafei" />
           <p class="site-author-name" itemprop="name">njafei</p>
            
@@ -526,7 +548,7 @@
             
             
             <div class="site-state-item site-state-categories">
-              <a href="../index.html">
+              <a href="../../../../categories/index.html">
                 <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
@@ -537,7 +559,7 @@
             
             
             <div class="site-state-item site-state-tags">
-              <a href="../../tags/index.html">
+              <a href="../../../../tags/index.html">
                 <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">标签</span>
               </a>
@@ -548,7 +570,7 @@
 
         
           <div class="feed-link motion-element">
-            <a href="../../atom.xml" rel="alternate">
+            <a href="../../../../atom.xml" rel="alternate">
               <i class="fa fa-rss"></i>
               RSS
             </a>
@@ -570,6 +592,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本用法"><span class="nav-number">1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认值指定"><span class="nav-number">2.</span> <span class="nav-text">默认值指定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整体流程"><span class="nav-number">3.</span> <span class="nav-text">整体流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -652,42 +690,46 @@
 
 
   
-  <script type="text/javascript" src="../../lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
-
-  
-
-
-  <script type="text/javascript" src="../../js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="../../js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
 
   
 
 
-  <script type="text/javascript" src="../../js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
