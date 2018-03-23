@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://github.com/njafei/njafei.github.io/2018/03/23/URL/</loc>
+    
+    <lastmod>2018-03-23T08:35:49.468Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/njafei/njafei.github.io/2018/03/23/NodeLearnLession1/</loc>
     
     <lastmod>2018-03-23T06:55:36.633Z</lastmod>
@@ -107,14 +114,14 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/05/05/%E5%9B%BE%E7%89%87%E6%B8%85%E6%99%B0%E5%BA%A6%E6%8E%A2%E7%A9%B6/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/categories/index.html</loc>
     
     <lastmod>2017-10-19T03:37:16.735Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/categories/index.html</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/05/05/%E5%9B%BE%E7%89%87%E6%B8%85%E6%99%B0%E5%BA%A6%E6%8E%A2%E7%A9%B6/</loc>
     
     <lastmod>2017-10-19T03:37:16.735Z</lastmod>
     
@@ -156,13 +163,6 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/07/27/react-native-time-attations/</loc>
-    
-    <lastmod>2017-10-19T03:37:16.730Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/07/27/pureComponent/</loc>
     
     <lastmod>2017-10-19T03:37:16.730Z</lastmod>
@@ -170,14 +170,21 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/07/26/listViewFlexGrowDefaultValue/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/07/27/react-native-time-attations/</loc>
+    
+    <lastmod>2017-10-19T03:37:16.730Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/</loc>
     
     <lastmod>2017-10-19T03:37:16.728Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/07/26/listViewFlexGrowDefaultValue/</loc>
     
     <lastmod>2017-10-19T03:37:16.728Z</lastmod>
     
@@ -198,6 +205,13 @@
   </url>
   
   <url>
+    <loc>https://github.com/njafei/njafei.github.io/2017/05/18/android-RN-bigImage/</loc>
+    
+    <lastmod>2017-10-19T03:37:16.726Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/03/21/UIResponder/</loc>
     
     <lastmod>2017-10-19T03:37:16.726Z</lastmod>
@@ -206,13 +220,6 @@
   
   <url>
     <loc>https://github.com/njafei/njafei.github.io/2017/06/13/block/</loc>
-    
-    <lastmod>2017-10-19T03:37:16.726Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/05/18/android-RN-bigImage/</loc>
     
     <lastmod>2017-10-19T03:37:16.726Z</lastmod>
     
@@ -254,14 +261,14 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/09/22/Java-space-encode/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/09/26/ImageOptm/</loc>
     
     <lastmod>2017-10-19T03:37:16.721Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/09/26/ImageOptm/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/09/22/Java-space-encode/</loc>
     
     <lastmod>2017-10-19T03:37:16.721Z</lastmod>
     

@@ -74,7 +74,7 @@
 <link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ES6,Set," />
+  <meta name="keywords" content="URL," />
 
 
 
@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="在ES6中，提供了新的数据结构set，set类似于数组，但是其中的元素是不能重复的。我们先来看个例子： 初始化12345let set = new Set();[1,2,2,3,4,5,5,5].map(x =&amp;gt; set.add(x));console.log(set.size); //5 初始化也可以接受数组为入参 1let set = new Set([1,2,3,4]); 刚才讲到，s">
-<meta name="keywords" content="ES6,Set">
+<meta name="description" content="我们目前使用的诸如：http://www.baidu.com或者ftp://192.168.1.1等链接，都是URL标准的一个实例。URL全称Uniform Resource Locators(通用资源定位器),标注名称为rfc1738。 URL的组成部分1&amp;lt;scheme&amp;gt;:&amp;lt;scheme-specific-part&amp;gt; URL被冒号分成了两部分，前面是scheme(方案)，">
+<meta name="keywords" content="URL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6之Set">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2018/02/28/ES6-Set/index.html">
+<meta property="og:title" content="URL协议详解">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2018/03/23/URL/index.html">
 <meta property="og:site_name" content="njafei&#39;s blog">
-<meta property="og:description" content="在ES6中，提供了新的数据结构set，set类似于数组，但是其中的元素是不能重复的。我们先来看个例子： 初始化12345let set = new Set();[1,2,2,3,4,5,5,5].map(x =&amp;gt; set.add(x));console.log(set.size); //5 初始化也可以接受数组为入参 1let set = new Set([1,2,3,4]); 刚才讲到，s">
+<meta property="og:description" content="我们目前使用的诸如：http://www.baidu.com或者ftp://192.168.1.1等链接，都是URL标准的一个实例。URL全称Uniform Resource Locators(通用资源定位器),标注名称为rfc1738。 URL的组成部分1&amp;lt;scheme&amp;gt;:&amp;lt;scheme-specific-part&amp;gt; URL被冒号分成了两部分，前面是scheme(方案)，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-28T05:44:56.416Z">
+<meta property="og:updated_time" content="2018-03-23T08:35:49.468Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6之Set">
-<meta name="twitter:description" content="在ES6中，提供了新的数据结构set，set类似于数组，但是其中的元素是不能重复的。我们先来看个例子： 初始化12345let set = new Set();[1,2,2,3,4,5,5,5].map(x =&amp;gt; set.add(x));console.log(set.size); //5 初始化也可以接受数组为入参 1let set = new Set([1,2,3,4]); 刚才讲到，s">
+<meta name="twitter:title" content="URL协议详解">
+<meta name="twitter:description" content="我们目前使用的诸如：http://www.baidu.com或者ftp://192.168.1.1等链接，都是URL标准的一个实例。URL全称Uniform Resource Locators(通用资源定位器),标注名称为rfc1738。 URL的组成部分1&amp;lt;scheme&amp;gt;:&amp;lt;scheme-specific-part&amp;gt; URL被冒号分成了两部分，前面是scheme(方案)，">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2018/02/28/ES6-Set/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2018/03/23/URL/"/>
 
 
 
 
 
-  <title>ES6之Set | njafei's blog</title>
+  <title>URL协议详解 | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -327,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ES6之Set</h1>
+          <h1 class="post-title" itemprop="name headline">URL协议详解</h1>
         
 
         <div class="post-meta">
@@ -339,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-28T13:44:04+08:00">
-                2018-02-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T16:31:14+08:00">
+                2018-03-23
               </time>
             
 
@@ -362,8 +362,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="../../../../categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="../../../../categories/底层协议知识/" itemprop="url" rel="index">
+                    <span itemprop="name">底层协议知识</span>
                   </a>
                 </span>
 
@@ -396,44 +396,29 @@
       
 
       
-        <p>在ES6中，提供了新的数据结构set，set类似于数组，但是其中的元素是不能重复的。我们先来看个例子：</p>
-<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let set = new Set();</div><div class="line"></div><div class="line">[1,2,2,3,4,5,5,5].map(x =&gt; set.add(x));</div><div class="line"></div><div class="line">console.log(set.size); //5</div></pre></td></tr></table></figure>
-<p>初始化也可以接受数组为入参</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let set = new Set([1,2,3,4]);</div></pre></td></tr></table></figure>
-<p>刚才讲到，set中所有的元素是不能重复的，那么，怎么定义重复呢？set使用的方法类似于 ===，只有一个特例，NaN, 精确相等任务NaN不等于自身，而set中认为是相等的。</p>
-<p>看几个例子，就一目了然了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">let set = new Set([&quot;a&quot;, &quot;a&quot;]);</div><div class="line">console.log(set.size); //1</div><div class="line"></div><div class="line">let set = new Set([&#123;&#125;,&#123;&#125;]);</div><div class="line">console.log(set.size); //2</div><div class="line"></div><div class="line">let a = &#123;key: &apos;a&apos;&#125;;</div><div class="line">let b = &#123;key: &apos;b&apos;&#125;;</div><div class="line">let set = new Set([a,a]);</div><div class="line">console.log(set.size); //1</div><div class="line"></div><div class="line">let set = new Set([a,&#123;a&#125;]);</div><div class="line">console.log(set.size); //2</div></pre></td></tr></table></figure>
-<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>属性有两个：</p>
-<ol>
-<li>construct 默认是Set函数</li>
-<li>size, 即set中元素的数量</li>
-</ol>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>set有四个操作方法：</p>
-<ol>
-<li>add() 返回set本身 </li>
-<li>delete() 返回删除是否成功的布尔值</li>
-<li>has() 返回set中是否某个元素</li>
-<li>clear() 情况set，没有返回值</li>
-</ol>
-<p>这里要注意的是，delete和has中判断两个元素是否相同的方法和初始化中的方法一致，所以尤其要注意对象的判断，基本类型基本不会有问题。</p>
-<p>set有四个遍历方法：</p>
-<ol>
-<li>keys(): 返回所有的key</li>
-<li>values(): 返回所有的value</li>
-<li>entries(): 返回所有的键值对</li>
-<li>forEach(): 回调函数遍历， 和数组用法一致</li>
-</ol>
-<p>因为set中本身没有key，value之分，所key和value都是set中元素本身，我们来看下例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">let set = new Set([&quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;]);</div><div class="line">console.log(set.keys());//[&quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;]</div><div class="line"></div><div class="line">console.log(set.values());//[&quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;]</div><div class="line"></div><div class="line">console.log(set.entries());//[&#123;&quot;key1&quot;: &quot;key1&quot;&#125;,&#123;&quot;key2&quot;: &quot;key2&quot;&#125;,&#123;&quot;key3&quot;: &quot;key3&quot;&#125;]</div></pre></td></tr></table></figure>
-<h2 id="weakSet"><a href="#weakSet" class="headerlink" title="weakSet"></a>weakSet</h2><p>weakSet和set类似，只有两个区别：</p>
-<ol>
-<li>元素只能是对象</li>
-<li>对象都是弱引用，即js的垃圾回收机制不会考虑weakSet中的引用</li>
-</ol>
-<p>因为第一个特点，所以weakSet不能使用遍历、size等方法和属性(因为遍历的时候可能对象已经被释放了)</p>
-<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>set可以用来实现去重等功能，比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let array = [1,2,2,3];</div><div class="line">let set = Set(array);</div><div class="line"></div><div class="line">let newArray = Array.from(set);</div><div class="line">console.log(newArray); //[1,2,3]</div></pre></td></tr></table></figure>
-<p>weakSet在互联网上找到的内容不多，阮一峰的《ES6标准入门》中提到，可以用来保存DOM节点，而不用担心节点移除时引起内存泄露。</p>
+        <p>我们目前使用的诸如：<code>http://www.baidu.com</code>或者<code>ftp://192.168.1.1</code>等链接，都是URL标准的一个实例。URL全称Uniform Resource Locators(通用资源定位器),标注名称为<a href="http://www.ietf.org/rfc/rfc1738.txt" target="_blank" rel="noopener">rfc1738</a>。</p>
+<h1 id="URL的组成部分"><a href="#URL的组成部分" class="headerlink" title="URL的组成部分"></a>URL的组成部分</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;scheme&gt;:&lt;scheme-specific-part&gt;</div></pre></td></tr></table></figure>
+<p>URL被冒号分成了两部分，前面是scheme(方案)，后面是scheme的描述部分</p>
+<h2 id="scheme"><a href="#scheme" class="headerlink" title="scheme"></a>scheme</h2><p>scheme只能由以下元素组成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a-z(不区分大小写)</div><div class="line">数字</div><div class="line">字符： 加号+ 句号.  连字符-</div></pre></td></tr></table></figure>
+<p>shceme目前有这些类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> ftp                     File Transfer protocol（文件传输协议）</div><div class="line"> http                    Hypertext Transfer Protocol（超文本传输协议）</div><div class="line"> gopher                  The Gopher protocol（Gopher协议）</div><div class="line"> mailto                  Electronic mail address（电子邮件地址）</div><div class="line"> news                    USENET news（USENET新闻）</div><div class="line"> nntp                    USENET news using NNTP access</div><div class="line">                        （使用NNTP访问的USENET新闻）</div><div class="line"> telnet                  Reference to interactive sessions</div><div class="line">（交互式会话访问）</div><div class="line"> wais                    Wide Area Information Servers（广域信息服务系统）</div><div class="line"> file                    Host-specific file names（特殊主机文件名）</div><div class="line"> prospero                Prospero Directory Service(prospero目录服务)</div></pre></td></tr></table></figure>
+<p>当然，上述的scheme大部分是应用非常广泛的，我们可以自定义scheme，只要解析器支持即可，比如我们公司就根据URL设计了一条App跳转专用的URL，方便服务器分发跳转路径。</p>
+<h2 id="scheme描述部分"><a href="#scheme描述部分" class="headerlink" title="scheme描述部分"></a>scheme描述部分</h2><p>scheme的描述部分也可以拆解成以下的结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;url-path&gt;</div></pre></td></tr></table></figure>
+<p>根据方案的不同，这些部分是可以部分省略的，比如<code>http</code>通常不需要user和password</p>
+<p>我们来依次看这些组成部分：</p>
+<h3 id="user"><a href="#user" class="headerlink" title="user"></a>user</h3><p>这个比较好理解，就是用户名，没有则省略</p>
+<h3 id="password"><a href="#password" class="headerlink" title="password"></a>password</h3><p>用户密码</p>
+<h3 id="host"><a href="#host" class="headerlink" title="host"></a>host</h3><p>host(主机)是一个IP地址，由四组十进制数字以<code>.</code>分割组合而成。现在很多对客的地址都是用了域名，然后再通过DNS解析.DNS可以理解为将难以记住的ip地址和单词等组成的域名做映射，从而方便用户的使用。记住<code>https://www.baidu.com</code>可比记住<code>192.292.22.22</code>容易多了。很多的公司在使用的时候也会做DNS优化，即客户端等发出请求的时候，直接向对应的ip发送，从而节省DNS解析的时间，加快用户访问速度，有兴趣的可以网络搜索下。</p>
+<h3 id="port"><a href="#port" class="headerlink" title="port"></a>port</h3><p>port(端口)是用来区分不同的网络服务的，从而实现在一个IP的基础上，提供多个网络服务。</p>
+<h3 id="url-path"><a href="#url-path" class="headerlink" title="url-path"></a>url-path</h3><p>url路径提供了如何对特定资源访问的详细信息，一般都是文件夹的路径</p>
+<h1 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h1><p>URL会使用编码，因为很多字符是不安全的，比如空格，在被转录或者排版的时候，可能会被忽略。”&lt;”和”&gt;”也是不安全的，因为他们被用来作为URL在文本中的分割符。<code>#</code>,<code>/</code>,<code>~</code>,<code>[</code>,<code>]</code>等也都会在不同的场景下给URL的解析带来问题，所以要对不安全的字符进行编码。通常是进行ecode。</p>
+<p>总结，本文介绍了URL的组成部分，各部分的用法和使用场景，URL的编码原因等知识。</p>
+<h1 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h1><ul>
+<li><a href="http://www.ietf.org/rfc/rfc1738.txt" target="_blank" rel="noopener">rfc1738</a></li>
+<li><a href="http://www.cppblog.com/woaidongmao/archive/2008/12/28/70569.html" target="_blank" rel="noopener">RFC1738 - 统一资源定位器URL</a></li>
+</ul>
 
       
     </div>
@@ -463,9 +448,7 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/ES6/" rel="tag"># ES6</a>
-          
-            <a href="../../../../tags/Set/" rel="tag"># Set</a>
+            <a href="../../../../tags/URL/" rel="tag"># URL</a>
           
         </div>
       
@@ -478,8 +461,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../27/ipa-recodesign/" rel="next" title="ipa包逆向重新签名打包">
-                <i class="fa fa-chevron-left"></i> ipa包逆向重新签名打包
+              <a href="../NodeLearnLession1/" rel="next" title="Node学习 Lesson1 使用express">
+                <i class="fa fa-chevron-left"></i> Node学习 Lesson1 使用express
               </a>
             
           </div>
@@ -487,10 +470,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../ES6-Map/" rel="prev" title="ES6之Map">
-                ES6之Map <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -626,7 +605,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-number">1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性"><span class="nav-number">2.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weakSet"><span class="nav-number">4.</span> <span class="nav-text">weakSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法"><span class="nav-number">5.</span> <span class="nav-text">用法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#URL的组成部分"><span class="nav-number">1.</span> <span class="nav-text">URL的组成部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#scheme"><span class="nav-number">1.1.</span> <span class="nav-text">scheme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scheme描述部分"><span class="nav-number">1.2.</span> <span class="nav-text">scheme描述部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#user"><span class="nav-number">1.2.1.</span> <span class="nav-text">user</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#password"><span class="nav-number">1.2.2.</span> <span class="nav-text">password</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#host"><span class="nav-number">1.2.3.</span> <span class="nav-text">host</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#port"><span class="nav-number">1.2.4.</span> <span class="nav-text">port</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#url-path"><span class="nav-number">1.2.5.</span> <span class="nav-text">url-path</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#URL编码"><span class="nav-number">2.</span> <span class="nav-text">URL编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档："><span class="nav-number">3.</span> <span class="nav-text">参考文档：</span></a></li></ol></div>
             
 
           </div>
