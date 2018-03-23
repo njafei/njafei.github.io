@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2018-03-22T10:08:00.869Z</updated>
+  <updated>2018-03-23T03:18:22.669Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nvm安装、解决nvm command not found问题、卸载</title>
+    <link href="https://github.com/njafei/njafei.github.io/2018/03/23/nvm-install/"/>
+    <id>https://github.com/njafei/njafei.github.io/2018/03/23/nvm-install/</id>
+    <published>2018-03-23T03:15:14.000Z</published>
+    <updated>2018-03-23T03:18:22.669Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>nvm是node的包版本管理工具，github地址如下：<a href="https://github.com/creationix/nvm">nvm</a></p>
+<p>安装命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">nvm //检查nvm是否安装成功</div><div class="line"></div><div class="line">-bash: nvm: command not found  //boom，失败了</div></pre></td></tr></table></figure>
+<h1 id="解决nvm-command-not-found问题"><a href="#解决nvm-command-not-found问题" class="headerlink" title="解决nvm command not found问题"></a>解决<code>nvm command not found</code>问题</h1><p>进入<code>.nvm</code>文件夹，新建<code>.bash_profile</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">touch .bash_profile //新建文件</div><div class="line">open .bash_profile //打开文件</div></pre></td></tr></table></figure>
+<p>在里面copy如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export NVM_DIR=&quot;$HOME/.nvm&quot;</div><div class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm</div></pre></td></tr></table></figure>
+<p>关闭文件，然后执行这个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source .bash_profile</div></pre></td></tr></table></figure>
+<p>执行完毕，我们再看看是否安装成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm --version</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0.33.8</div></pre></td></tr></table></figure>
+<p>安装成功。</p>
+<h1 id="卸载："><a href="#卸载：" class="headerlink" title="卸载："></a>卸载：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ nvm use system</div><div class="line">$ npm uninstall -g a_module</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;p&gt;nvm是node的包版本管理工具，github地址如下：&lt;a href=&quot;https://github.com/creationix/nvm
+    
+    </summary>
+    
+      <category term="node" scheme="https://github.com/njafei/njafei.github.io/categories/node/"/>
+    
+    
+      <category term="nvm" scheme="https://github.com/njafei/njafei.github.io/tags/nvm/"/>
+    
+      <category term="node" scheme="https://github.com/njafei/njafei.github.io/tags/node/"/>
+    
+  </entry>
   
   <entry>
     <title>JS module输出原理</title>
@@ -933,91 +972,6 @@
     
     
       <category term="python" scheme="https://github.com/njafei/njafei.github.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ES6之字符串拓展</title>
-    <link href="https://github.com/njafei/njafei.github.io/2017/05/23/ES6%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%93%E5%B1%95/"/>
-    <id>https://github.com/njafei/njafei.github.io/2017/05/23/ES6之字符串拓展/</id>
-    <published>2017-05-23T09:37:12.000Z</published>
-    <updated>2017-10-19T03:37:16.720Z</updated>
-    
-    <content type="html"><![CDATA[<p>ES6中，还是对字符串做了很多的改进，尤其是函数方面，增加了很多个方法。但是核心的变动，其实只有两个：</p>
-<ul>
-<li><code>Unicode</code>拓展</li>
-<li>字符模板</li>
-</ul>
-<h1 id="Unicode拓展"><a href="#Unicode拓展" class="headerlink" title="Unicode拓展"></a>Unicode拓展</h1><p>在讲ES6之间，我们先了解一些背景知识。</p>
-<h4 id="为什么会出现Unicode"><a href="#为什么会出现Unicode" class="headerlink" title="为什么会出现Unicode"></a>为什么会出现Unicode</h4><p>我们知道，计算机最底层其实只能识别‘0’和‘1’，就是yes或者no。但是人脑是非常高级的，我们见面会打招呼“您吃了没？”，这句话如果是想告知计算机的话，它肯定是听不懂的，最后计算机接收的其实类似于：“01010101010001100111”的字符串。那么，当这些字符串通过QQ展示出来的时候，又要去展示对人脑友好的文字。“您吃了没？”和“01001010111”这样的字符串是如何对应的呢？</p>
-<p>因为最初的计算机和技术都是美国发明的，所以他们首先提出了方案<code>ASCII</code>，即使用一个字节表示所有的字符和符号。比如：”00000001”表示”a”,”00000010”表示”b”(举例用，数值不对).这样，使用一个字节就解决了所有的英文展示问题。但是256足够表示所有的英文了，中文可没办法，或者其他语言，也不能够用。这样，就提出了<code>Unicode</code>的概念，希望所有的字符，全部都使用<code>Unicode</code>表示。</p>
-<p><code>Unicode</code>的第一个版本是打算使用两个字节来表示所有的字符，比如1-200给英文，200-5000给中文等等，这样总共就有2^16次方个，基本足够了。（后来发现还是不够，<code>Unicode的第二个版本就使用4个字节，共2^32个</code>）</p>
-<p>所有的字符都有一个数字对应的了，怎么保存呢？这里很多人容易搞错，因为<code>Unicode</code>提出了使用2个字节来表示所有字符，所以大家把<code>UTF16</code>和<code>Unicode</code>弄混淆了。应该说，<code>UTF16</code>来存储和<code>Unicode</code>真的是天作之合，因为两者都是使用两个字节。但是这样也出现了一个问题，比如如果一篇英文文章，他使用的字符段，都是一个字节就能表示出来了，使用2个字节表示，简直是浪费空间，所以又提出了<code>UTF8</code>，即使用1个字节存储，如果出现了需要两个字节的情况，想办法做兼容。</p>
-<p>综上，我们说的<code>Unicode</code>是为了表示所有的字符的一种定义方法，而<code>UTF8</code>和<code>UTF16</code>是为了存储<code>Unicode</code>的一种方案。</p>
-<p>这里如果比较有兴趣，可以看下博客<a href="http://www.cnblogs.com/kingcat/archive/2012/10/16/2726334.html" target="_blank" rel="noopener">Unicode(UTF-8, UTF-16)令人混淆的概念</a></p>
-<h4 id="ES6做的拓展"><a href="#ES6做的拓展" class="headerlink" title="ES6做的拓展"></a>ES6做的拓展</h4><p>JS是支持直接展示<code>Unicode</code>的，比如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">console.log(&quot;\u0061&quot;);//&quot;a&quot;;</div></pre></td></tr></table></figure>
-<p>但是只限 \u0000 - \FFFF之间的，如果是 \u00001这样的，就不支持了。</p>
-<p>而ES6对该点做了补充，可以直接使用了，如：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">console.log(&quot;\u&#123;00001&#125;&quot;);//使用大括号包含，和四字节的UTF16等价</div></pre></td></tr></table></figure>
-<p> 还可以连接使用：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">conslle.log(&quot;\u&#123;1&#125;\u&#123;2&#125;&quot;);//&quot;ab&quot; 都是举例，对应字符串可能不对</div></pre></td></tr></table></figure>
-<p> ES6中还补充了很多的函数，大家有兴趣，自己去翻下文档，这里简单罗列下：</p>
-<ul>
-<li>codePointAt(）</li>
-<li>String.fromCodePoint()</li>
-<li>at()</li>
-<li>normalize()</li>
-<li>includes()</li>
-<li>startsWith()</li>
-<li>endsWith()</li>
-<li>repeat()</li>
-</ul>
-<h1 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h1><p>在JS中，如果我们想要表达一个含有变量的字符串，大概会这样写：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let name = &quot;飞&quot;;</div><div class="line">let lunch = &quot;午饭&quot;;</div><div class="line">let ask = name + &quot;您吃&quot; + lunch + &quot;吗？&quot;;//飞您吃午饭了吗？</div></pre></td></tr></table></figure>
-<p>不得不说，这样写，比较丑。</p>
-<h4 id="模板字符串-1"><a href="#模板字符串-1" class="headerlink" title="模板字符串"></a>模板字符串</h4><p>ES6中使用字符模板解决了这个问题，让你可以拼接字符串的时候用的更爽。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let name = &quot;飞&quot;;</div><div class="line">let lunch = &quot;午饭&quot;;</div><div class="line">let ask =  `$&#123;name&#125;您吃$&#123;lunch&#125;吗?`; //您吃午饭了吗？</div></pre></td></tr></table></figure>
-<p>是不是优雅多了呢？</p>
-<p>另外模板字符串还会记录空格、换行等字符：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">let ask =  `飞，</div><div class="line">我今天，</div><div class="line">好</div><div class="line">饿</div><div class="line">啊</div><div class="line">`</div></pre></td></tr></table></figure>
-<p>打印出来就是：</p>
-<pre><code>飞，
-我今天，
-好
-饿
-啊
-</code></pre><p>再也不用各种空格符号和换行符号了。</p>
-<h4 id="标签模板"><a href="#标签模板" class="headerlink" title="标签模板"></a>标签模板</h4><p>另外还有一个值得注意的地方，就是标签模板，即在“``”前面，将其变为一个函数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">functionName`$&#123;name&#125;,您吃$&#123;lunch&#125;了吗？`</div></pre></td></tr></table></figure>
-<p>其实就等同于</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">functionName functionName(stringArr,...value)&#123;&#125;;</div></pre></td></tr></table></figure>
-<p>stringArr就是模板里的不变的值：“,您吃了吗？”<br>而…value就是里面的变量：${name} 和 ${lunch}.</p>
-<p>书上和其他的blog上面都说是可以用做字符串检查，类似于</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function SaferHTML(templateData) &#123;</div><div class="line">  var s = templateData[0];</div><div class="line">  for (var i = 1; i &lt; arguments.length; i++) &#123;</div><div class="line">    var arg = String(arguments[i]);</div><div class="line">    // Escape special characters in the substitution.</div><div class="line">    s += arg.replace(/&amp;/g, &quot;&amp;amp;&quot;)</div><div class="line">            .replace(/&lt;/g, &quot;&amp;lt;&quot;)</div><div class="line">            .replace(/&gt;/g, &quot;&amp;gt;&quot;);</div><div class="line">    // Don&apos;t escape special characters in the template.</div><div class="line">    s += templateData[i];</div><div class="line">  &#125;</div><div class="line">  return s;</div><div class="line">&#125;</div><div class="line">// 调用</div><div class="line">var html = SaferHTML`&lt;p&gt;这是关于字符串模板的介绍&lt;/p&gt;`;</div></pre></td></tr></table></figure>
-<p>能让你写的代码更优雅一些，算是字符串模板的拓展。</p>
-<p>综上，实际使用的话，<code>Unicode</code>其实用的真的不多，但是字符串模板还是应该多关注下，能用尽量用，毕竟，使代码更优雅是每个程序员的最求。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;ES6中，还是对字符串做了很多的改进，尤其是函数方面，增加了很多个方法。但是核心的变动，其实只有两个：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Unicode&lt;/code&gt;拓展&lt;/li&gt;
-&lt;li&gt;字符模板&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&quot;Unicode拓展&quot;&gt;&lt;a hr
-    
-    </summary>
-    
-      <category term="ES6" scheme="https://github.com/njafei/njafei.github.io/categories/ES6/"/>
-    
-    
-      <category term="ES6" scheme="https://github.com/njafei/njafei.github.io/tags/ES6/"/>
-    
-      <category term="JavaScript" scheme="https://github.com/njafei/njafei.github.io/tags/JavaScript/"/>
-    
-      <category term="react-native" scheme="https://github.com/njafei/njafei.github.io/tags/react-native/"/>
     
   </entry>
   

@@ -74,7 +74,7 @@
 <link href="../../../../css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Apple文档,基础知识," />
+  <meta name="keywords" content="nvm,node," />
 
 
 
@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="这三个概念，虽然在平时的时候总是在用，但是最近写runtime的时候，又感觉有点糊涂，今天就把他们的关系搞清楚。 Method先看下定义 123456789runtime.h/// An opaque type that represents a method in a class definition.代表类定义中一个方法的不透明类型typedef struct objc_method *Met">
-<meta name="keywords" content="Apple文档,基础知识">
+<meta name="description" content="安装nvm是node的包版本管理工具，github地址如下：nvm 安装命令 1curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash 123nvm //检查nvm是否安装成功-bash: nvm: command not found  //boom，失败了 解决nvm command">
+<meta name="keywords" content="nvm,node">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Method,SEL,Imp">
-<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2017/05/03/Method-SEL-IMP/index.html">
+<meta property="og:title" content="nvm安装、解决nvm command not found问题、卸载">
+<meta property="og:url" content="https://github.com/njafei/njafei.github.io/2018/03/23/nvm-install/index.html">
 <meta property="og:site_name" content="njafei&#39;s blog">
-<meta property="og:description" content="这三个概念，虽然在平时的时候总是在用，但是最近写runtime的时候，又感觉有点糊涂，今天就把他们的关系搞清楚。 Method先看下定义 123456789runtime.h/// An opaque type that represents a method in a class definition.代表类定义中一个方法的不透明类型typedef struct objc_method *Met">
+<meta property="og:description" content="安装nvm是node的包版本管理工具，github地址如下：nvm 安装命令 1curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash 123nvm //检查nvm是否安装成功-bash: nvm: command not found  //boom，失败了 解决nvm command">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-19T03:37:16.722Z">
+<meta property="og:updated_time" content="2018-03-23T03:18:22.669Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Method,SEL,Imp">
-<meta name="twitter:description" content="这三个概念，虽然在平时的时候总是在用，但是最近写runtime的时候，又感觉有点糊涂，今天就把他们的关系搞清楚。 Method先看下定义 123456789runtime.h/// An opaque type that represents a method in a class definition.代表类定义中一个方法的不透明类型typedef struct objc_method *Met">
+<meta name="twitter:title" content="nvm安装、解决nvm command not found问题、卸载">
+<meta name="twitter:description" content="安装nvm是node的包版本管理工具，github地址如下：nvm 安装命令 1curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash 123nvm //检查nvm是否安装成功-bash: nvm: command not found  //boom，失败了 解决nvm command">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2017/05/03/Method-SEL-IMP/"/>
+  <link rel="canonical" href="https://github.com/njafei/njafei.github.io/2018/03/23/nvm-install/"/>
 
 
 
 
 
-  <title>Method,SEL,Imp | njafei's blog</title>
+  <title>nvm安装、解决nvm command not found问题、卸载 | njafei's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -327,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Method,SEL,Imp</h1>
+          <h1 class="post-title" itemprop="name headline">nvm安装、解决nvm command not found问题、卸载</h1>
         
 
         <div class="post-meta">
@@ -339,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-03T16:11:23+08:00">
-                2017-05-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T11:15:14+08:00">
+                2018-03-23
               </time>
             
 
@@ -362,8 +362,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="../../../../categories/iOS基础/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS基础</span>
+                  <a href="../../../../categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
                   </a>
                 </span>
 
@@ -396,46 +396,22 @@
       
 
       
-        <p>这三个概念，虽然在平时的时候总是在用，但是最近写<code>runtime</code>的时候，又感觉有点糊涂，今天就把他们的关系搞清楚。</p>
-<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><p>先看下定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">runtime.h</div><div class="line">/// An opaque type that represents a method in a class definition.代表类定义中一个方法的不透明类型</div><div class="line">typedef struct objc_method *Method;</div><div class="line"></div><div class="line">struct objc_method &#123;</div><div class="line">    SEL method_name                                          OBJC2_UNAVAILABLE;</div><div class="line">    char *method_types                                       OBJC2_UNAVAILABLE;</div><div class="line">    IMP method_imp                                           OBJC2_UNAVAILABLE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Method和我们平时理解的函数是一致的，就是表示能够独立完成一个功能的一段代码，比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)logName</div><div class="line">&#123;</div><div class="line">	NSLog(@&quot;name&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这段代码，就是一个函数。</p>
-<p>我们来看下<code>objc_method</code>这个结构体的内容：</p>
-<ul>
-<li>SEL method_name 方法名</li>
-<li>char *method_types 方法类型</li>
-<li>IMP method_imp 方法实现</li>
-</ul>
-<p>在这个结构体重，我们已经看到了<code>SEL</code>和<code>IMP</code>，说明<code>SEL</code>和<code>IMP</code>其实都是<code>Method</code>的属性。</p>
-<p>我们接着来看<code>SEL</code>。</p>
-<h1 id="SEL"><a href="#SEL" class="headerlink" title="SEL"></a>SEL</h1><p>还是先看定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Objc.h</div><div class="line">/// An opaque type that represents a method selector.代表一个方法的不透明类型</div><div class="line">typedef struct objc_selector *SEL;</div></pre></td></tr></table></figure></p>
-<p>这里要先说明下<code>selector</code>和<code>SEL</code>的关系，我在写本文的时候，其实搜索的是<code>selector</code>，直到我看到了<code>selector</code>的定义，才发现我理解一直不对。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property SEL selector;</div></pre></td></tr></table></figure>
-<p>在文档中，<code>selector</code>的定义都是这样声明，也就是说：<code>selector</code>是<code>SEL</code>的一个实例，只是在iOS中，<code>selector</code>的使用是如此的频繁，我们才会把他当成一个概念。</p>
-<p><code>selector</code>怎么理解呢？我们可以想想股票，比如市场上有如此多公司在纳斯达克上市，而且他们的名字又非常的长，或者有些公司的名称也是相似的，都是**有限公司。那当市场去指定一个股票的时候，效率会非常低，当你着急想买股票的时候，你会跟你的经纪人说：“hi，peter，给我买一百股Tuniu limited liability company的股票吗？”，也许等你说完，经纪人输入完，市场就变化了，所以纳斯达克通常用代码，比如“TOUR”.这里的<code>selector</code>有类似的作用，就是让我们能够快速找到对应的函数。</p>
-<p>文档中是这样讲的：</p>
-<blockquote>
-<p> A method selector is a C string that has been registered (or “mapped“) with the Objective-C runtime. Selectors generated by the compiler are automatically mapped by the runtime when the class is loaded.</p>
-</blockquote>
-<p>在iOS中，<code>runtime</code>会在运行的时候，通过<code>load</code>函数，将所有的<code>method</code>hash然后map到<code>set</code>中。这样在运行的时候，寻找<code>selector</code>的速度就会非常快，不会因为<code>runtime</code>特性牺牲太多的性能。</p>
-<p><code>selector</code>既然是一个string，我觉得应该是类似<code>className+method</code>的组合，命名规则有两条：</p>
-<ul>
-<li>同一个类，selector不能重复</li>
-<li>不同的类，selector可以重复</li>
-</ul>
-<p>这也带来了一个弊端，我们在写C代码的时候，经常会用到函数重载，就是函数名相同，参数不同，但是这在<code>Objective-C</code>中是行不通的，因为<code>selector</code>只记了<code>method</code>的name，没有参数，所以没法区分不同的method。</p>
-<p>比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)caculate(NSInteger)num;</div><div class="line"></div><div class="line">- (void)caculate(CGFloat)num;</div></pre></td></tr></table></figure>
-<p>是会报错的。</p>
-<p>我们只能通过命名来区别：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)caculateWithInt(NSInteger)num;</div><div class="line"></div><div class="line">- (void)caculateWithFloat(CGFloat)num;</div></pre></td></tr></table></figure>
-<h1 id="IMP"><a href="#IMP" class="headerlink" title="IMP"></a>IMP</h1><p>看下<code>IMP</code>的定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/// A pointer to the function of a method implementation.  指向一个方法实现的指针</div><div class="line">typedef id (*IMP)(id, SEL, ...); </div><div class="line">#endif</div></pre></td></tr></table></figure>
-<p>这个就比较好理解了，就是指向最终实现程序的内存地址的指针。</p>
-<p>综上，在iOS的<code>runtime</code>中，<code>Method</code>通过<code>selector</code>和<code>IMP</code>两个属性，实现了快速查询方法及实现，相对提高了性能，又保持了灵活性。</p>
-
+        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>nvm是node的包版本管理工具，github地址如下：<a href="https://github.com/creationix/nvm">nvm</a></p>
+<p>安装命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">nvm //检查nvm是否安装成功</div><div class="line"></div><div class="line">-bash: nvm: command not found  //boom，失败了</div></pre></td></tr></table></figure>
+<h1 id="解决nvm-command-not-found问题"><a href="#解决nvm-command-not-found问题" class="headerlink" title="解决nvm command not found问题"></a>解决<code>nvm command not found</code>问题</h1><p>进入<code>.nvm</code>文件夹，新建<code>.bash_profile</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">touch .bash_profile //新建文件</div><div class="line">open .bash_profile //打开文件</div></pre></td></tr></table></figure>
+<p>在里面copy如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export NVM_DIR=&quot;$HOME/.nvm&quot;</div><div class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm</div></pre></td></tr></table></figure>
+<p>关闭文件，然后执行这个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source .bash_profile</div></pre></td></tr></table></figure>
+<p>执行完毕，我们再看看是否安装成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm --version</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0.33.8</div></pre></td></tr></table></figure>
+<p>安装成功。</p>
+<h1 id="卸载："><a href="#卸载：" class="headerlink" title="卸载："></a>卸载：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ nvm use system</div><div class="line">$ npm uninstall -g a_module</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -464,9 +440,9 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/Apple文档/" rel="tag"># Apple文档</a>
+            <a href="../../../../tags/nvm/" rel="tag"># nvm</a>
           
-            <a href="../../../../tags/基础知识/" rel="tag"># 基础知识</a>
+            <a href="../../../../tags/node/" rel="tag"># node</a>
           
         </div>
       
@@ -479,8 +455,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../../../04/28/sqlite-python/" rel="next" title="SQLite-Python学习">
-                <i class="fa fa-chevron-left"></i> SQLite-Python学习
+              <a href="../../22/nodeJS-module/" rel="next" title="JS module输出原理">
+                <i class="fa fa-chevron-left"></i> JS module输出原理
               </a>
             
           </div>
@@ -488,10 +464,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../../04/runtime/" rel="prev" title="iOS Runtime 详解">
-                iOS Runtime 详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -627,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Method"><span class="nav-number">1.</span> <span class="nav-text">Method</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SEL"><span class="nav-number">2.</span> <span class="nav-text">SEL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IMP"><span class="nav-number">3.</span> <span class="nav-text">IMP</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决nvm-command-not-found问题"><span class="nav-number">2.</span> <span class="nav-text">解决nvm command not found问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卸载："><span class="nav-number">3.</span> <span class="nav-text">卸载：</span></a></li></ol></div>
             
 
           </div>

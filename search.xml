@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[nvm安装、解决nvm command not found问题、卸载]]></title>
+    <url>%2F2018%2F03%2F23%2Fnvm-install%2F</url>
+    <content type="text"><![CDATA[安装nvm是node的包版本管理工具，github地址如下：nvm 安装命令 1curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash 123nvm //检查nvm是否安装成功-bash: nvm: command not found //boom，失败了 解决nvm command not found问题进入.nvm文件夹，新建.bash_profile： 12touch .bash_profile //新建文件open .bash_profile //打开文件 在里面copy如下内容： 12export NVM_DIR=&quot;$HOME/.nvm&quot;[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm 关闭文件，然后执行这个文件： 1source .bash_profile 执行完毕，我们再看看是否安装成功： 1nvm --version 输出： 10.33.8 安装成功。 卸载：12$ nvm use system$ npm uninstall -g a_module]]></content>
+      <categories>
+        <category>node</category>
+      </categories>
+      <tags>
+        <tag>nvm</tag>
+        <tag>node</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS module输出原理]]></title>
     <url>%2F2018%2F03%2F22%2FnodeJS-module%2F</url>
     <content type="text"><![CDATA[module输出写法为了能够复用一些基本功能，我们通常会将其封装在module中。类似这样子： 12345678910//greet.js&apos;use strict&apos;;var s = &apos;Hello&apos;;function greet(name) &#123; console.log(s + &apos;, &apos; + name + &apos;!&apos;);&#125;module.exports = greet; 我们也会看到其他的写法，这样的： 123&apos;use strict&apos;;exports.foo = &apos;foo&apos;; 直接通过exports的属性来输出的，这样看起来其实很迷惑人，比如我第一次就有疑惑： module不是模块的意思吗？ 为什么要使用module.exports的赋值来输出？ 为什么有时候是exports来赋值输出 其他的地方，是如何使用我的模块呢？ 为什么export有些可以输出多个值呢? 比如： modelu.exports = {foo: foo, tool: tool} 原理这里其实是module在默默地做了一些事情，它会在代码中植入类似这样的代码： 12345678var module = &#123; id: &apos;greet&apos;, exports: &#123;&#125;,&#125;exports = moduel.exports;load(module.exports, module); 这样，我们就知道了为什么exports和module.exports都可以作为模块的输出。 这里还要一个要注意的，之所以可以用exports来输出，是因为它指向了module.exports. 所以当exports的指针被修改的时候，这样用就会出问题了。 如果输出是一个数组，或者函数，则两者是不等价的，看下面的例子： 例子一： 等价的输出 123module.exports = &#123;foo: &apos;foo&apos;&#125;;exports.foo = &apos;foo&apos;; 例子而： 不等价输出 123456module.exports = function greet()&#123;console.log(&apos;greet&apos;)&#125;;//这时 module.exports指向greet函数exports = function greet()&#123;console.log(&apos;greet&apos;)&#125;;//这时，exoprts的指针指向greet函数，而module.exports仍然指向&#123;&#125;这里两种方式不等价，主要是因为原来都指向同一个变量，而如果赋值是数据，函数等，则export会改变指针的值。然后最终输出的还是module.exports， 所以在这里，模块的输出就不可以用export 廖雪峰的博客说是建议全部使用module.exports，这样可以避免混淆。我的建议是大家最好搞清楚原理，这样使用起来才知其所以然。 ok，总结这篇文章，主要是讲了模块(module)的输出原理，为什么有两种写法，为什么每种写法都可以work，两种写法的区别和使用时机。 引用 廖雪峰 JS教程-模块 exports 和 module.exports 的区别]]></content>
