@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Node学习 Lesson1 使用express]]></title>
+    <url>%2F2018%2F03%2F23%2FNodeLearnLession1%2F</url>
+    <content type="text"><![CDATA[初始化项目： 1npm init 安装express，安装有两个方法 1npm install express --save //方法一：直接安装，并将配置保存在package.json 或者 12修改package.josn,增加express及版本信息npm install 创建文件app.js 12touch app.jsopen app.js 写入代码： 1234567891011var express = require(&apos;express&apos;);var app = express();app.get(&apos;/&apos;,function(req, res)&#123; res.send(&apos;hello world&apos;);&#125;);app.listen(3000, function ()&#123; console.log(&apos;app is listening ar port 3000&apos;);&#125;) 执行node： 1node app.js 在浏览器输入localhost:3000，看到上面有打印： 1hello,world 课程地址：《一个最简单的 express 应用》]]></content>
+      <categories>
+        <category>NodeLearn</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
+        <tag>NodeLearn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[nvm安装、解决nvm command not found问题、卸载]]></title>
     <url>%2F2018%2F03%2F23%2Fnvm-install%2F</url>
     <content type="text"><![CDATA[安装nvm是node的包版本管理工具，github地址如下：nvm 安装命令 1curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash 123nvm //检查nvm是否安装成功-bash: nvm: command not found //boom，失败了 解决nvm command not found问题进入.nvm文件夹，新建.bash_profile： 12touch .bash_profile //新建文件open .bash_profile //打开文件 在里面copy如下内容： 12export NVM_DIR=&quot;$HOME/.nvm&quot;[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm 关闭文件，然后执行这个文件： 1source .bash_profile 执行完毕，我们再看看是否安装成功： 1nvm --version 输出： 10.33.8 安装成功。 卸载：12$ nvm use system$ npm uninstall -g a_module]]></content>

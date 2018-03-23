@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2018-03-23T03:24:13.553Z</updated>
+  <updated>2018-03-23T06:55:36.633Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Node学习 Lesson1 使用express</title>
+    <link href="https://github.com/njafei/njafei.github.io/2018/03/23/NodeLearnLession1/"/>
+    <id>https://github.com/njafei/njafei.github.io/2018/03/23/NodeLearnLession1/</id>
+    <published>2018-03-23T06:54:43.000Z</published>
+    <updated>2018-03-23T06:55:36.633Z</updated>
+    
+    <content type="html"><![CDATA[<p>初始化项目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm init</div></pre></td></tr></table></figure>
+<p>安装express，安装有两个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install express --save //方法一：直接安装，并将配置保存在package.json</div></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">修改package.josn,增加express及版本信息</div><div class="line">npm install</div></pre></td></tr></table></figure>
+<p>创建文件app.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">touch app.js</div><div class="line">open app.js</div></pre></td></tr></table></figure>
+<p>写入代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var express = require(&apos;express&apos;);</div><div class="line"></div><div class="line">var app = express();</div><div class="line"></div><div class="line">app.get(&apos;/&apos;,function(req, res)&#123;</div><div class="line">    res.send(&apos;hello world&apos;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">app.listen(3000, function ()&#123;</div><div class="line">    console.log(&apos;app is listening ar port 3000&apos;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>执行node：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node app.js</div></pre></td></tr></table></figure>
+<p>在浏览器输入<code>localhost:3000</code>，看到上面有打印：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hello,world</div></pre></td></tr></table></figure>
+<p>课程地址：<a href="https://github.com/alsotang/node-lessons/tree/master/lesson1">《一个最简单的 express 应用》</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;初始化项目：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;
+    
+    </summary>
+    
+      <category term="NodeLearn" scheme="https://github.com/njafei/njafei.github.io/categories/NodeLearn/"/>
+    
+    
+      <category term="Node" scheme="https://github.com/njafei/njafei.github.io/tags/Node/"/>
+    
+      <category term="NodeLearn" scheme="https://github.com/njafei/njafei.github.io/tags/NodeLearn/"/>
+    
+  </entry>
   
   <entry>
     <title>nvm安装、解决nvm command not found问题、卸载</title>
@@ -940,38 +980,6 @@
     
     
       <category term="Apple文档" scheme="https://github.com/njafei/njafei.github.io/tags/Apple%E6%96%87%E6%A1%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>os.system如何传参</title>
-    <link href="https://github.com/njafei/njafei.github.io/2017/05/26/os-system%E5%A6%82%E4%BD%95%E4%BC%A0%E5%8F%82/"/>
-    <id>https://github.com/njafei/njafei.github.io/2017/05/26/os-system如何传参/</id>
-    <published>2017-05-26T03:21:12.000Z</published>
-    <updated>2017-10-19T07:34:08.201Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天写脚本的时候，正好希望在python脚本中调用另外一个python脚本，就使用了os.system来实现这个功能（当然，还有很多的办法，而且每种方法满足的需求不都一样，有兴趣的读者可以谷歌下）。</p>
-<p>但是我需要给这个调用里面传入一个参数，网上查了半天，感觉都不太清晰，就写了这篇，简单介绍下。</p>
-<p>os.system的定义是这样的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">os.system(&quot;shell command argusFormat&quot; % argus)</div></pre></td></tr></table></figure>
-<p>在双引号里面正常写命令，需要用到参数的地方，使用%s等格式代替，然后在双引号的后面加空格，加%号，然后在括号里写入所有的参数，用逗号隔开。</p>
-<h4 id="单个参数"><a href="#单个参数" class="headerlink" title="单个参数"></a>单个参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">param = &apos;I&apos;m param&apos;</div><div class="line">os.system(&quot;python haha.py %s&quot; % (param))</div></pre></td></tr></table></figure>
-<h4 id="多个参数"><a href="#多个参数" class="headerlink" title="多个参数"></a>多个参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">paramA = &apos;I&apos;m paramA&apos;</div><div class="line">paramB = &apos;I&apos;m paramB&apos;</div><div class="line">os.system(&quot;python haha.py %s %s&quot; % (paramA,paramB))</div></pre></td></tr></table></figure>
-<p>需要注意的是，shell中对于空格的要求特别严格，一定要注意别多或者少（写js的来写shell真的好难受0_0）。</p>
-<h4 id="python格式化"><a href="#python格式化" class="headerlink" title="python格式化"></a>python格式化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">%s    字符串 (采用str()的显示)</div><div class="line"></div><div class="line">%r    字符串 (采用repr()的显示)</div><div class="line"></div><div class="line">%c    单个字符</div><div class="line"></div><div class="line">%b    二进制整数</div><div class="line"></div><div class="line">%d    十进制整数</div><div class="line"></div><div class="line">%i    十进制整数</div><div class="line"></div><div class="line">%o    八进制整数</div><div class="line"></div><div class="line">%x    十六进制整数</div><div class="line"></div><div class="line">%e    指数 (基底写为e)</div><div class="line"></div><div class="line">%E    指数 (基底写为E)</div><div class="line"></div><div class="line">%f    浮点数</div><div class="line"></div><div class="line">%F    浮点数，与上相同</div><div class="line"></div><div class="line">%g    指数(e)或浮点数 (根据显示长度)</div><div class="line"></div><div class="line">%G    指数(E)或浮点数 (根据显示长度)</div><div class="line"></div><div class="line">%%    字符&quot;%&quot;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天写脚本的时候，正好希望在python脚本中调用另外一个python脚本，就使用了os.system来实现这个功能（当然，还有很多的办法，而且每种方法满足的需求不都一样，有兴趣的读者可以谷歌下）。&lt;/p&gt;
-&lt;p&gt;但是我需要给这个调用里面传入一个参数，网上查了半天，感觉都不
-    
-    </summary>
-    
-      <category term="python" scheme="https://github.com/njafei/njafei.github.io/categories/python/"/>
-    
-    
-      <category term="python" scheme="https://github.com/njafei/njafei.github.io/tags/python/"/>
     
   </entry>
   
