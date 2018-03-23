@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2018-03-23T03:18:22.669Z</updated>
+  <updated>2018-03-23T03:24:13.553Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/njafei/njafei.github.io/2018/03/23/nvm-install/"/>
     <id>https://github.com/njafei/njafei.github.io/2018/03/23/nvm-install/</id>
     <published>2018-03-23T03:15:14.000Z</published>
-    <updated>2018-03-23T03:18:22.669Z</updated>
+    <updated>2018-03-23T03:24:13.553Z</updated>
     
     <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>nvm是node的包版本管理工具，github地址如下：<a href="https://github.com/creationix/nvm">nvm</a></p>
 <p>安装命令</p>
