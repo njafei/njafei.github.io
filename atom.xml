@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2018-03-23T08:35:49.468Z</updated>
+  <updated>2018-06-06T03:13:14.807Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>常用的包管理工具 npm rvm brew gem</title>
+    <link href="https://github.com/njafei/njafei.github.io/2018/06/06/packageaManagerTools/"/>
+    <id>https://github.com/njafei/njafei.github.io/2018/06/06/packageaManagerTools/</id>
+    <published>2018-06-06T03:11:17.000Z</published>
+    <updated>2018-06-06T03:13:14.807Z</updated>
+    
+    <content type="html"><![CDATA[<p>工作中用到了很多的包管理工具，这里做个总结和维护，以便快速查找和记录踩过的坑</p>
+<p>#npm 管理js package</p>
+<p>官网地址： <a href="https://www.npmjs.com.cn/" target="_blank" rel="noopener">www.npmjs.com.cn</a></p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>安装包：<code>npm install npm@version -g.</code> version : <code>latest/next/1.0.0</code></p>
+<p>卸载包：<code>npm uninstall npm@version -g.</code></p>
+<p><code>-g</code>, 全局安装，可以在任何目录下使用该包</p>
+<h2 id="常见错误和解决"><a href="#常见错误和解决" class="headerlink" title="常见错误和解决"></a>常见错误和解决</h2><h1 id="rvm-管理ruby版本"><a href="#rvm-管理ruby版本" class="headerlink" title="rvm 管理ruby版本"></a>rvm 管理ruby版本</h1><p>官网地址：<a href="https://ruby-china.org/wiki/rvm-guide" target="_blank" rel="noopener">ruby-china</a>`</p>
+<p>mac上面是默认安装了ruby的，但是不同的软件或者工具对于版本的要求不一致，所以一般使用<code>rvm</code>的ruby来代替</p>
+<h2 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h2><p>安装<code>rvm</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3</div><div class="line">$ \curl -sSL https://get.rvm.io | bash -s stable</div><div class="line">$ source ~/.bashrc</div><div class="line">$ source ~/.bash_profile</div><div class="line"></div><div class="line">&lt;!--修改ruby包源到ruby-china上面，以提高网络速度--&gt;</div><div class="line">echo &quot;ruby_url=https://cache.ruby-china.org/pub/ruby&quot; &gt; ~/.rvm/user/db</div></pre></td></tr></table></figure>
+<p>安装ruby: <code>rvm install 2.2.0</code></p>
+<p>选择ruby版本： <code>rvm use 2.2.0</code></p>
+<p>将命令行中的ruby换成rvm的： <code>rvm use 2.2.0 --default</code></p>
+<p>查询所有的ruby版本： <code>rvm list</code></p>
+<p>卸载已安装版本： <code>rvm remove 1.8.7</code></p>
+<h1 id="brew-使用-Homebrew-安装-Apple-没有预装但-你需要的东西。"><a href="#brew-使用-Homebrew-安装-Apple-没有预装但-你需要的东西。" class="headerlink" title="brew 使用 Homebrew 安装 Apple 没有预装但 你需要的东西。"></a>brew 使用 Homebrew 安装 Apple 没有预装但 你需要的东西。</h1><p>官网： <a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">brew.sh</a></p>
+<h2 id="常用命令-2"><a href="#常用命令-2" class="headerlink" title="常用命令"></a>常用命令</h2><p>安装 Homebrew: <code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code> </p>
+<p>安装包： <code>brew install</code><br>卸载包： <code>brew uninstall</code></p>
+<h2 id="常见问题及解决"><a href="#常见问题及解决" class="headerlink" title="常见问题及解决"></a>常见问题及解决</h2><h1 id="gem-ruby-package管理工具"><a href="#gem-ruby-package管理工具" class="headerlink" title="gem ruby package管理工具"></a>gem ruby package管理工具</h1><p>官网： <a href="https://rubygems.org/?locale=zh-CN" target="_blank" rel="noopener">rubygems.org</a></p>
+<h2 id="常用命令-3"><a href="#常用命令-3" class="headerlink" title="常用命令"></a>常用命令</h2><p>安装包： <code>gem install</code><br>卸载包： <code>gem uninstall</code></p>
+<h2 id="常见问题及解决-1"><a href="#常见问题及解决-1" class="headerlink" title="常见问题及解决"></a>常见问题及解决</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;工作中用到了很多的包管理工具，这里做个总结和维护，以便快速查找和记录踩过的坑&lt;/p&gt;
+&lt;p&gt;#npm 管理js package&lt;/p&gt;
+&lt;p&gt;官网地址： &lt;a href=&quot;https://www.npmjs.com.cn/&quot; target=&quot;_blank&quot; rel=&quot;noo
+    
+    </summary>
+    
+      <category term="tools" scheme="https://github.com/njafei/njafei.github.io/categories/tools/"/>
+    
+    
+      <category term="tools" scheme="https://github.com/njafei/njafei.github.io/tags/tools/"/>
+    
+  </entry>
   
   <entry>
     <title>URL协议详解</title>
@@ -297,7 +341,7 @@
     <link href="https://github.com/njafei/njafei.github.io/2018/02/28/ES6-Map/"/>
     <id>https://github.com/njafei/njafei.github.io/2018/02/28/ES6-Map/</id>
     <published>2018-02-28T06:09:25.000Z</published>
-    <updated>2018-02-28T06:12:15.016Z</updated>
+    <updated>2018-02-28T06:12:15.015Z</updated>
     
     <content type="html"><![CDATA[<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>在js中，对象(Object)的本质是键值对，但是它的键只能是字符串，这带来了很多不便。为了解决这个问题，ES6中提供了新的数据结构，Map。 Map和Object最大的区别就是它的key可以是对象。</p>
 <p>看下初始化：</p>
@@ -704,7 +748,7 @@
     <link href="https://github.com/njafei/njafei.github.io/2017/09/26/ImageOptm/"/>
     <id>https://github.com/njafei/njafei.github.io/2017/09/26/ImageOptm/</id>
     <published>2017-09-26T03:01:58.000Z</published>
-    <updated>2017-10-19T03:37:16.721Z</updated>
+    <updated>2017-10-19T03:37:16.720Z</updated>
     
     <content type="html"><![CDATA[<p>iOS控制包的大小对于公司来说，是个非常重要的事情。因为苹果公司对于包的大小超过100M的，不会允许用户使用移动网络来下载，这很可能造成商业上的损失。</p>
 <p>而在控制包的大小中，一个很重要的原则就是禁止大图片。之前研究其他公司的ipa包的时候，就出现过一个icon高达1M的事故。而平时，虽然程序员们百般小心，难免被设计师暗算给张大图（玩笑），所以靠人终究不是一个可持续的保证质量的方法。</p>
@@ -766,7 +810,7 @@
     <link href="https://github.com/njafei/njafei.github.io/2017/07/27/pureComponent/"/>
     <id>https://github.com/njafei/njafei.github.io/2017/07/27/pureComponent/</id>
     <published>2017-07-27T10:56:18.000Z</published>
-    <updated>2017-10-19T03:37:16.730Z</updated>
+    <updated>2017-10-19T03:37:16.729Z</updated>
     
     <content type="html"><![CDATA[<p>React15.3的发布中包含了PureComponent，这个类最重要的用法是为了优化React的性能，下面我们将看下它是如何优化的。</p>
 <h1 id="Component-VS-PureComponent"><a href="#Component-VS-PureComponent" class="headerlink" title="Component VS PureComponent"></a>Component VS PureComponent</h1><p>首先要看Component的生命周期：<br><img src="http://on0hv7n2x.bkt.clouddn.com/component-lifecycle.jpg" alt=""></p>
@@ -889,7 +933,7 @@
     <link href="https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/"/>
     <id>https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/</id>
     <published>2017-06-15T10:03:36.000Z</published>
-    <updated>2017-10-19T03:37:16.728Z</updated>
+    <updated>2017-10-19T03:37:16.727Z</updated>
     
     <content type="html"><![CDATA[<p>有两个思路：</p>
 <ul>
@@ -922,44 +966,6 @@
     
     
       <category term="iOS面试题" scheme="https://github.com/njafei/njafei.github.io/tags/iOS%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Error RawText ** must be wrapped in an explicit &lt;Text&gt; component 问题解决</title>
-    <link href="https://github.com/njafei/njafei.github.io/2017/06/14/stringToBoolError/"/>
-    <id>https://github.com/njafei/njafei.github.io/2017/06/14/stringToBoolError/</id>
-    <published>2017-06-14T03:05:55.000Z</published>
-    <updated>2017-10-19T03:37:16.734Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天忽然遇到一个页面崩溃，查到错误如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error: RawText &quot;&quot; must be wrapped in an explicit &lt;Text&gt; component.</div></pre></td></tr></table></figure>
-<p>查了代码，发现好久都没有动这块的代码了，所以非常疑惑。最后通过2分法不停地查哪里出了问题，最终查到了这个语句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">return (</div><div class="line">    &lt;View&gt;</div><div class="line">        &#123;test &amp;&amp; test.string &amp;&amp;</div><div class="line">        &lt;Text&gt;&#123;test.string&#125;&lt;/Text&gt;</div><div class="line">        &#125;</div><div class="line">    &lt;/View&gt;</div><div class="line">)</div></pre></td></tr></table></figure>
-<p>其实作用很简单，如果string有值，则展示string。但是这条语句为什么会报错呢？查了半天，发现是因为string的值是’’,然后系统就报错了，类似这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let test = &#123;string: &apos;&apos;&#125;;</div><div class="line">return (</div><div class="line">    &lt;View&gt;</div><div class="line">        &#123;test &amp;&amp; test.string &amp;&amp;</div><div class="line">        &lt;Text&gt;&#123;test.string&#125;&lt;/Text&gt;</div><div class="line">        &#125;</div><div class="line">    &lt;/View&gt;</div><div class="line">)</div></pre></td></tr></table></figure>
-<p>后来查了下github，发现很多人也遇到了类似的错误，解决办法如下,使用!!来判断string是否有值，因为这里其实你是希望将<code>string</code>当成<code>bool</code>来使用的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let test = &#123;string: &apos;&apos;&#125;;</div><div class="line">return (</div><div class="line">    &lt;View&gt;</div><div class="line">        &#123;test &amp;&amp; !!test.string &amp;&amp;</div><div class="line">        &lt;Text&gt;&#123;test.string&#125;&lt;/Text&gt;</div><div class="line">        &#125;</div><div class="line">    &lt;/View&gt;</div><div class="line">)</div></pre></td></tr></table></figure>
-<p>所以以后string的判断，都用!!去判断，否则出现string恰好为’’的时候，就会崩溃。</p>
-<p>参考文章：</p>
-<ul>
-<li><a href="https://github.com/GeekyAnts/NativeBase/issues/186">https://github.com/GeekyAnts/NativeBase/issues/186</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天忽然遇到一个页面崩溃，查到错误如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class
-    
-    </summary>
-    
-      <category term="bugFix" scheme="https://github.com/njafei/njafei.github.io/categories/bugFix/"/>
-    
-    
-      <category term="React-Native" scheme="https://github.com/njafei/njafei.github.io/tags/React-Native/"/>
-    
-      <category term="奇怪的bug" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%A5%87%E6%80%AA%E7%9A%84bug/"/>
     
   </entry>
   

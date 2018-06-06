@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://github.com/njafei/njafei.github.io/2018/06/06/packageaManagerTools/</loc>
+    
+    <lastmod>2018-06-06T03:13:14.807Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/njafei/njafei.github.io/2018/03/23/URL/</loc>
     
     <lastmod>2018-03-23T08:35:49.468Z</lastmod>
@@ -46,7 +53,7 @@
   <url>
     <loc>https://github.com/njafei/njafei.github.io/2018/02/28/ES6-Map/</loc>
     
-    <lastmod>2018-02-28T06:12:15.016Z</lastmod>
+    <lastmod>2018-02-28T06:12:15.015Z</lastmod>
     
   </url>
   
@@ -100,13 +107,6 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/tags/index.html</loc>
-    
-    <lastmod>2017-10-19T03:37:16.736Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://github.com/njafei/njafei.github.io/%E8%8D%89%E7%A8%BF/%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95.html</loc>
     
     <lastmod>2017-10-19T03:37:16.736Z</lastmod>
@@ -121,7 +121,7 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/05/05/%E5%9B%BE%E7%89%87%E6%B8%85%E6%99%B0%E5%BA%A6%E6%8E%A2%E7%A9%B6/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/tags/index.html</loc>
     
     <lastmod>2017-10-19T03:37:16.735Z</lastmod>
     
@@ -135,9 +135,9 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/04/11/settingNameAndEmailForEachProject/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/05/05/%E5%9B%BE%E7%89%87%E6%B8%85%E6%99%B0%E5%BA%A6%E6%8E%A2%E7%A9%B6/</loc>
     
-    <lastmod>2017-10-19T03:37:16.733Z</lastmod>
+    <lastmod>2017-10-19T03:37:16.734Z</lastmod>
     
   </url>
   
@@ -149,7 +149,7 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/05/04/runtime/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/04/11/settingNameAndEmailForEachProject/</loc>
     
     <lastmod>2017-10-19T03:37:16.732Z</lastmod>
     
@@ -163,9 +163,9 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/07/27/pureComponent/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/05/04/runtime/</loc>
     
-    <lastmod>2017-10-19T03:37:16.730Z</lastmod>
+    <lastmod>2017-10-19T03:37:16.731Z</lastmod>
     
   </url>
   
@@ -177,9 +177,9 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/07/27/pureComponent/</loc>
     
-    <lastmod>2017-10-19T03:37:16.728Z</lastmod>
+    <lastmod>2017-10-19T03:37:16.729Z</lastmod>
     
   </url>
   
@@ -191,14 +191,14 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/06/15/howToChangeObjectProperty/</loc>
     
     <lastmod>2017-10-19T03:37:16.727Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/05/17/fastlane%E4%B8%8A%E4%BC%A0APPStore%E8%B0%83%E7%A0%94/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/03/18/githubPagesStudy/</loc>
     
     <lastmod>2017-10-19T03:37:16.727Z</lastmod>
     
@@ -212,7 +212,7 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/03/21/UIResponder/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/05/17/fastlane%E4%B8%8A%E4%BC%A0APPStore%E8%B0%83%E7%A0%94/</loc>
     
     <lastmod>2017-10-19T03:37:16.726Z</lastmod>
     
@@ -226,9 +226,16 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/03/21/UIResponder/</loc>
     
     <lastmod>2017-10-19T03:37:16.725Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://github.com/njafei/njafei.github.io/2017/03/29/Responder-chain/</loc>
+    
+    <lastmod>2017-10-19T03:37:16.724Z</lastmod>
     
   </url>
   
@@ -254,21 +261,14 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/04/18/KVC/</loc>
-    
-    <lastmod>2017-10-19T03:37:16.722Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/09/26/ImageOptm/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/09/22/Java-space-encode/</loc>
     
     <lastmod>2017-10-19T03:37:16.721Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/09/22/Java-space-encode/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/04/18/KVC/</loc>
     
     <lastmod>2017-10-19T03:37:16.721Z</lastmod>
     
@@ -282,7 +282,7 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/05/23/ES6%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%93%E5%B1%95/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/09/26/ImageOptm/</loc>
     
     <lastmod>2017-10-19T03:37:16.720Z</lastmod>
     
@@ -296,9 +296,16 @@
   </url>
   
   <url>
-    <loc>https://github.com/njafei/njafei.github.io/2017/04/17/ES6-%E5%85%A5%E9%97%A8-let%E5%91%BD%E4%BB%A4/</loc>
+    <loc>https://github.com/njafei/njafei.github.io/2017/05/23/ES6%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%93%E5%B1%95/</loc>
     
     <lastmod>2017-10-19T03:37:16.719Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://github.com/njafei/njafei.github.io/2017/04/17/ES6-%E5%85%A5%E9%97%A8-let%E5%91%BD%E4%BB%A4/</loc>
+    
+    <lastmod>2017-10-19T03:37:16.718Z</lastmod>
     
   </url>
   
