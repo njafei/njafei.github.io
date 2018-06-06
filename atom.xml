@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2018-06-06T03:13:14.807Z</updated>
+  <updated>2018-06-06T03:15:07.783Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -20,11 +20,10 @@
     <link href="https://github.com/njafei/njafei.github.io/2018/06/06/packageaManagerTools/"/>
     <id>https://github.com/njafei/njafei.github.io/2018/06/06/packageaManagerTools/</id>
     <published>2018-06-06T03:11:17.000Z</published>
-    <updated>2018-06-06T03:13:14.807Z</updated>
+    <updated>2018-06-06T03:15:07.783Z</updated>
     
     <content type="html"><![CDATA[<p>工作中用到了很多的包管理工具，这里做个总结和维护，以便快速查找和记录踩过的坑</p>
-<p>#npm 管理js package</p>
-<p>官网地址： <a href="https://www.npmjs.com.cn/" target="_blank" rel="noopener">www.npmjs.com.cn</a></p>
+<h1 id="npm-管理js-package"><a href="#npm-管理js-package" class="headerlink" title="npm 管理js package"></a>npm 管理js package</h1><p>官网地址： <a href="https://www.npmjs.com.cn/" target="_blank" rel="noopener">www.npmjs.com.cn</a></p>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>安装包：<code>npm install npm@version -g.</code> version : <code>latest/next/1.0.0</code></p>
 <p>卸载包：<code>npm uninstall npm@version -g.</code></p>
 <p><code>-g</code>, 全局安装，可以在任何目录下使用该包</p>
@@ -47,8 +46,7 @@
     <summary type="html">
     
       &lt;p&gt;工作中用到了很多的包管理工具，这里做个总结和维护，以便快速查找和记录踩过的坑&lt;/p&gt;
-&lt;p&gt;#npm 管理js package&lt;/p&gt;
-&lt;p&gt;官网地址： &lt;a href=&quot;https://www.npmjs.com.cn/&quot; target=&quot;_blank&quot; rel=&quot;noo
+&lt;h1 id=&quot;npm-管理js-package&quot;&gt;&lt;a href=&quot;#npm-管理js-package&quot; class=&quot;headerlink&quot; title=&quot;npm 管理js packa
     
     </summary>
     
