@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2018-06-06T09:08:18.614Z</updated>
+  <updated>2018-08-15T07:52:27.346Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -16,11 +16,70 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>微信图片浏览效果模仿--如何解决`touch`事件的冲突</title>
+    <link href="https://github.com/njafei/njafei.github.io/2018/08/15/weichatImageBrowserDemo/"/>
+    <id>https://github.com/njafei/njafei.github.io/2018/08/15/weichatImageBrowserDemo/</id>
+    <published>2018-08-15T07:51:56.000Z</published>
+    <updated>2018-08-15T07:52:27.346Z</updated>
+    
+    <content type="html"><![CDATA[<p>目前微信的交互效果是国内顶级的，很多人也都比较熟悉和习惯它的交互，很多公司的应用也会参考它的效果，我们今天就来看下图片浏览的效果如何实现。</p>
+<p>大概有三个功能点：</p>
+<pre><code>1. 可以左右分页滑动
+2. 可以拖动并缩小
+3. 可以双击放大某一部分
+</code></pre><p>这里的<code>touch</code>事件就需要三种：</p>
+<pre><code>1. 滚动
+2. 拖动
+3. 点击
+</code></pre><p>技术难题出来了：双击没影响，左右滑动和拖动其实是矛盾的，即用户开始触摸的时候，是没法知道是想拖动，还是想左右滑动的。上升下就是如何解决不同touch事件的冲突？</p>
+<p>要做这个判断，我们可根据这条规则：判断用户开始滑动时的方向，向下则认为用户想拖动，向左右则认为其想滑动。</p>
+<p>这里有三个思路来实现：</p>
+<pre><code>1. 使用scrollView的`Delegate`等来实现功能
+2. 继承`UIGestureRecongnizer`类，重写部分的方法。 或者增加其的category，增加部分需要的方法
+3. 从底层重写，即重写 `touchBegan` 等方法
+</code></pre><p>这三个思路我都在不同的文章中看到，下面说下我的看法：</p>
+<h2 id="scrolView的Delegate"><a href="#scrolView的Delegate" class="headerlink" title="scrolView的Delegate"></a>scrolView的<code>Delegate</code></h2><p>先说结论，这个是实现最简单，但是效果最差的。</p>
+<p>很多人可能第一直觉就是在<code>delegate</code>去判断，这也是相对最好实现的.但是其效果是最差的，因为ScrollView的<code>delegate</code>其实是最晚拿到滚动消息的，这就带来了刚开始滑动时候的卡顿。</p>
+<p>代码类似于这样,向下滚动则使用拖动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (void)scrollViewDidScroll:(UIScrollView *)scrollView</div><div class="line">&#123;</div><div class="line">    static float scrollNewY = 0;</div><div class="line">    static float scrollOldY = 0;</div><div class="line">    scrollNewY = scrollView.contentOffset.y;</div><div class="line">    if ((scrollView.contentOffset.y &lt; 0 || self.doingPan) &amp;&amp; (self.doingZoom == NO))</div><div class="line">    &#123;</div><div class="line">        [self doPan:self.mainScrollView.panGestureRecognizer];</div><div class="line">    &#125;</div><div class="line">    scrollOldY = scrollNewY;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="UIGestureRecongnizer"><a href="#UIGestureRecongnizer" class="headerlink" title="UIGestureRecongnizer"></a>UIGestureRecongnizer</h2><p>这是相对来讲效果较好，实现也比较方便的方法。</p>
+<p>无论是写category还是继承子类，功能都不复杂，而且效果也会比较好。</p>
+<p>实现代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- (void)touchesMoved:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event</div><div class="line">&#123;</div><div class="line">    if (!self.isMoving)&#123;</div><div class="line">        UITouch *touch = [touches anyObject];</div><div class="line">        CGPoint nowPoint = [touch locationInView:self.view];</div><div class="line">        CGPoint prevPoint = [touch previousLocationInView:self.view];</div><div class="line">        </div><div class="line">        BOOL isHorzitional = prevPoint.x - nowPoint.x &gt; 5;</div><div class="line">        BOOL isVertical = nowPoint.y - prevPoint.y &gt; 5;</div><div class="line">        if (!isHorzitional &amp;&amp; isVertical)&#123;</div><div class="line">            self.isMoving = YES;</div><div class="line">            self.isVerticalDownPan = YES;</div><div class="line">        &#125; else &#123;</div><div class="line">            self.isVerticalDownPan = NO;</div><div class="line">            self.state = UIGestureRecognizerStateFailed;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    [super touchesMoved:touches withEvent:event];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我这里使用的是直接重写<code>touchesMoved</code>来判断，也可以使用<code>getureRecongnizer</code>的方法来做。</p>
+<h2 id="UITouch"><a href="#UITouch" class="headerlink" title="UITouch"></a>UITouch</h2><p>这个方式可以用来处理非常复杂的效果，但是这里不推荐，因为要花费的精力实在太大，如果有选择，尽量使用系统提供的单击、双击、拖动等类来做，没必要重新造轮子。</p>
+<p>实现即重写<code>touchesBegan</code>,<code>touchesMoved</code>,<code>touchesEnded</code>,<code>touchesCanceled</code>等方法</p>
+<p><a href="https://github.com/njafei/lfImageBrowserImitateWechat">githubDemo: lfImageBrowserImitateWechat</a></p>
+<p>其他类似项目参考：</p>
+<pre><code>1. https://github.com/JiongXing/PhotoBrowser
+ 2. https://github.com/MSS0306/MSSBrowse
+ 3. https://github.com/tianliangyihou/LBPhotoBrowser
+ 4. https://github.com/QuintGao/GKPhotoBrowser
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;目前微信的交互效果是国内顶级的，很多人也都比较熟悉和习惯它的交互，很多公司的应用也会参考它的效果，我们今天就来看下图片浏览的效果如何实现。&lt;/p&gt;
+&lt;p&gt;大概有三个功能点：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1. 可以左右分页滑动
+2. 可以拖动并缩小
+3. 可以双击放大某一部
+    
+    </summary>
+    
+      <category term="UITouch" scheme="https://github.com/njafei/njafei.github.io/categories/UITouch/"/>
+    
+    
+      <category term="Demo" scheme="https://github.com/njafei/njafei.github.io/tags/Demo/"/>
+    
+  </entry>
+  
+  <entry>
     <title>前端生命周期设计思考</title>
     <link href="https://github.com/njafei/njafei.github.io/2018/06/06/lifeCycleDesignThought/"/>
     <id>https://github.com/njafei/njafei.github.io/2018/06/06/lifeCycleDesignThought/</id>
     <published>2018-06-06T09:04:30.000Z</published>
-    <updated>2018-06-06T09:08:18.614Z</updated>
+    <updated>2018-06-06T09:08:58.501Z</updated>
     
     <content type="html"><![CDATA[<p>这两天在设计完善框架的生命周期，所以当我回头去看之前写过的<code>iOS</code>和<code>react-native</code>的代码时，我不禁产生了疑问，之前用的这么多的生命周期的函数，为什么是这样设计的？每个生命周期用来做什么比较合适？比如<code>react-native</code>中想要去请求接口，是在<code>componentWillMount</code>还是在<code>componentDidMount</code>中更合适的？为什么？查了一些资料，结合我的经验思考，遂有此文。</p>
 <p>生命周期主要讲的就是前端页面从生成-渲染-更新-销毁等几个阶段的过程，框架一般会提供该过程的回调和可用参数，提供给用户使用。只有了解清楚生命周期中每个阶段做的事情和状态后，我们才能因地制宜，写出更优雅的代码。</p>
@@ -945,42 +1004,6 @@
       <category term="react-native" scheme="https://github.com/njafei/njafei.github.io/tags/react-native/"/>
     
       <category term="注意事项" scheme="https://github.com/njafei/njafei.github.io/tags/%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>listView和FlatList的flexGrow默认值为1</title>
-    <link href="https://github.com/njafei/njafei.github.io/2017/07/26/listViewFlexGrowDefaultValue/"/>
-    <id>https://github.com/njafei/njafei.github.io/2017/07/26/listViewFlexGrowDefaultValue/</id>
-    <published>2017-07-26T11:27:06.000Z</published>
-    <updated>2017-10-19T03:37:16.728Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天遇到了适配的问题，有个列表，需要自适应高度，按理说默认应该就是自适应的，但是在实际中发现，其会和另外一个视图1：1 ，然后就发现只有设置其<code>flexGrow: 0</code>的时候，它才会自动适配高度，说明它的flexGrow默认值为1.</p>
-<p>看下具体的列子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">  AppRegistry,</div><div class="line">  StyleSheet,</div><div class="line">  Text,</div><div class="line">  View,</div><div class="line">  ListView,</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class testListView extends Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">        const ds = new ListView.DataSource(&#123;rowHasChanged: (r1, r2) =&gt; r1 !== r2&#125;);</div><div class="line">        this.state = &#123;</div><div class="line">            dataSource: ds.cloneWithRows([</div><div class="line">                &apos;John&apos;, &apos;Joel&apos;, &apos;James&apos;, &apos;Jimmy&apos;, &apos;Jackson&apos;, &apos;Jillian&apos;, &apos;Julie&apos;, &apos;Devin&apos;</div><div class="line">            ])</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;View style=&#123;styles.blackView&#125; /&gt;</div><div class="line">        &lt;ListView</div><div class="line">            dataSource=&#123;this.state.dataSource&#125;</div><div class="line">            renderRow=&#123;(rowData) =&gt; &lt;Text&gt;&#123;rowData&#125;&lt;/Text&gt;&#125;</div><div class="line">            style=&#123;styles.list&#125;</div><div class="line">        /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">  container: &#123;</div><div class="line">    flexGrow: 1,</div><div class="line">    backgroundColor: &apos;#F5FCFF&apos;,</div><div class="line">  &#125;,</div><div class="line">  list:&#123;</div><div class="line">    backgroundColor: &apos;red&apos;,</div><div class="line">  &#125;,</div><div class="line">  blackView: &#123;</div><div class="line">    flexGrow: 1,</div><div class="line">    backgroundColor: &apos;black&apos;,</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;testListView&apos;, () =&gt; testListView);</div></pre></td></tr></table></figure>
-<p>这个UI看起来是这样： </p>
-<p><img src="http://on0hv7n2x.bkt.clouddn.com/Simulator%20Screen%20Shot%202017%E5%B9%B47%E6%9C%8826%E6%97%A5%20%E4%B8%8B%E5%8D%887.20.31.png" alt=""></p>
-<p>如果style中的list改成这样，就好了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">list:&#123;</div><div class="line">    backgroundColor: &apos;red&apos;,</div><div class="line">    flexGrow: 0,  </div><div class="line">&#125;,</div></pre></td></tr></table></figure>
-<p>显示成： </p>
-<p><img src="http://on0hv7n2x.bkt.clouddn.com/Simulator%20Screen%20Shot%202017%E5%B9%B47%E6%9C%8826%E6%97%A5%20%E4%B8%8B%E5%8D%887.21.58.png" alt=""></p>
-<p>综上，我怀疑<code>FlatList和ListView</code>的<code>flexGrow</code>默认值是1.有遇到类似问题的，不妨试试这样解决。</p>
-<p>版本： “react-native”: “0.43.4”</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天遇到了适配的问题，有个列表，需要自适应高度，按理说默认应该就是自适应的，但是在实际中发现，其会和另外一个视图1：1 ，然后就发现只有设置其&lt;code&gt;flexGrow: 0&lt;/code&gt;的时候，它才会自动适配高度，说明它的flexGrow默认值为1.&lt;/p&gt;
-&lt;p&gt;看下
-    
-    </summary>
-    
-      <category term="React-Native" scheme="https://github.com/njafei/njafei.github.io/categories/React-Native/"/>
-    
-    
-      <category term="React-Native" scheme="https://github.com/njafei/njafei.github.io/tags/React-Native/"/>
-    
-      <category term="奇怪的bug" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%A5%87%E6%80%AA%E7%9A%84bug/"/>
     
   </entry>
   
