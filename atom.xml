@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2018-08-15T07:52:27.346Z</updated>
+  <updated>2018-08-21T06:09:25.537Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS中32位和64位处理器 NSInteger的数值范围</title>
+    <link href="https://github.com/njafei/njafei.github.io/2018/08/21/NSIntegerIn32And64Cpu/"/>
+    <id>https://github.com/njafei/njafei.github.io/2018/08/21/NSIntegerIn32And64Cpu/</id>
+    <published>2018-08-21T05:57:23.000Z</published>
+    <updated>2018-08-21T06:09:25.537Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>最近遇到了一个需求，我们有一批小程序的用户，在小程序产生的内容想要在app中展示，这批用户的id是从50亿开始的（很难想象，我们公司的用户什么时候能突破50亿。。。），而我们app现在的userId是使用<code>NSInteger</code>，我们要确保userId的使用没有问题。</p>
+<p>我搜索了下相关资料，iOS的设备，从iphone5s起，全部使用64位的处理器，之前的都是32位处理器。而<code>NSInteger</code>在32位和64位机器上面表现范围如何呢？且往下看</p>
+<h1 id="32位和64位NSInteger定义"><a href="#32位和64位NSInteger定义" class="headerlink" title="32位和64位NSInteger定义"></a>32位和64位NSInteger定义</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#if __LP64__ || (TARGET_OS_EMBEDDED &amp;&amp; !TARGET_OS_IPHONE) || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64</div><div class="line">typedef long NSInteger;</div><div class="line">typedef unsigned long NSUInteger;</div><div class="line">#else</div><div class="line">typedef int NSInteger;</div><div class="line">typedef unsigned int NSUInteger;</div><div class="line">#endif</div></pre></td></tr></table></figure>
+<h2 id="32位系统"><a href="#32位系统" class="headerlink" title="32位系统"></a>32位系统</h2><p>int占4个字节(byte) 32位(bit) </p>
+<p>2^32 = 4294967296, NSInteger有正负，则范围为： -2147483648 ~ 2147483647</p>
+<p>NSInteger 是 int 别称，占4个字节，32位，范围：  -2147483648 ~ 2147483647</p>
+<p>NSUInteger 不带符号，占4个字节，32位 范围： 0 ~ 4294967295</p>
+<p>long 占4个字节 32位  范围：  -2147483648 ~ 2147483647</p>
+<p>long long 占8个字节 64位 范围：  -9223372036854775808 ~ 9223372036854775807 </p>
+<h2 id="64位系统"><a href="#64位系统" class="headerlink" title="64位系统"></a>64位系统</h2><p>int占4个字节(byte) 32位(bit)  范围：  -2147483648 ~ 2147483647</p>
+<p>long 占8个字节 64位 范围：  -9223372036854775808 ~ 9223372036854775807 </p>
+<p>NSInteger 是 long 的别称，占8个字节 64位 范围等同long：  -9223372036854775808 ~ 9223372036854775807 </p>
+<p>NSUInteger 不带符号，占 8个字节， 64 位， 范围： 0 ~2^64-1</p>
+<p>long long 占8个字节，64位： -9223372036854775808 ~ 9223372036854775807 </p>
+<h1 id="id之类的，该用什么类型呢？"><a href="#id之类的，该用什么类型呢？" class="headerlink" title="id之类的，该用什么类型呢？"></a>id之类的，该用什么类型呢？</h1><p>目前看，前端大部分都是使用int或者string，这两个类型其实都可以，但考虑到后期发展可能遇到的类似我遇到的范围问题，我觉得统一成string会好一些。</p>
+<p>后台的话，考虑的就不只是前端的兼容和适配问题，还有诸如性能，容量，速度等，我看很多人推荐使用<code>UUID</code>，以下两篇文章是我阅读中看到的，感兴趣的话可以都查下相关资料。</p>
+<p>1 <a href="https://www.jianshu.com/p/2656f2ecac09" target="_blank" rel="noopener">Integer还是String？</a><br>*. <a href="https://zh.wikipedia.org/zh/%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81" target="_blank" rel="noopener">通用唯一识别码</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;最近遇到了一个需求，我们有一批小程序的用户，在小程序产生的内容想要在app中展示，这批用户的id是从50亿开始的（很难想象，我们公司的用户什
+    
+    </summary>
+    
+    
+      <category term="Objective-C" scheme="https://github.com/njafei/njafei.github.io/tags/Objective-C/"/>
+    
+  </entry>
   
   <entry>
     <title>微信图片浏览效果模仿--如何解决`touch`事件的冲突</title>
@@ -962,48 +999,6 @@
       <category term="react-native" scheme="https://github.com/njafei/njafei.github.io/tags/react-native/"/>
     
       <category term="component" scheme="https://github.com/njafei/njafei.github.io/tags/component/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>react-native time定时器 防止内存泄露的注意点</title>
-    <link href="https://github.com/njafei/njafei.github.io/2017/07/27/react-native-time-attations/"/>
-    <id>https://github.com/njafei/njafei.github.io/2017/07/27/react-native-time-attations/</id>
-    <published>2017-07-27T07:50:21.000Z</published>
-    <updated>2017-10-19T03:37:16.730Z</updated>
-    
-    <content type="html"><![CDATA[<p><code>time</code>是<code>react-native</code>提供的一个定时器，在实际使用中，经常会有使用不对，造成内存泄露的情况。很多<code>React Native</code>应用发生致命错误（闪退）是与计时器有关。具体来说，是在某个组件被卸载<code>（unmount）</code>之后，计时器却仍然在运行。</p>
-<p>防止出问题的办法也很简单，在<code>unmount</code>的时候，增加卸载定时器的操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">componentDidMount() &#123;</div><div class="line">    this.timer = setTimeout(</div><div class="line">      () =&gt; &#123; console.log(&apos;把一个定时器的引用挂在this上&apos;); &#125;,</div><div class="line">      500</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">componentWillUnmount() &#123;</div><div class="line">    // 请注意Un&quot;m&quot;ount的m是小写</div><div class="line">    // 如果存在this.timer，则使用clearTimeout清空。</div><div class="line">    // 如果你使用多个timer，那么用多个变量，或者用个数组来保存引用，然后逐个clear</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>这里的timer是在<code>DidMount</code>中赋值的，如果是多次赋值呢？比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">export default class test extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click5000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,5000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click2000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,2000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;clean timer&apos;&#125; onPress=&#123;this.cleanTimer.bind(this)&#125; /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  alertInfo(time)&#123;</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  cleanTimer()&#123;</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">    console.log(&apos;timer cleared&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;test&apos;, () =&gt; test);</div></pre></td></tr></table></figure>
-<p>这里要介绍下<code>setTimeout</code>的返回值，我们打断点可以看到，<code>this.timer</code>是一个number。根据stack上面的其他网友的回答<a href="https://stackoverflow.com/questions/10068981/what-does-settimeout-return" target="_blank" rel="noopener">what-does-settimeout-return</a>，setTimer会返回一个id，代表你已经向js的runtime系统中成功注册了一个定时器任务，这个id就是系统返回的id。</p>
-<p>那如果是需要多次赋值，就一定要先将time clear掉，然后再赋值，或者使用多个参数来标志，否则之后就找不到上次的id，也就没办法clear了，同样可能造成内存泄露的情况。</p>
-<p>例子如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Sample React Native App</div><div class="line"> * https://github.com/facebook/react-native</div><div class="line"> * @flow</div><div class="line"> */</div><div class="line"></div><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">  AppRegistry,</div><div class="line">  StyleSheet,</div><div class="line">  Text,</div><div class="line">  View,</div><div class="line">  Button</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class test extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click5000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,5000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;click2000&apos;&#125; onPress=&#123;this.alertInfo.bind(this,2000)&#125; /&gt;</div><div class="line">        &lt;Button title=&#123;&apos;clean timer&apos;&#125; onPress=&#123;this.cleanTimer.bind(this)&#125; /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  alertInfo(time)&#123;</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  cleanTimer()&#123;</div><div class="line">    this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">    console.log(&apos;timer cleared&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">  container: &#123;</div><div class="line">    flex: 1,</div><div class="line">    justifyContent: &apos;center&apos;,</div><div class="line">    alignItems: &apos;center&apos;,</div><div class="line">    backgroundColor: &apos;#F5FCFF&apos;,</div><div class="line">  &#125;,</div><div class="line">  welcome: &#123;</div><div class="line">    fontSize: 20,</div><div class="line">    textAlign: &apos;center&apos;,</div><div class="line">    margin: 10,</div><div class="line">  &#125;,</div><div class="line">  instructions: &#123;</div><div class="line">    textAlign: &apos;center&apos;,</div><div class="line">    color: &apos;#333333&apos;,</div><div class="line">    marginBottom: 5,</div><div class="line">  &#125;,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;test&apos;, () =&gt; test);</div></pre></td></tr></table></figure>
-<p>这里的timer多次赋值，虽然前面的值被后面的覆盖，但是前面的time仍然会起效果，如果不想前面的time work，需要clear掉，然后再赋值。</p>
-<p>代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">alertInfo(time)&#123;</div><div class="line">		this.timer &amp;&amp; clearTimeout(this.timer);</div><div class="line">      this.timer = setTimeout(</div><div class="line">          ()=&gt;&#123;</div><div class="line">            alert(&apos;hah&apos;);</div><div class="line">          &#125;,</div><div class="line">          time,</div><div class="line">      );</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>综上，使用time的注意点：</p>
-<ol>
-<li>记得unmount的时候，clear</li>
-<li>多个timer要使用多个变量或者数组</li>
-<li>多次赋值，记得把之前的值clear掉</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;code&gt;time&lt;/code&gt;是&lt;code&gt;react-native&lt;/code&gt;提供的一个定时器，在实际使用中，经常会有使用不对，造成内存泄露的情况。很多&lt;code&gt;React Native&lt;/code&gt;应用发生致命错误（闪退）是与计时器有关。具体来说，是在某个组件被
-    
-    </summary>
-    
-      <category term="react-native" scheme="https://github.com/njafei/njafei.github.io/categories/react-native/"/>
-    
-    
-      <category term="react-native" scheme="https://github.com/njafei/njafei.github.io/tags/react-native/"/>
-    
-      <category term="注意事项" scheme="https://github.com/njafei/njafei.github.io/tags/%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
     
   </entry>
   
