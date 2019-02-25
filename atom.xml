@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/njafei/njafei.github.io/"/>
-  <updated>2018-08-21T06:09:25.537Z</updated>
+  <updated>2019-02-25T03:02:08.237Z</updated>
   <id>https://github.com/njafei/njafei.github.io/</id>
   
   <author>
@@ -14,6 +14,57 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS集成flutter[一] 已有项目集成flutter资源包</title>
+    <link href="https://github.com/njafei/njafei.github.io/2019/02/25/addFlutterToExistingiOSProject/"/>
+    <id>https://github.com/njafei/njafei.github.io/2019/02/25/addFlutterToExistingiOSProject/</id>
+    <published>2019-02-25T03:01:29.000Z</published>
+    <updated>2019-02-25T03:02:08.237Z</updated>
+    
+    <content type="html"><![CDATA[<p>首先，确保你的mac上面安装了flutter环境，如果没有，请参考<a href="https://flutterchina.club/setup-macos/" target="_blank" rel="noopener">入门: 在macOS上搭建Flutter开发环境</a></p>
+<p>二是目前flutter提供的集成方案是cocoapods，所以项目必须是pod框架来搭建的，如果不是，请参考cocoapods的指南<a href="https://guides.cocoapods.org/using/getting-started.html" target="_blank" rel="noopener">https://guides.cocoapods.org/using/getting-started.html</a></p>
+<p>本篇内容都是根据flutter的github指南完成，主要参考了<a href="https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps">Add Flutter to existing apps</a>，如果可能，建议先看完这边指南，尝试集成。本篇文章主要是记录集成中遇到的问题和解决方案，供读者参考。</p>
+<p>这里简单归纳下指南中的步骤：</p>
+<p>1、在iOS项目中创建flutter目录，并初始化flutter </p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd some/path/     //这里的path是iOS项目文件夹，也就是说，最终的flutter文件夹和iOS项目平级</div><div class="line">$ flutter create -t module my_flutter</div></pre></td></tr></table></figure>
+</code></pre><p>2、在podfile中添加flutter相关命令，并执行pod命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">flutter_application_path = &apos;path/to/my_flutter/&apos;</div><div class="line"> 	eval(File.read(File.join(flutter_application_path, &apos;.ios&apos;, 	&apos;Flutter&apos;, &apos;podhelper.rb&apos;)), binding)</div></pre></td></tr></table></figure>
+<p>执行pod install <code>pod install</code></p>
+<p>3、在xcode build phase中添加shell命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&quot;$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh&quot; build</div><div class="line">&quot;$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh&quot; embed</div></pre></td></tr></table></figure>
+<p>4、 改造AppDelegate</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">#import &lt;Flutter/Flutter.h&gt;</div><div class="line"></div><div class="line">@interface AppDelegate : FlutterAppDelegate</div><div class="line">@property (nonatomic,strong) FlutterEngine *flutterEngine;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#import &lt;FlutterPluginRegistrant/GeneratedPluginRegistrant.h&gt; // Only if you have Flutter Plugins</div><div class="line"></div><div class="line">#include &quot;AppDelegate.h&quot;</div><div class="line"></div><div class="line">@implementation AppDelegate</div><div class="line"></div><div class="line">// This override can be omitted if you do not have any Flutter Plugins.</div><div class="line">- (BOOL)application:(UIApplication *)application</div><div class="line">    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</div><div class="line">  self.flutterEngine = [[FlutterEngine alloc] initWithName:@&quot;io.flutter&quot; project:nil];</div><div class="line">  [self.flutterEngine runWithEntrypoint:nil];</div><div class="line">  [GeneratedPluginRegistrant registerWithRegistry:self.flutterEngine];</div><div class="line">  return [super application:application didFinishLaunchingWithOptions:launchOptions];</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>5、 路由到FlutterViewController</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FlutterEngine *flutterEngine = [(AppDelegate *)[[UIApplication sharedApplication] delegate] flutterEngine];</div><div class="line">    FlutterViewController *flutterViewController = [[FlutterViewController alloc] initWithEngine:flutterEngine nibName:nil bundle:nil];</div><div class="line">    [self presentViewController:flutterViewController animated:false completion:nil];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>机会每个步骤都遇到了问题，下面一一描述</p>
+<p>1、在iOS项目中创建flutter目录，并初始化flutter ，</p>
+<p>这里是因为项目本身是集成了<code>react-native</code>的，而flutter又是一个独立的仓库，所以在<code>react-native</code>中增加了一个更新flutter代码的脚本，然后通过脚本来更新。</p>
+<p>遇到的第二个问题是flutter项目因为是和android同时集成的，而使用了一个仓库的结果就是无法直接在目录中执行<code>flutter create</code>(因为该目录已存在)，我的解决方案是<code>flutter create tmp</code>,然后将tmp中的iOS相关的文件复制到已存在的仓库中，主要是.ios文件夹，还有Flutter文件，还有pubspec.lock</p>
+<p>2、在podfile中添加flutter相关命令，并执行pod命令</p>
+<p>这里遇到的困难比较多，因为flutter为了保证bitCode等是关闭状态，执行了<code>podhelper.rb</code>的脚本，这个脚本中执行了post_install命令，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#post_install do |installer|</div><div class="line">#    installer.pods_project.targets.each do |target|</div><div class="line">#        target.build_configurations.each do |config|</div><div class="line">#            config.build_settings[&apos;ENABLE_BITCODE&apos;] = &apos;NO&apos;</div><div class="line">#            xcconfig_path = config.base_configuration_reference.real_path</div><div class="line">#            File.open(xcconfig_path, &apos;a+&apos;) do |file|</div><div class="line">#                file.puts &quot;#include \&quot;#&#123;File.realpath(File.join(framework_dir, &apos;Generated.xcconfig&apos;))&#125;\&quot;&quot;</div><div class="line">#            end</div><div class="line">#        end</div><div class="line">#    end</div><div class="line">#end</div></pre></td></tr></table></figure>
+<p>而我们的项目中也使用了这个命令，pod不支持多次使用，所以我修改了podhelper.rb文件，讲其中的代码，放到了iOS项目的podfile中。而因为.ios是ignore文件，所以我不得不将ios文件改为非ignore，这样带来的坏处是其中的Generated.xcconfig是生成的，记录的flutter的一些宏定义，而每个人的项目地址不同，所以需要其他使用者修改这个文件</p>
+<p>3、在xcode build phase中添加shell命令</p>
+<p>这个命令第一次执行非常慢，估计是需要将资源copy出来，后面就会快很多，但是因为和android的本地环境略有不同，所以有时候脚本会自动修改android的配置，需要后面想办法优化</p>
+<p>4、改造AppDelegate</p>
+<p>直接修改AppDelegate其实有些强耦合了，但是目前还看到更好的办法，我看咸鱼漏出来的一点代码是AppDelegate实现Flutter的一个协议，之后可以试试看</p>
+<p>5、路由到FlutterViewController</p>
+<p>这里首先遇到的问题是编译代码，提示<code>[!] Unable to find a specification for path_provider depended upon by FlutterPluginRegistrant</code>，查了文档，使用<br><code>cd my_flutter; flutter packages get</code>可以解决</p>
+<p>我们使用的新建一个viewController壳来加载这个<code>FlutterViewController</code>，因为可能还要做譬如打点等业务相关统计工作。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;首先，确保你的mac上面安装了flutter环境，如果没有，请参考&lt;a href=&quot;https://flutterchina.club/setup-macos/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;入门: 在macOS上搭建Flutter开发环境
+    
+    </summary>
+    
+    
+      <category term="flutter" scheme="https://github.com/njafei/njafei.github.io/tags/flutter/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS中32位和64位处理器 NSInteger的数值范围</title>
@@ -954,51 +1005,6 @@
     
     
       <category term="小知识" scheme="https://github.com/njafei/njafei.github.io/tags/%E5%B0%8F%E7%9F%A5%E8%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React-Native优化之PureComponent</title>
-    <link href="https://github.com/njafei/njafei.github.io/2017/07/27/pureComponent/"/>
-    <id>https://github.com/njafei/njafei.github.io/2017/07/27/pureComponent/</id>
-    <published>2017-07-27T10:56:18.000Z</published>
-    <updated>2017-10-19T03:37:16.729Z</updated>
-    
-    <content type="html"><![CDATA[<p>React15.3的发布中包含了PureComponent，这个类最重要的用法是为了优化React的性能，下面我们将看下它是如何优化的。</p>
-<h1 id="Component-VS-PureComponent"><a href="#Component-VS-PureComponent" class="headerlink" title="Component VS PureComponent"></a>Component VS PureComponent</h1><p>首先要看Component的生命周期：<br><img src="http://on0hv7n2x.bkt.clouddn.com/component-lifecycle.jpg" alt=""></p>
-<p>当props或者state改变的时候，会执行<code>shouldComponentUpdate</code>方法来判断是否需要重新render组建，我们平时在做页面的性能优化的时候，往往也是通过这一步来判断的。Component默认的<code>shouldComponentUpdate</code>返回的是true，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">shouldComponentUpdate(nextProps, nextState) &#123;</div><div class="line">  return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>而PureComponent的<code>shouldComponentUpdate</code>是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (this._compositeType === CompositeTypes.PureClass) &#123;</div><div class="line">  shouldUpdate = !shallowEqual(prevProps, nextProps) || ! shallowEqual(inst.state, nextState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里的比较，只会做潜比较，即比较两者的内存地址是否相同，而对于其值是否发生变化，则不会理会。我们通过以下的例子来看下：</p>
-<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Sample React Native App</div><div class="line"> * https://github.com/facebook/react-native</div><div class="line"> * @flow</div><div class="line"> */</div><div class="line"></div><div class="line">import React, &#123; PureComponent,Component &#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">  AppRegistry,</div><div class="line">  StyleSheet,</div><div class="line">  Text,</div><div class="line">  View,</div><div class="line">  Button</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">export default class test extends PureComponent &#123;</div><div class="line">  constructor(props)&#123;</div><div class="line">    super(props);</div><div class="line">    this.state = &#123;</div><div class="line">       number : 1,</div><div class="line">       numbers: [],</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;Button title=&#123;&apos;number + 1&apos;&#125; onPress=&#123;this.numberAdd.bind(this)&#125; /&gt;</div><div class="line">        &lt;Text&gt;number value: &#123;this.state.number&#125;&lt;/Text&gt;</div><div class="line">        &lt;Button title=&#123;&apos;numbers + 1&apos;&#125; onPress=&#123;this.numbersAdd.bind(this)&#125; /&gt;</div><div class="line">        &lt;Text&gt;numbers length: &#123;this.state.numbers.length&#125;&lt;/Text&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  numberAdd()&#123;</div><div class="line">      this.setState(&#123;number: ++this.state.number &#125;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line"></div><div class="line">  numbersAdd()&#123;</div><div class="line">    let numbers = this.state.numbers;</div><div class="line">    numbers.push(1);</div><div class="line">    this.setState(&#123;numbers: numbers&#125;);</div><div class="line">    console.log(this.state.numbers);</div><div class="line">  &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">const styles = StyleSheet.create(&#123;</div><div class="line">  container: &#123;</div><div class="line">    flex: 1,</div><div class="line">    justifyContent: &apos;center&apos;,</div><div class="line">    alignItems: &apos;center&apos;,</div><div class="line">    backgroundColor: &apos;#F5FCFF&apos;,</div><div class="line">  &#125;,</div><div class="line">  welcome: &#123;</div><div class="line">    fontSize: 20,</div><div class="line">    textAlign: &apos;center&apos;,</div><div class="line">    margin: 10,</div><div class="line">  &#125;,</div><div class="line">  instructions: &#123;</div><div class="line">    textAlign: &apos;center&apos;,</div><div class="line">    color: &apos;#333333&apos;,</div><div class="line">    marginBottom: 5,</div><div class="line">  &#125;,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;test&apos;, () =&gt; test);</div></pre></td></tr></table></figure>
-<p>界面如下：</p>
-<p><img src="http://on0hv7n2x.bkt.clouddn.com/screenShotSimulator%20Screen%20Shot%202017%E5%B9%B47%E6%9C%8827%E6%97%A5%20%E4%B8%8B%E5%8D%886.48.31.png" alt=""></p>
-<p>这里去点击number+1 和 numbers+1都不会有任何页面的变化。</p>
-<h1 id="如何让PureComponent重绘"><a href="#如何让PureComponent重绘" class="headerlink" title="如何让PureComponent重绘"></a>如何让PureComponent重绘</h1><p>那如果PureComponent变化的时候(这其实不符合我们的初衷)，我们要怎么做呢？这里有两个办法：</p>
-<ol>
-<li>重写shouldUpdateComponent方法</li>
-<li>props或者state增减参数</li>
-</ol>
-<p>代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">numbersAdd()&#123;</div><div class="line">    let numbers = this.state.numbers;</div><div class="line">    numbers.push(1);</div><div class="line">    this.setState(&#123;numbers: numbers&#125;);</div><div class="line">    console.log(this.state.numbers);</div><div class="line"></div><div class="line">    this.setState(&#123;newState: 1&#125;);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>这样，shouldComponentUpdate的返回值也会是true。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>综上，PureComponent非常适合于不变的组件，尤其是和数据、业务无关的纯展示组件，因为它的节省了大量比较的工作。但是对于大部分的业务来说，界面很少会有不变的组件，所以使用的场景会比较少，但是如果遇到，请尽情使用！</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;React15.3的发布中包含了PureComponent，这个类最重要的用法是为了优化React的性能，下面我们将看下它是如何优化的。&lt;/p&gt;
-&lt;h1 id=&quot;Component-VS-PureComponent&quot;&gt;&lt;a href=&quot;#Component-VS-PureC
-    
-    </summary>
-    
-      <category term="react-native" scheme="https://github.com/njafei/njafei.github.io/categories/react-native/"/>
-    
-    
-      <category term="react-native" scheme="https://github.com/njafei/njafei.github.io/tags/react-native/"/>
-    
-      <category term="component" scheme="https://github.com/njafei/njafei.github.io/tags/component/"/>
     
   </entry>
   
